@@ -1,4 +1,0 @@
-D:\01_product\FileManage\publish\FileManage.pdb
-D:\01_product\FileManage\publish\FileManage.Core.pdb
-D:\01_product\FileManage\publish\FileManage.Infrastructure.pdb
-D:\01_product\FileManage\publish\FileManage.exe
