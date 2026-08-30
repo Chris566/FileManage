@@ -146,7 +146,7 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void BrowseSource()
     {
-        var folder = PickFolder("选择源目录");
+        var folder = PickFolder(Localize.T("S.Dialog.PickSource"));
 
         if (folder is not null)
         {
@@ -157,7 +157,7 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void BrowseTarget()
     {
-        var folder = PickFolder("选择分类目标目录");
+        var folder = PickFolder(Localize.T("S.Dialog.PickTarget"));
 
         if (folder is not null)
         {
@@ -202,14 +202,14 @@ public partial class MainViewModel : ObservableObject
 
             if (plan.Operations.Count == 0)
             {
-                StatusText = "没有可执行的操作（无文件或全部被阻断）";
+                StatusText = Localize.T("S.Status.NoOperations");
                 return;
             }
 
             var progress = new Progress<ProgressInfo>(p =>
             {
                 ProgressPercent = p.Total == 0 ? 0 : p.Completed * 100.0 / p.Total;
-                StatusText = $"({p.Completed}/{p.Total}) {p.CurrentDescription}";
+                StatusText = Localize.F("S.Status.Progress", p.Completed, p.Total, p.CurrentDescription);
             });
 
             var report = await _executor.ExecuteAsync(plan, SelectedPolicy, _overwriteResolver, progress);
@@ -225,7 +225,7 @@ public partial class MainViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            StatusText = $"执行失败: {ex.Message}";
+            StatusText = Localize.F("S.Status.ExecuteFailed", ex.Message);
         }
         finally
         {
@@ -245,7 +245,7 @@ public partial class MainViewModel : ObservableObject
 
             if (latest is null)
             {
-                StatusText = "没有可撤销的操作";
+                StatusText = Localize.T("S.Status.NothingToUndo");
                 return;
             }
 
@@ -260,7 +260,7 @@ public partial class MainViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            StatusText = $"撤销失败: {ex.Message}";
+            StatusText = Localize.F("S.Status.UndoFailed", ex.Message);
         }
         finally
         {
@@ -280,6 +280,7 @@ public partial class MainViewModel : ObservableObject
         UIStateService.ApplyLanguage(language);
         UIStateService.Save(UIStateService.Settings with { Language = language });
         OnPropertyChanged(nameof(ReplaceChainButtonText));
+        StatusText = Localize.T("S.Status.LanguageSwitched");
     }
 
     /// <summary>主窗口关闭时保存上次使用的目录。</summary>
@@ -306,7 +307,7 @@ public partial class MainViewModel : ObservableObject
         {
             ReplaceChain = [.. window.ViewModel.BuildChain()];
             OnPropertyChanged(nameof(ReplaceChainCount));
-            StatusText = $"已设置 {ReplaceChain.Count} 条替换规则";
+            StatusText = Localize.F("S.Status.ReplaceChainSet", ReplaceChain.Count);
 
             if (Validate())
             {
@@ -320,7 +321,7 @@ public partial class MainViewModel : ObservableObject
     {
         var window = new Views.RuleEditorWindow { Owner = Application.Current.MainWindow };
         window.ShowDialog();
-        StatusText = "规则已更新（规则管理窗口已保存则立即生效）";
+        StatusText = Localize.T("S.Status.RulesUpdated");
 
         if (Validate())
         {
@@ -398,13 +399,13 @@ public partial class MainViewModel : ObservableObject
     {
         if (string.IsNullOrWhiteSpace(SourceDirectory) || !Directory.Exists(SourceDirectory))
         {
-            StatusText = "请选择有效的源目录";
+            StatusText = Localize.T("S.Status.InvalidSource");
             return false;
         }
 
         if (ClassificationEnabled && string.IsNullOrWhiteSpace(TargetDirectory))
         {
-            StatusText = "启用分类时请选择目标目录";
+            StatusText = Localize.T("S.Status.NeedTarget");
             return false;
         }
 

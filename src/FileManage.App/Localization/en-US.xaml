@@ -101,4 +101,27 @@
     <sys:String x:Key="S.O.OverwriteAll">Overwrite all</sys:String>
     <sys:String x:Key="S.O.Skip">Skip</sys:String>
     <sys:String x:Key="S.O.SkipAll">Skip all</sys:String>
+
+    <!-- Status bar messages / dialog titles -->
+    <sys:String x:Key="S.Status.PreviewLoaded">Preview loaded: {0} file(s), {1} operation(s)</sys:String>
+    <sys:String x:Key="S.Status.PreviewFailed">Preview failed: {0}</sys:String>
+    <sys:String x:Key="S.Status.NoOperations">No operations to execute (no files or all blocked)</sys:String>
+    <sys:String x:Key="S.Status.Progress">({0}/{1}) {2}</sys:String>
+    <sys:String x:Key="S.Status.ExecuteRolledBack">Execute failed, rolled back: {0}</sys:String>
+    <sys:String x:Key="S.Status.UnknownError">Unknown error</sys:String>
+    <sys:String x:Key="S.Status.Cancelled">Cancelled ({0}/{1} done, undoable)</sys:String>
+    <sys:String x:Key="S.Status.ExecuteDone">Done: {0} succeeded, {1} skipped{2}</sys:String>
+    <sys:String x:Key="S.Status.Undoable"> (undoable)</sys:String>
+    <sys:String x:Key="S.Status.ExecuteFailed">Execute failed: {0}</sys:String>
+    <sys:String x:Key="S.Status.NothingToUndo">Nothing to undo</sys:String>
+    <sys:String x:Key="S.Status.UndoDone">Undid last operation ({0} items)</sys:String>
+    <sys:String x:Key="S.Status.UndoPartial">Undo finished: {0} succeeded, {1} failed</sys:String>
+    <sys:String x:Key="S.Status.UndoFailed">Undo failed: {0}</sys:String>
+    <sys:String x:Key="S.Status.ReplaceChainSet">{0} replace rule(s) set</sys:String>
+    <sys:String x:Key="S.Status.RulesUpdated">Rules updated (effective immediately if saved in Rule Manager)</sys:String>
+    <sys:String x:Key="S.Status.InvalidSource">Please select a valid source directory</sys:String>
+    <sys:String x:Key="S.Status.NeedTarget">Target directory is required when classification is enabled</sys:String>
+    <sys:String x:Key="S.Status.LanguageSwitched">UI language switched</sys:String>
+    <sys:String x:Key="S.Dialog.PickSource">Select source directory</sys:String>
+    <sys:String x:Key="S.Dialog.PickTarget">Select classification target directory</sys:String>
 </ResourceDictionary>

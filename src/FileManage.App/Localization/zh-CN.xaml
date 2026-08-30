@@ -101,4 +101,27 @@
     <sys:String x:Key="S.O.OverwriteAll">覆盖全部</sys:String>
     <sys:String x:Key="S.O.Skip">跳过</sys:String>
     <sys:String x:Key="S.O.SkipAll">跳过全部</sys:String>
+
+    <!-- 状态栏动态消息 / 对话框标题 -->
+    <sys:String x:Key="S.Status.PreviewLoaded">预览已加载：{0} 个文件，{1} 个操作</sys:String>
+    <sys:String x:Key="S.Status.PreviewFailed">预览失败: {0}</sys:String>
+    <sys:String x:Key="S.Status.NoOperations">没有可执行的操作（无文件或全部被阻断）</sys:String>
+    <sys:String x:Key="S.Status.Progress">({0}/{1}) {2}</sys:String>
+    <sys:String x:Key="S.Status.ExecuteRolledBack">执行失败已回滚: {0}</sys:String>
+    <sys:String x:Key="S.Status.UnknownError">未知错误</sys:String>
+    <sys:String x:Key="S.Status.Cancelled">已取消（完成 {0}/{1}，可撤销）</sys:String>
+    <sys:String x:Key="S.Status.ExecuteDone">完成：成功 {0}，跳过 {1}{2}</sys:String>
+    <sys:String x:Key="S.Status.Undoable">（可撤销）</sys:String>
+    <sys:String x:Key="S.Status.ExecuteFailed">执行失败: {0}</sys:String>
+    <sys:String x:Key="S.Status.NothingToUndo">没有可撤销的操作</sys:String>
+    <sys:String x:Key="S.Status.UndoDone">已撤销上一次操作（{0} 项）</sys:String>
+    <sys:String x:Key="S.Status.UndoPartial">撤销完成：{0} 项成功，{1} 项失败</sys:String>
+    <sys:String x:Key="S.Status.UndoFailed">撤销失败: {0}</sys:String>
+    <sys:String x:Key="S.Status.ReplaceChainSet">已设置 {0} 条替换规则</sys:String>
+    <sys:String x:Key="S.Status.RulesUpdated">规则已更新（规则管理窗口已保存则立即生效）</sys:String>
+    <sys:String x:Key="S.Status.InvalidSource">请选择有效的源目录</sys:String>
+    <sys:String x:Key="S.Status.NeedTarget">启用分类时请选择目标目录</sys:String>
+    <sys:String x:Key="S.Status.LanguageSwitched">界面语言已切换</sys:String>
+    <sys:String x:Key="S.Dialog.PickSource">选择源目录</sys:String>
+    <sys:String x:Key="S.Dialog.PickTarget">选择分类目标目录</sys:String>
 </ResourceDictionary>
