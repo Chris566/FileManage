@@ -1,0 +1,3536 @@
+﻿{
+    "generatedAt":  "2026-08-30 23:01:33",
+    "source":  "D:\\01_product\\FileRenameTool\\FileRenameTool.ps1",
+    "templates":  [
+                      {
+                          "name":  "原文件名",
+                          "template":  "{BaseName}"
+                      },
+                      {
+                          "name":  "序号 + 原文件名",
+                          "template":  "{Index}_{BaseName}"
+                      },
+                      {
+                          "name":  "前缀 + 序号 + 原文件名",
+                          "template":  "{Prefix}{Index}_{BaseName}"
+                      },
+                      {
+                          "name":  "前缀 + 原文件名",
+                          "template":  "{Prefix}{OriginalName}"
+                      }
+                  ],
+    "namingCases":  [
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "001_报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "001_报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "002_报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "002_报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "012_报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "012_报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "001_报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "001_报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "002_报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "002_报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "012_报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "012_报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "001_报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "001_报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "002_报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "002_报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "012_报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "012_报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "001_报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "001_报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "002_报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "002_报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "012_报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "012_报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_001_报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_001_报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_002_报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_002_报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_012_报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_012_报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_001_报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_001_报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_002_报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_002_报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_012_报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_012_报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_报告"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_报告.pdf"
+                        },
+                        {
+                            "oldName":  "报告.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_报告"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "001_会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "001_会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "002_会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "002_会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "012_会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "012_会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "001_会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "001_会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "002_会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "002_会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "012_会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "012_会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "001_会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "001_会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "002_会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "002_会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "012_会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "012_会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "001_会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "001_会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "002_会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "002_会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "012_会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "012_会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_001_会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_001_会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_002_会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_002_会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_012_会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_012_会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_001_会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_001_会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_002_会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_002_会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_012_会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_012_会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_会议纪要"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_会议纪要.docx"
+                        },
+                        {
+                            "oldName":  "会议纪要.docx",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_会议纪要"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "001_IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "001_IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "002_IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "002_IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "012_IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "012_IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "001_IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "001_IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "002_IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "002_IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "012_IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "012_IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "001_IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "001_IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "002_IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "002_IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "012_IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "012_IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "001_IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "001_IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "002_IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "002_IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "012_IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "012_IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_001_IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_001_IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_002_IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_002_IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_012_IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_012_IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_001_IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_001_IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_002_IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_002_IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_012_IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_012_IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_IMG_2024"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_IMG_2024.JPG"
+                        },
+                        {
+                            "oldName":  "IMG_2024.JPG",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_IMG_2024"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "001_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "001_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "002_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "002_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "012_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "012_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "001_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "001_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "002_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "002_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "012_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "012_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "001_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "001_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "002_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "002_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "012_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "012_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "001_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "001_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "002_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "002_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "012_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "012_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_001_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_001_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_002_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_002_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_012_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_012_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_001_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_001_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_002_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_002_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_012_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_012_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_README"
+                        },
+                        {
+                            "oldName":  "README",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_README"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "001_a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "001_a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "002_a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "002_a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "012_a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "012_a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "001_a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "001_a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "002_a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "002_a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "012_a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "012_a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "001_a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "001_a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "002_a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "002_a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "012_a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "012_a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "001_a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "001_a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "002_a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "002_a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "012_a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "012_a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_001_a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_001_a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_002_a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_002_a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_012_a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_012_a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_001_a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_001_a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_002_a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_002_a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_012_a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_012_a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_a.b.c"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_a.b.c.pdf"
+                        },
+                        {
+                            "oldName":  "a.b.c.pdf",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_a.b.c"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "合同_",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "IMG_",
+                            "template":  "{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "001_带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "001_带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "002_带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "002_带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "012_带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "012_带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "001_带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "001_带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "002_带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "002_带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "012_带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "合同_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "012_带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "001_带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "001_带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "002_带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "002_带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "012_带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "IMG_",
+                            "template":  "{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "012_带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "001_带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "001_带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "002_带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "002_带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "012_带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "012_带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_001_带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_001_带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_002_带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_002_带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_012_带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_012_带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_001_带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_001_带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_002_带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_002_带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_012_带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{Index}_{BaseName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_012_带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "合同_带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "合同_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "合同_带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  1,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  2,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_带 空格 文件"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  true,
+                            "expected":  "IMG_带 空格 文件.txt"
+                        },
+                        {
+                            "oldName":  "带 空格 文件.txt",
+                            "prefix":  "IMG_",
+                            "template":  "{Prefix}{OriginalName}",
+                            "index":  12,
+                            "keepOriginalExtension":  false,
+                            "expected":  "IMG_带 空格 文件"
+                        }
+                    ],
+    "classificationCases":  [
+                                {
+                                    "extension":  ".pdf",
+                                    "expectedCategory":  "PDF"
+                                },
+                                {
+                                    "extension":  ".doc",
+                                    "expectedCategory":  "WORD"
+                                },
+                                {
+                                    "extension":  ".docx",
+                                    "expectedCategory":  "WORD"
+                                },
+                                {
+                                    "extension":  ".xls",
+                                    "expectedCategory":  "EXCEL"
+                                },
+                                {
+                                    "extension":  ".xlsx",
+                                    "expectedCategory":  "EXCEL"
+                                },
+                                {
+                                    "extension":  ".ppt",
+                                    "expectedCategory":  "PPT"
+                                },
+                                {
+                                    "extension":  ".pptx",
+                                    "expectedCategory":  "PPT"
+                                },
+                                {
+                                    "extension":  ".jpg",
+                                    "expectedCategory":  "IMAGE"
+                                },
+                                {
+                                    "extension":  ".jpeg",
+                                    "expectedCategory":  "IMAGE"
+                                },
+                                {
+                                    "extension":  ".png",
+                                    "expectedCategory":  "IMAGE"
+                                },
+                                {
+                                    "extension":  ".tif",
+                                    "expectedCategory":  "IMAGE"
+                                },
+                                {
+                                    "extension":  ".tiff",
+                                    "expectedCategory":  "IMAGE"
+                                }
+                            ],
+    "knownDifferences":  [
+                             "旧版: 文件名已有前缀(忽略大小写)时跳过重命名, 仅做分类复制; 新版在 M4 的 OperationPlanner 中对齐",
+                             "旧版: 重命名目标已存在 -\u003e 标记失败并跳过; 新版: 冲突自动改号 _2/_3 (设计文档 4.4 有意增强)",
+                             "旧版: {Index} 仅对实际执行重命名的文件递增; 新版在 M4 的 OperationPlanner 中对齐",
+                             "旧版分类组: PDF/WORD/EXCEL/PPT/IMAGE; 新版内置规则集为增强版(合并 Office 并新增视频/音频/压缩包), 本快照用旧版组构造等价规则验证引擎语义"
+                         ]
+}
