@@ -1,0 +1,94 @@
+<Window x:Class="FileManage.App.Views.ReplaceChainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:vm="clr-namespace:FileManage.App.ViewModels"
+        Title="{DynamicResource S.RC.Title}" Height="480" Width="640" MinHeight="380" MinWidth="520"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+    <Window.Resources>
+        <ObjectDataProvider x:Key="Kinds" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="vm:ReplaceStepKind" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
+    <DockPanel Margin="10">
+
+        <DockPanel DockPanel.Dock="Bottom" Margin="0,10,0,0">
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                <Button Content="{DynamicResource S.RC.Clear}" Command="{Binding ClearAllCommand}" Padding="12,6" MinWidth="72" />
+                <Button Content="{DynamicResource S.RC.OK}" IsDefault="True" Click="OnConfirm" Padding="12,6" MinWidth="72" Margin="8,0,0,0" />
+                <Button Content="{DynamicResource S.RC.Cancel}" IsCancel="True" Padding="12,6" MinWidth="72" Margin="8,0,0,0" />
+            </StackPanel>
+            <TextBlock Text="{DynamicResource S.RC.Hint}" Foreground="{DynamicResource App.SubText}"
+                       VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+        </DockPanel>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- 上：步骤列表 -->
+            <DockPanel Grid.Row="0" Margin="0,0,0,10">
+                <StackPanel DockPanel.Dock="Right" Orientation="Vertical" Margin="6,0,0,0">
+                    <Button Content="{DynamicResource S.RC.Up}" Command="{Binding MoveUpCommand}" Padding="8,4" />
+                    <Button Content="{DynamicResource S.RC.Down}" Command="{Binding MoveDownCommand}" Padding="8,4" Margin="0,4,0,0" />
+                    <Button Content="{DynamicResource S.RC.Delete}" Command="{Binding DeleteCommand}" Padding="8,4" Margin="0,4,0,0" />
+                </StackPanel>
+                <ListBox ItemsSource="{Binding Steps}" SelectedItem="{Binding SelectedStep}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Summary}" TextTrimming="CharacterEllipsis" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+
+            <!-- 下：新增步骤 -->
+            <Border Grid.Row="1" BorderBrush="{DynamicResource App.Border}" BorderThickness="1" CornerRadius="4" Padding="10">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                        <TextBlock Text="{DynamicResource S.RC.Kind}" VerticalAlignment="Center" />
+                        <ComboBox ItemsSource="{Binding Source={StaticResource Kinds}}"
+                                  SelectedItem="{Binding NewKind}" Margin="6,0,0,0" MinWidth="110" />
+                        <Button Content="{DynamicResource S.RC.AddStep}" Command="{Binding AddCommand}"
+                                Padding="12,5" Margin="16,0,0,0" FontWeight="Bold" />
+                    </StackPanel>
+
+                    <!-- 字面替换 / 正则替换 -->
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                        <TextBlock Text="{DynamicResource S.RC.Find}" VerticalAlignment="Center" />
+                        <TextBox Text="{Binding Find, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="130" Margin="6,0,0,0" />
+                        <TextBlock Text="{DynamicResource S.RC.ReplaceTo}" VerticalAlignment="Center" Margin="10,0,0,0" />
+                        <TextBox Text="{Binding Replacement, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="130" Margin="6,0,0,0" />
+                        <CheckBox Content="{DynamicResource S.RC.IgnoreCase}" IsChecked="{Binding IgnoreCase}"
+                                  VerticalAlignment="Center" Margin="10,0,0,0" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                        <TextBlock Text="{DynamicResource S.RC.Regex}" VerticalAlignment="Center" />
+                        <TextBox Text="{Binding Pattern, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="130" Margin="6,0,0,0" />
+                        <TextBlock Text="{DynamicResource S.RC.ReplaceTo}" VerticalAlignment="Center" Margin="10,0,0,0" />
+                        <TextBox Text="{Binding RegexReplacement, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="130" Margin="6,0,0,0" />
+                    </StackPanel>
+
+                    <!-- 大小写 / 移除字符 -->
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{DynamicResource S.RC.Pattern}" VerticalAlignment="Center" />
+                        <ComboBox ItemsSource="{Binding CaseModeNames}"
+                                  SelectedIndex="{Binding CaseModeIndex}" MinWidth="100" Margin="6,0,0,0" />
+                        <TextBlock Text="{DynamicResource S.RC.RemoveChars}" VerticalAlignment="Center" Margin="14,0,0,0" />
+                        <TextBox Text="{Binding CharSet, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="130" Margin="6,0,0,0" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </DockPanel>
+</Window>

@@ -1,0 +1,104 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- 主窗口 -->
+    <sys:String x:Key="S.Theme.Light">浅色</sys:String>
+    <sys:String x:Key="S.Theme.Dark">深色</sys:String>
+
+    <sys:String x:Key="S.SourceDir">源目录</sys:String>
+    <sys:String x:Key="S.Browse">浏览…</sys:String>
+    <sys:String x:Key="S.IncludeSub">包含子目录</sys:String>
+    <sys:String x:Key="S.IncludeGlobs">包含（分号分隔，如 *.pdf;*.docx）</sys:String>
+    <sys:String x:Key="S.ExcludeGlobs">排除（分号分隔，如 ~$*）</sys:String>
+
+    <sys:String x:Key="S.Rename">重命名</sys:String>
+    <sys:String x:Key="S.RenameEnabled">启用重命名</sys:String>
+    <sys:String x:Key="S.Template">模板</sys:String>
+    <sys:String x:Key="S.Prefix">前缀</sys:String>
+    <sys:String x:Key="S.KeepExt">保留原文件后缀</sys:String>
+    <sys:String x:Key="S.ReadExif">读取照片拍摄时间（EXIF，用于 {ExifDate}/{ExifYear}）</sys:String>
+    <sys:String x:Key="S.ReplaceChain">替换规则… ({0})</sys:String>
+
+    <sys:String x:Key="S.Classify">分类整理</sys:String>
+    <sys:String x:Key="S.ClassifyEnabled">启用分类（按规则整理，规则可自定义）</sys:String>
+    <sys:String x:Key="S.Copy">复制（不移动源文件，覆盖规则设置）</sys:String>
+    <sys:String x:Key="S.RuleEditor">规则管理…（导入 / 导出 / 编辑）</sys:String>
+
+    <sys:String x:Key="S.ExecOptions">执行选项</sys:String>
+    <sys:String x:Key="S.WhenExists">目标文件已存在时</sys:String>
+    <sys:String x:Key="S.Refresh">刷新预览</sys:String>
+    <sys:String x:Key="S.Execute">执行</sys:String>
+    <sys:String x:Key="S.UndoLast">撤销上次</sys:String>
+    <sys:String x:Key="S.History">历史…</sys:String>
+    <sys:String x:Key="S.Duplicate">重复检测…</sys:String>
+
+    <sys:String x:Key="S.Col.Original">原文件名</sys:String>
+    <sys:String x:Key="S.Col.New">新文件名</sys:String>
+    <sys:String x:Key="S.Col.Category">分类</sys:String>
+    <sys:String x:Key="S.Col.Operation">操作</sys:String>
+    <sys:String x:Key="S.Col.Conflict">冲突</sys:String>
+
+    <!-- 规则管理 -->
+    <sys:String x:Key="S.RE.Title">规则管理</sys:String>
+    <sys:String x:Key="S.RE.Import">导入…</sys:String>
+    <sys:String x:Key="S.RE.Export">导出…</sys:String>
+    <sys:String x:Key="S.RE.Save">保存</sys:String>
+    <sys:String x:Key="S.RE.Close">关闭</sys:String>
+    <sys:String x:Key="S.RE.Add">＋新增</sys:String>
+    <sys:String x:Key="S.RE.Delete">删除</sys:String>
+    <sys:String x:Key="S.RE.Up">上移</sys:String>
+    <sys:String x:Key="S.RE.Down">下移</sys:String>
+    <sys:String x:Key="S.RE.Name">规则名称</sys:String>
+    <sys:String x:Key="S.RE.Target">目标子目录（支持 {Category}、{Date:yyyy}、{ExifYear}）</sys:String>
+    <sys:String x:Key="S.RE.Enabled">启用</sys:String>
+    <sys:String x:Key="S.RE.Copy">复制而非移动</sys:String>
+    <sys:String x:Key="S.RE.Conditions">匹配条件（同时满足才命中）</sys:String>
+    <sys:String x:Key="S.RE.Exts">扩展名（分号分隔，如 .pdf;.docx；留空不启用）</sys:String>
+    <sys:String x:Key="S.RE.Regex">文件名正则（不区分大小写，留空不启用）</sys:String>
+    <sys:String x:Key="S.RE.UseSize">文件大小（字节）</sys:String>
+    <sys:String x:Key="S.RE.UseDate">修改日期</sys:String>
+    <sys:String x:Key="S.RE.Summary">条件摘要</sys:String>
+    <sys:String x:Key="S.RE.Hint">提示：点击保存后回到主窗口点【刷新预览】生效。优先级由左侧列表顺序决定。</sys:String>
+
+    <!-- 替换规则 -->
+    <sys:String x:Key="S.RC.Title">替换规则</sys:String>
+    <sys:String x:Key="S.RC.Clear">清空</sys:String>
+    <sys:String x:Key="S.RC.OK">确定</sys:String>
+    <sys:String x:Key="S.RC.Cancel">取消</sys:String>
+    <sys:String x:Key="S.RC.Hint">替换按列表顺序应用于文件主名（不含后缀）。</sys:String>
+    <sys:String x:Key="S.RC.Up">上移</sys:String>
+    <sys:String x:Key="S.RC.Down">下移</sys:String>
+    <sys:String x:Key="S.RC.Delete">删除</sys:String>
+    <sys:String x:Key="S.RC.Kind">类型</sys:String>
+    <sys:String x:Key="S.RC.AddStep">添加步骤</sys:String>
+    <sys:String x:Key="S.RC.Find">查找</sys:String>
+    <sys:String x:Key="S.RC.ReplaceTo">替换为</sys:String>
+    <sys:String x:Key="S.RC.IgnoreCase">忽略大小写</sys:String>
+    <sys:String x:Key="S.RC.Regex">正则</sys:String>
+    <sys:String x:Key="S.RC.Pattern">模式</sys:String>
+    <sys:String x:Key="S.RC.RemoveChars">移除字符集</sys:String>
+
+    <!-- 历史 -->
+    <sys:String x:Key="S.H.Title">历史记录（多级撤销）</sys:String>
+    <sys:String x:Key="S.H.UndoBatch">撤销此批次</sys:String>
+    <sys:String x:Key="S.H.DeleteRec">仅删除记录</sys:String>
+    <sys:String x:Key="S.H.Col.Time">时间</sys:String>
+    <sys:String x:Key="S.H.Col.Desc">描述</sys:String>
+    <sys:String x:Key="S.H.Col.Count">操作数</sys:String>
+
+    <!-- 重复检测 -->
+    <sys:String x:Key="S.D.Title">重复检测</sys:String>
+    <sys:String x:Key="S.D.Scan">扫描</sys:String>
+    <sys:String x:Key="S.D.IncludeSub">包含子目录</sys:String>
+    <sys:String x:Key="S.D.DeleteChecked">删除勾选文件（回收站）</sys:String>
+    <sys:String x:Key="S.D.Close">关闭</sys:String>
+
+    <!-- 覆盖询问 -->
+    <sys:String x:Key="S.O.Title">目标文件已存在</sys:String>
+    <sys:String x:Key="S.O.Question">目标文件已存在，是否覆盖？</sys:String>
+    <sys:String x:Key="S.O.Overwrite">覆盖</sys:String>
+    <sys:String x:Key="S.O.OverwriteAll">覆盖全部</sys:String>
+    <sys:String x:Key="S.O.Skip">跳过</sys:String>
+    <sys:String x:Key="S.O.SkipAll">跳过全部</sys:String>
+</ResourceDictionary>

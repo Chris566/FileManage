@@ -1,0 +1,18 @@
+<Window x:Class="FileManage.App.Views.OverwriteDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{DynamicResource S.O.Title}" Width="480" SizeToContent="Height"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        ShowInTaskbar="False">
+    <StackPanel Margin="16">
+        <TextBlock Text="{DynamicResource S.O.Question}" FontWeight="Bold" />
+        <TextBlock x:Name="TargetPathText" TextWrapping="Wrap" Margin="0,6,0,14"
+                   Foreground="{DynamicResource App.SubText}" />
+        <UniformGrid Columns="2" Rows="2">
+            <Button Content="{DynamicResource S.O.Overwrite}" Click="Overwrite_Click" Padding="10,6" Margin="0,0,4,4" />
+            <Button Content="{DynamicResource S.O.OverwriteAll}" Click="OverwriteAll_Click" Padding="10,6" Margin="4,0,0,4" />
+            <Button Content="{DynamicResource S.O.Skip}" Click="Skip_Click" Padding="10,6" Margin="0,4,4,0" />
+            <Button Content="{DynamicResource S.O.SkipAll}" Click="SkipAll_Click" Padding="10,6" Margin="4,4,0,0" />
+        </UniformGrid>
+    </StackPanel>
+</Window>

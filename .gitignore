@@ -425,6 +425,9 @@ test-results/
 # Mac bundle stuff
 *.dmg
 *.app
+# 但保留 WPF 项目目录（Windows 下 gitignore 大小写不敏感，*.app 会误伤 FileManage.App）
+!src/FileManage.App/
+!src/FileManage.App/**
 
 # content below from: https://github.com/github/gitignore/blob/master/Global/macOS.gitignore
 # General

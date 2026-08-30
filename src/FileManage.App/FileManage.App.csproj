@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\FileManage.Core\FileManage.Core.csproj" />
+    <ProjectReference Include="..\FileManage.Infrastructure\FileManage.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>FileManage</AssemblyName>
+
+    <!-- 发布元数据 -->
+    <Version>1.0.0</Version>
+    <Product>FileManage</Product>
+    <Description>批量文件重命名与分类整理工具</Description>
+    <Authors>d01-product</Authors>
+    <SatelliteResourceLanguages>zh-CN</SatelliteResourceLanguages>
+  </PropertyGroup>
+
+</Project>

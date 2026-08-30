@@ -1,0 +1,28 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- 深色主题 -->
+
+    <SolidColorBrush x:Key="App.Window.Background" Color="#1E1E1E" />
+    <SolidColorBrush x:Key="App.Panel.Background" Color="#2A2A2C" />
+    <SolidColorBrush x:Key="App.Text" Color="#DDDDDD" />
+    <SolidColorBrush x:Key="App.SubText" Color="#9A9A9A" />
+    <SolidColorBrush x:Key="App.Border" Color="#3F3F46" />
+    <SolidColorBrush x:Key="App.Accent" Color="#4A9EE8" />
+
+    <SolidColorBrush x:Key="App.Input.Background" Color="#252526" />
+    <SolidColorBrush x:Key="App.Input.Foreground" Color="#E0E0E0" />
+
+    <!-- 按钮 -->
+    <SolidColorBrush x:Key="App.Button.Background" Color="#333336" />
+    <SolidColorBrush x:Key="App.Button.Hover" Color="#3E3E42" />
+    <SolidColorBrush x:Key="App.Button.Pressed" Color="#2A2A2C" />
+
+    <!-- 下拉/弹出 -->
+    <SolidColorBrush x:Key="App.Item.Hover" Color="#3A3A40" />
+    <SolidColorBrush x:Key="App.Item.Selected" Color="#2B4C6F" />
+
+    <!-- 预览冲突行高亮（暗色调） -->
+    <SolidColorBrush x:Key="App.Conflict.PlanDuplicate" Color="#203A54" />
+    <SolidColorBrush x:Key="App.Conflict.TargetExists" Color="#4A3A19" />
+    <SolidColorBrush x:Key="App.Conflict.Blocked" Color="#5A2323" />
+</ResourceDictionary>
