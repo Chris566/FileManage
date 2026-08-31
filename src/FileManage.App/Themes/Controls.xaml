@@ -147,12 +147,18 @@
     </Style>
 
     <!-- 分组框：标题内置 + 边框随主题 -->
+    <!-- 滚动视图：显式随窗口主题，避免默认白底/透明回退异常 -->
+    <Style TargetType="ScrollViewer">
+        <Setter Property="Background" Value="{DynamicResource App.Window.Background}" />
+        <Setter Property="Foreground" Value="{DynamicResource App.Text}" />
+    </Style>
+
     <Style TargetType="GroupBox">
         <Setter Property="Foreground" Value="{DynamicResource App.Text}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="GroupBox">
-                    <Border Background="Transparent"
+                    <Border Background="{DynamicResource App.Panel.Background}"
                             BorderBrush="{DynamicResource App.Border}"
                             BorderThickness="1" CornerRadius="3"
                             Padding="{TemplateBinding Padding}" Margin="0,0,0,0">
@@ -205,15 +211,44 @@
         <Setter Property="BorderBrush" Value="{DynamicResource App.Border}" />
     </Style>
 
-    <!-- 表格 -->
+    <!-- 表格：背景在 MainWindow.xaml 直接设 DynamicResource（隐式 Style 的 DynamicResource 在主题切换后不跟随更新） -->
     <Style TargetType="DataGrid">
-        <Setter Property="Background" Value="{DynamicResource App.Window.Background}" />
-        <Setter Property="Foreground" Value="{DynamicResource App.Text}" />
         <Setter Property="RowBackground" Value="Transparent" />
         <Setter Property="AlternatingRowBackground" Value="Transparent" />
         <Setter Property="GridLinesVisibility" Value="Horizontal" />
         <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource App.Border}" />
         <Setter Property="BorderBrush" Value="{DynamicResource App.Border}" />
+    </Style>
+
+    <!-- DataGrid 行：透明背景，选中/悬停随主题 -->
+    <Style TargetType="DataGridRow">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource App.Text}" />
+    </Style>
+
+    <!-- DataGrid 单元格：默认白色是深色模式最常见漏点 -->
+    <Style TargetType="DataGridCell">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource App.Text}" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="DataGridCell">
+                    <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}">
+                        <ContentPresenter VerticalAlignment="Center" Margin="6,4" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- DataGrid 行头：隐藏行头时不留白 -->
+    <Style TargetType="DataGridRowHeader">
+        <Setter Property="Background" Value="{DynamicResource App.Panel.Background}" />
+        <Setter Property="Foreground" Value="{DynamicResource App.Text}" />
+        <Setter Property="Width" Value="0" />
+        <Setter Property="MinWidth" Value="0" />
     </Style>
 
     <!-- 状态栏 -->

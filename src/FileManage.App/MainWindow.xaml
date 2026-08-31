@@ -128,6 +128,8 @@
 
             <!-- 右列：预览区 -->
             <DataGrid Grid.Column="1"
+                      Background="{DynamicResource App.Panel.Background}"
+                      Foreground="{DynamicResource App.Text}"
                       ItemsSource="{Binding PreviewRows}"
                       AutoGenerateColumns="False"
                       IsReadOnly="True"

@@ -15,6 +15,9 @@ public sealed record NamingTemplateItem(string DisplayName, string Template)
         new("原文件名", "{BaseName}"),
         new("序号 + 原文件名", "{Index}_{BaseName}")
     ];
+
+    // 下拉框等场景默认显示模板名称，避免输出 record 的 ToString 结构
+    public override string ToString() => DisplayName;
 }
 
 /// <summary>
