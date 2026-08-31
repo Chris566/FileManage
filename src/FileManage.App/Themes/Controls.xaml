@@ -147,11 +147,6 @@
     </Style>
 
     <!-- 分组框：标题内置 + 边框随主题 -->
-    <!-- 滚动视图：显式随窗口主题，避免默认白底/透明回退异常 -->
-    <Style TargetType="ScrollViewer">
-        <Setter Property="Background" Value="{DynamicResource App.Window.Background}" />
-        <Setter Property="Foreground" Value="{DynamicResource App.Text}" />
-    </Style>
 
     <Style TargetType="GroupBox">
         <Setter Property="Foreground" Value="{DynamicResource App.Text}" />
@@ -333,8 +328,10 @@
         </Setter>
     </Style>
 
-    <!-- 滚动条：细条自绘，轨道透明、滑块随主题 -->
-    <Style TargetType="ScrollBar">
+    <!-- 滚动条：细条自绘，轨道透明、滑块随主题。键控样式供 ScrollViewer 模板显式引用。
+         注意：Thumb 必须显式设置 Background（DynamicResource App.Border）——
+         若依赖 TemplateBinding 而未赋值，滑块将回退 Aero2 默认灰色（深色模式白块根因） -->
+    <Style x:Key="AppScrollBarStyle" TargetType="ScrollBar">
         <Setter Property="Width" Value="10" />
         <Setter Property="Background" Value="{DynamicResource App.Border}" />
         <Setter Property="Template">
@@ -361,7 +358,7 @@
                                 </RepeatButton>
                             </Track.IncreaseRepeatButton>
                             <Track.Thumb>
-                                <Thumb>
+                                <Thumb Background="{DynamicResource App.Border}">
                                     <Thumb.Template>
                                         <ControlTemplate TargetType="Thumb">
                                             <Border x:Name="Slide" Background="{TemplateBinding Background}"
@@ -436,6 +433,57 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+    <!-- 隐式滚动条：沿用键控样式（逻辑树中的滚动条） -->
+    <Style TargetType="ScrollBar" BasedOn="{StaticResource AppScrollBarStyle}" />
+
+    <!-- 横向滚动条：供 ScrollViewer 模板显式引用（Orientation 置横向以切换轨道模板） -->
+    <Style x:Key="AppHorizontalScrollBarStyle" TargetType="ScrollBar" BasedOn="{StaticResource AppScrollBarStyle}">
+        <Setter Property="Orientation" Value="Horizontal" />
+    </Style>
+
+    <!-- 滚动视图：显式随窗口主题，避免默认白底/透明回退异常。
+         自定义模板显式引用自绘滚动条：默认模板内置的滚动条不受隐式样式影响，深色主题下呈白条。
+         注意：键控样式 + 元素上显式 Style 引用（本应用中隐式 Style 对部分控件不生效） -->
+    <Style x:Key="AppScrollViewerStyle" TargetType="ScrollViewer">
+        <Setter Property="Background" Value="{DynamicResource App.Window.Background}" />
+        <Setter Property="Foreground" Value="{DynamicResource App.Text}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ScrollViewer">
+                    <!-- TemplateBinding：主窗口 ScrollViewer 显式设置主题背景；
+                         DataGrid 内部 ScrollViewer 隐式样式含窗口背景 Setter，同样随主题 -->
+                    <Grid Background="{TemplateBinding Background}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <ScrollContentPresenter Grid.RowSpan="2" Grid.ColumnSpan="2"
+                                                Margin="{TemplateBinding Padding}"
+                                                CanContentScroll="{TemplateBinding CanContentScroll}" />
+                        <ScrollBar x:Name="PART_VerticalScrollBar" Grid.Column="1"
+                                   Style="{StaticResource AppScrollBarStyle}"
+                                   Value="{TemplateBinding VerticalOffset}"
+                                   Maximum="{TemplateBinding ScrollableHeight}"
+                                   ViewportSize="{TemplateBinding ViewportHeight}"
+                                   Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" />
+                        <ScrollBar x:Name="PART_HorizontalScrollBar" Grid.Row="1"
+                                   Style="{StaticResource AppHorizontalScrollBarStyle}"
+                                   Value="{TemplateBinding HorizontalOffset}"
+                                   Maximum="{TemplateBinding ScrollableWidth}"
+                                   ViewportSize="{TemplateBinding ViewportWidth}"
+                                   Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="ScrollViewer" BasedOn="{StaticResource AppScrollViewerStyle}" />
 
     <!-- 日历：月视图容器（CalendarItem）。须先于 AppCalendarStyle 定义 -->
     <Style x:Key="AppCalendarItemStyle" TargetType="CalendarItem">

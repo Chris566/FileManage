@@ -4,6 +4,8 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:vm="clr-namespace:FileManage.App.ViewModels"
         Title="{DynamicResource S.RC.Title}" Height="480" Width="640" MinHeight="380" MinWidth="520"
+        Background="{DynamicResource App.Window.Background}"
+        Foreground="{DynamicResource App.Text}"
         WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
     <Window.Resources>
         <ObjectDataProvider x:Key="Kinds" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">

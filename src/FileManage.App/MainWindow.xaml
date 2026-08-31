@@ -1,6 +1,8 @@
 <Window x:Class="FileManage.App.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Background="{DynamicResource App.Window.Background}"
+        Foreground="{DynamicResource App.Text}"
         Title="FileManage" Height="720" Width="1100" MinHeight="560" MinWidth="860"
         WindowStartupLocation="CenterScreen"
         Closed="OnMainWindowClosed">
@@ -51,7 +53,9 @@
             </Grid.ColumnDefinitions>
 
             <!-- 左列：参数区 -->
-            <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" Margin="0,0,8,0">
+            <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" Margin="0,0,8,0"
+                          Style="{StaticResource AppScrollViewerStyle}"
+                          Background="{DynamicResource App.Window.Background}">
                 <StackPanel>
                     <GroupBox Header="{DynamicResource S.SourceDir}" Padding="8">
                         <StackPanel>

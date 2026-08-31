@@ -22,6 +22,8 @@ public partial class MainWindow : Window
             AppServices.UndoManager,
             AppServices.UndoStore,
             new DialogOverwriteResolver());
+
+        Closed += OnMainWindowClosed;
     }
 
     private void OnMainWindowClosed(object? sender, EventArgs e)
