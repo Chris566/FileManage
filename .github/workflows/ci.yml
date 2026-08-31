@@ -49,3 +49,26 @@ jobs:
         with:
           name: FileManage-${{ github.ref_name }}
           path: publish/FileManage.exe
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: publish
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: FileManage-${{ github.ref_name }}
+          path: artifact
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          gh release create "$TAG" "artifact/FileManage.exe" \
+            --title "FileManage $TAG" \
+            --generate-notes --verify-tag \
+          || gh release upload "$TAG" "artifact/FileManage.exe" --clobber
