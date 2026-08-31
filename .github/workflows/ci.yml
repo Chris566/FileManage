@@ -66,9 +66,9 @@ jobs:
       - name: Create GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
         run: |
-          TAG="${GITHUB_REF_NAME}"
-          gh release create "$TAG" "artifact/FileManage.exe" \
-            --title "FileManage $TAG" \
+          gh release create "${GITHUB_REF_NAME}" "artifact/FileManage.exe" \
+            --title "FileManage ${GITHUB_REF_NAME}" \
             --generate-notes --verify-tag \
-          || gh release upload "$TAG" "artifact/FileManage.exe" --clobber
+          || gh release upload "${GITHUB_REF_NAME}" "artifact/FileManage.exe" --clobber
