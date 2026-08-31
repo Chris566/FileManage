@@ -107,6 +107,9 @@
                             <CheckBox Content="{DynamicResource S.Copy}"
                                       IsChecked="{Binding CopyInsteadOfMove}"
                                       Margin="0,8,0,0" />
+                            <CheckBox Content="{DynamicResource S.GenerateReport}"
+                                      IsChecked="{Binding GenerateReport}"
+                                      Margin="0,8,0,0" />
                             <Button Content="{DynamicResource S.RuleEditor}"
                                     Command="{Binding OpenRuleEditorCommand}"
                                     HorizontalAlignment="Left" Padding="8,4" Margin="0,8,0,0" />

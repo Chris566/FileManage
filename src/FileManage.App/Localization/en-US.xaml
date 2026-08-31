@@ -23,6 +23,7 @@
     <sys:String x:Key="S.Classify">Organize</sys:String>
     <sys:String x:Key="S.ClassifyEnabled">Enable organizing (by rules, editable)</sys:String>
     <sys:String x:Key="S.Copy">Copy (keep source files, overrides rule setting)</sys:String>
+    <sys:String x:Key="S.GenerateReport">Generate report (written to target directory after execution)</sys:String>
     <sys:String x:Key="S.RuleEditor">Manage rules… (import / export / edit)</sys:String>
 
     <sys:String x:Key="S.ExecOptions">Execution</sys:String>
@@ -122,6 +123,8 @@
     <sys:String x:Key="S.Status.InvalidSource">Please select a valid source directory</sys:String>
     <sys:String x:Key="S.Status.NeedTarget">Target directory is required when classification is enabled</sys:String>
     <sys:String x:Key="S.Status.LanguageSwitched">UI language switched</sys:String>
+    <sys:String x:Key="S.Status.ReportGenerated">; Report generated: {0}</sys:String>
+    <sys:String x:Key="S.Status.ReportFailed">; Report generation failed: {0}</sys:String>
     <sys:String x:Key="S.Dialog.PickSource">Select source directory</sys:String>
     <sys:String x:Key="S.Dialog.PickTarget">Select classification target directory</sys:String>
 </ResourceDictionary>

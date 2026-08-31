@@ -41,6 +41,7 @@ public sealed class TransactionExecutor(
         var operations = plan.Operations;
         var currentPolicy = policy;
         var executed = new List<ExecutedAction>();
+        var results = new List<OperationResult>(operations.Count);
         var currentPaths = new Dictionary<string, string>(StringComparer.Ordinal);
         var errors = new List<string>();
         var succeeded = 0;
@@ -74,6 +75,7 @@ public sealed class TransactionExecutor(
 
                     if (decision is OverwriteDecision.Skip or OverwriteDecision.SkipAll)
                     {
+                        results.Add(new OperationResult(op, sourcePath, targetPath, OperationOutcome.Skipped));
                         skipped++;
                         continue;
                     }
@@ -103,6 +105,7 @@ public sealed class TransactionExecutor(
                 }
 
                 executed.Add(new ExecutedAction(op, sourcePath, targetPath, backupPath));
+                results.Add(new OperationResult(op, sourcePath, targetPath, OperationOutcome.Succeeded));
 
                 // Rename/Move 改变了源路径的实际位置（影响后续链式操作的源解析）
                 if (op is RenameOp or MoveOp)
@@ -158,7 +161,8 @@ public sealed class TransactionExecutor(
             Errors = errors,
             RolledBack = rolledBack,
             Cancelled = cancelled,
-            UndoFilePath = undoFilePath
+            UndoFilePath = undoFilePath,
+            Results = results
         };
     }
 

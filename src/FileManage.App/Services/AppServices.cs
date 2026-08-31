@@ -8,6 +8,7 @@ using FileManage.Core.Scanning;
 using FileManage.Core.Undo;
 using FileManage.Infrastructure.Backup;
 using FileManage.Infrastructure.FileSystem;
+using FileManage.Infrastructure.Reporting;
 using FileManage.Infrastructure.Rules;
 using FileManage.Infrastructure.Undo;
 
@@ -41,6 +42,8 @@ public static class AppServices
     public static IUndoStore UndoStore { get; } = new JsonUndoStore(Path.Combine(AppDataRoot, "undo"));
 
     public static RuleConfigStore RuleStore { get; } = new();
+
+    public static IClassificationReportWriter ReportWriter { get; } = new ExcelReportWriter();
 
     /// <summary>
     /// 内置默认规则集（设计文档 §4.3），优先级即列表顺序。

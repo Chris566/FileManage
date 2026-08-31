@@ -1,4 +1,4 @@
-﻿# 深色模式 UI 验收截图：主窗口 + 规则管理窗口（含 DatePicker）
+﻿﻿# 深色模式 UI 验收截图：主窗口 + 规则管理窗口（含 DatePicker）
 $ErrorActionPreference = "Stop"
 Add-Type -AssemblyName UIAutomationClient
 Add-Type -AssemblyName UIAutomationTypes

@@ -7,6 +7,7 @@ using FileManage.Core.Abstractions;
 using FileManage.Core.Execution;
 using FileManage.Core.Naming;
 using FileManage.Core.Planning;
+using FileManage.Core.Reporting;
 using FileManage.Core.Rules;
 using FileManage.Core.Scanning;
 using FileManage.Core.Undo;
@@ -51,6 +52,7 @@ public partial class MainViewModel : ObservableObject
         _selectedLanguageIndex = settings.Language.Equals("en-US", StringComparison.OrdinalIgnoreCase) ? 1 : 0;
         _sourceDirectory = settings.LastSourceDirectory;
         _targetDirectory = settings.LastTargetDirectory;
+        _generateReport = settings.GenerateClassificationReport;
     }
 
     // ---------- 源目录与扫描 ----------
@@ -99,6 +101,10 @@ public partial class MainViewModel : ObservableObject
 
     [ObservableProperty]
     private bool _copyInsteadOfMove = true;
+
+    /// <summary>分类整理完成后在目标目录生成 Excel 报表。</summary>
+    [ObservableProperty]
+    private bool _generateReport;
 
     // ---------- 执行 ----------
 
@@ -221,6 +227,24 @@ public partial class MainViewModel : ObservableObject
                     : $"完成：成功 {report.Succeeded}，跳过 {report.Skipped}" +
                       (report.UndoFilePath is not null ? "（可撤销）" : "");
 
+            // 分类整理报表（可选）：所有操作完成后在目标目录生成
+            if (GenerateReport && ClassificationEnabled && !report.RolledBack)
+            {
+                try
+                {
+                    var reportPath = await Task.Run(() => TryWriteClassificationReport(plan, report));
+
+                    if (reportPath is not null)
+                    {
+                        StatusText += Localize.F("S.Status.ReportGenerated", reportPath);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    StatusText += Localize.F("S.Status.ReportFailed", ex.Message);
+                }
+            }
+
             await RefreshPreviewCoreAsync();
         }
         catch (Exception ex)
@@ -291,7 +315,8 @@ public partial class MainViewModel : ObservableObject
             Theme = SelectedThemeIndex == 1 ? "dark" : "light",
             Language = SelectedLanguageIndex == 1 ? "en-US" : "zh-CN",
             LastSourceDirectory = SourceDirectory,
-            LastTargetDirectory = TargetDirectory
+            LastTargetDirectory = TargetDirectory,
+            GenerateClassificationReport = GenerateReport
         });
     }
 
@@ -393,6 +418,25 @@ public partial class MainViewModel : ObservableObject
         return AppServices.LoadRules()
             .Select(r => r with { CopyInsteadOfMove = CopyInsteadOfMove })
             .ToArray();
+    }
+
+    /// <summary>
+    /// 生成分类整理报表：报表行取自计划（命中规则的条目）+ 执行逐操作结果，
+    /// 文件名 = 源文件夹名 + 执行时间 + 序号，写入目标目录后返回完整路径。
+    /// 无命中条目时不生成，返回 null。
+    /// </summary>
+    private string? TryWriteClassificationReport(OperationPlan plan, ExecutionReport report)
+    {
+        var rows = ClassificationReportBuilder.Build(plan, report.Results);
+
+        if (rows.Count == 0)
+        {
+            return null;
+        }
+
+        var exists = (string name) => File.Exists(Path.Combine(TargetDirectory, name));
+        var fileName = ClassificationReportNamer.BuildFileName(SourceDirectory, DateTime.Now, exists);
+        return AppServices.ReportWriter.Write(TargetDirectory, fileName, rows);
     }
 
     private bool Validate()

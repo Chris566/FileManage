@@ -23,6 +23,7 @@
     <sys:String x:Key="S.Classify">分类整理</sys:String>
     <sys:String x:Key="S.ClassifyEnabled">启用分类（按规则整理，规则可自定义）</sys:String>
     <sys:String x:Key="S.Copy">复制（不移动源文件，覆盖规则设置）</sys:String>
+    <sys:String x:Key="S.GenerateReport">生成分类整理报表（执行完成后写入目标目录）</sys:String>
     <sys:String x:Key="S.RuleEditor">规则管理…（导入 / 导出 / 编辑）</sys:String>
 
     <sys:String x:Key="S.ExecOptions">执行选项</sys:String>
@@ -122,6 +123,8 @@
     <sys:String x:Key="S.Status.InvalidSource">请选择有效的源目录</sys:String>
     <sys:String x:Key="S.Status.NeedTarget">启用分类时请选择目标目录</sys:String>
     <sys:String x:Key="S.Status.LanguageSwitched">界面语言已切换</sys:String>
+    <sys:String x:Key="S.Status.ReportGenerated">；已生成报表: {0}</sys:String>
+    <sys:String x:Key="S.Status.ReportFailed">；报表生成失败: {0}</sys:String>
     <sys:String x:Key="S.Dialog.PickSource">选择源目录</sys:String>
     <sys:String x:Key="S.Dialog.PickTarget">选择分类目标目录</sys:String>
 </ResourceDictionary>

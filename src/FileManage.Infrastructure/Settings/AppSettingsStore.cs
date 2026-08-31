@@ -16,6 +16,9 @@ public sealed record AppSettings
     public string LastSourceDirectory { get; init; } = "";
 
     public string LastTargetDirectory { get; init; } = "";
+
+    /// <summary>分类整理完成后是否自动生成报表（写入目标目录）。</summary>
+    public bool GenerateClassificationReport { get; init; }
 }
 
 /// <summary>settings.json 读写；任何异常返回默认设置（首次运行/文件损坏均可安全启动）。</summary>
