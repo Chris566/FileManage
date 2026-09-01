@@ -125,7 +125,8 @@
                         <!--  执行选项行：吸收剩余高度，使左列底边与预览区底边对齐  -->
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <GroupBox Grid.Row="0" Header="{DynamicResource S.SourceDir}" Padding="8">
+                    <GroupBox Grid.Row="0" Style="{StaticResource AppCollapsibleGroup}"
+                              Tag="{Binding SourceGroupExpanded, Mode=TwoWay}" Header="{DynamicResource S.SourceDir}" Padding="8">
                         <StackPanel>
                             <DockPanel>
                                 <Button DockPanel.Dock="Right" Content="{DynamicResource S.Browse}"
@@ -144,7 +145,8 @@
                         </StackPanel>
                     </GroupBox>
 
-                    <GroupBox Grid.Row="1" Header="{DynamicResource S.Rename}" Padding="8" Margin="0,8,0,0">
+                    <GroupBox Grid.Row="1" Style="{StaticResource AppCollapsibleGroup}"
+                              Tag="{Binding RenameGroupExpanded, Mode=TwoWay}" Header="{DynamicResource S.Rename}" Padding="8" Margin="0,8,0,0">
                         <StackPanel>
                             <CheckBox Content="{DynamicResource S.RenameEnabled}" IsChecked="{Binding NamingEnabled}" />
                             <TextBlock Text="{DynamicResource S.Template}" Margin="0,8,0,2" />
@@ -168,7 +170,8 @@
                         </StackPanel>
                     </GroupBox>
 
-                    <GroupBox Grid.Row="2" Header="{DynamicResource S.Classify}" Padding="8" Margin="0,8,0,0">
+                    <GroupBox Grid.Row="2" Style="{StaticResource AppCollapsibleGroup}"
+                              Tag="{Binding ClassifyGroupExpanded, Mode=TwoWay}" Header="{DynamicResource S.Classify}" Padding="8" Margin="0,8,0,0">
                         <StackPanel>
                             <CheckBox Content="{DynamicResource S.ClassifyEnabled}"
                                       IsChecked="{Binding ClassificationEnabled}" />
@@ -191,7 +194,8 @@
                         </StackPanel>
                     </GroupBox>
 
-                    <GroupBox Grid.Row="3" Header="{DynamicResource S.ExecOptions}" Padding="8" Margin="0,8,0,0">
+                    <GroupBox Grid.Row="3" Style="{StaticResource AppCollapsibleGroup}"
+                              Tag="{Binding ExecOptionsGroupExpanded, Mode=TwoWay}" Header="{DynamicResource S.ExecOptions}" Padding="8" Margin="0,8,0,0">
                         <StackPanel>
                             <TextBlock Text="{DynamicResource S.WhenExists}" Margin="0,0,0,2" />
                             <ComboBox SelectedIndex="{Binding SelectedPolicyIndex}">

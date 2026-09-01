@@ -19,6 +19,28 @@ public sealed record AppSettings
 
     /// <summary>分类整理完成后是否自动生成报表（写入目标目录）。</summary>
     public bool GenerateClassificationReport { get; init; }
+
+    // ---- 界面记忆（M5）：旧 settings.json 缺失以下字段时取默认值，向后兼容 ----
+
+    /// <summary>左列各分组展开状态（false = 折叠）。</summary>
+    public bool SourceGroupExpanded { get; init; } = true;
+
+    public bool RenameGroupExpanded { get; init; } = true;
+
+    public bool ClassifyGroupExpanded { get; init; } = true;
+
+    public bool ExecOptionsGroupExpanded { get; init; } = true;
+
+    /// <summary>主窗口恢复位置与尺寸（null = 使用默认居中布局）；WindowMaximized 时保存的是还原边界。</summary>
+    public int? WindowX { get; init; }
+
+    public int? WindowY { get; init; }
+
+    public int? WindowWidth { get; init; }
+
+    public int? WindowHeight { get; init; }
+
+    public bool WindowMaximized { get; init; }
 }
 
 /// <summary>settings.json 读写；任何异常返回默认设置（首次运行/文件损坏均可安全启动）。</summary>

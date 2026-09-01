@@ -53,6 +53,10 @@ public partial class MainViewModel : ObservableObject
         _sourceDirectory = settings.LastSourceDirectory;
         _targetDirectory = settings.LastTargetDirectory;
         _generateReport = settings.GenerateClassificationReport;
+        _sourceGroupExpanded = settings.SourceGroupExpanded;
+        _renameGroupExpanded = settings.RenameGroupExpanded;
+        _classifyGroupExpanded = settings.ClassifyGroupExpanded;
+        _execOptionsGroupExpanded = settings.ExecOptionsGroupExpanded;
     }
 
     // ---------- 源目录与扫描 ----------
@@ -97,6 +101,20 @@ public partial class MainViewModel : ObservableObject
     public IReadOnlyList<ReplaceStep> ReplaceChain { get; private set; } = [];
 
     public int ReplaceChainCount => ReplaceChain.Count;
+
+    // ---------- 分组折叠（M5 记忆，双向绑定 GroupBox.Tag） ----------
+
+    [ObservableProperty]
+    private bool _sourceGroupExpanded = true;
+
+    [ObservableProperty]
+    private bool _renameGroupExpanded = true;
+
+    [ObservableProperty]
+    private bool _classifyGroupExpanded = true;
+
+    [ObservableProperty]
+    private bool _execOptionsGroupExpanded = true;
 
     // ---------- 分类 ----------
 
@@ -388,7 +406,10 @@ public partial class MainViewModel : ObservableObject
     }
 
     /// <summary>主窗口关闭时保存上次使用的目录。</summary>
-    public void SaveSessionState()
+    public void SaveSessionState(
+        bool windowMaximized = false,
+        int windowX = 0, int windowY = 0,
+        int windowWidth = 0, int windowHeight = 0)
     {
         UIStateService.Save(new AppSettings
         {
@@ -396,7 +417,16 @@ public partial class MainViewModel : ObservableObject
             Language = SelectedLanguageIndex == 1 ? "en-US" : "zh-CN",
             LastSourceDirectory = SourceDirectory,
             LastTargetDirectory = TargetDirectory,
-            GenerateClassificationReport = GenerateReport
+            GenerateClassificationReport = GenerateReport,
+            SourceGroupExpanded = SourceGroupExpanded,
+            RenameGroupExpanded = RenameGroupExpanded,
+            ClassifyGroupExpanded = ClassifyGroupExpanded,
+            ExecOptionsGroupExpanded = ExecOptionsGroupExpanded,
+            WindowMaximized = windowMaximized,
+            WindowX = windowX,
+            WindowY = windowY,
+            WindowWidth = windowWidth,
+            WindowHeight = windowHeight
         });
     }
 

@@ -186,6 +186,54 @@
         </Setter>
     </Style>
 
+    <!-- 布尔转 Visibility（可折叠分组内容用） -->
+    <BooleanToVisibilityConverter x:Key="AppBoolToVis" />
+
+    <!-- 可折叠分组：Tag(bool)=展开状态（双向绑定 VM），头部可点击切换，箭头指示方向 -->
+    <Style x:Key="AppCollapsibleGroup" TargetType="GroupBox" BasedOn="{StaticResource {x:Type GroupBox}}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="GroupBox">
+                    <Border Background="{DynamicResource App.Panel.Background}"
+                            BorderBrush="{DynamicResource App.Border}"
+                            BorderThickness="1" CornerRadius="3"
+                            Padding="{TemplateBinding Padding}">
+                        <StackPanel>
+                            <ToggleButton FontWeight="Bold" Cursor="Hand"
+                                          HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                                          Background="Transparent" BorderThickness="0"
+                                          Foreground="{DynamicResource App.Text}"
+                                          Margin="0,0,0,6"
+                                          ToolTip="{DynamicResource S.Tip.GroupToggle}"
+                                          IsChecked="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                          Content="{TemplateBinding Header}">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border Background="Transparent">
+                                            <DockPanel>
+                                                <TextBlock DockPanel.Dock="Right" x:Name="Chev" Text="▾" Margin="6,0,0,0" />
+                                                <ContentPresenter />
+                                            </DockPanel>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Foreground" Value="{DynamicResource App.Accent}" />
+                                            </Trigger>
+                                            <Trigger Property="IsChecked" Value="False">
+                                                <Setter TargetName="Chev" Property="Text" Value="▸" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <ContentPresenter Visibility="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource AppBoolToVis}}" />
+                        </StackPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!-- 提示浮层 -->
     <Style TargetType="ToolTip">
         <Setter Property="Background" Value="{DynamicResource App.Input.Background}" />
