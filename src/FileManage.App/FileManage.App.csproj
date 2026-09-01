@@ -16,6 +16,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <AssemblyName>FileManage</AssemblyName>
+    <!-- 应用程序图标：嵌入到 .exe 文件资源（文件资源管理器显示） -->
+    <ApplicationIcon>app.ico</ApplicationIcon>
 
     <!-- 发布元数据 -->
     <Version>1.0.0</Version>
@@ -33,6 +35,8 @@
     <AssemblyMetadata Include="BuildDate" Value="$([System.DateTime]::UtcNow.ToString('yyyy-MM-dd HH:mm')) UTC" />
     <!-- 更新日志内嵌进程序集，供"关于"窗口查看器读取（单文件发布也可用） -->
     <EmbeddedResource Include="..\..\CHANGELOG.md" LogicalName="CHANGELOG.md" />
+    <!-- 图标作为 WPF 资源嵌入，运行时窗口/任务栏通过 pack:// URI 解析 -->
+    <Resource Include="app.ico" />
   </ItemGroup>
 
 </Project>

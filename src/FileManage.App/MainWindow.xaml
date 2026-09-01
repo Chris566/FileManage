@@ -5,6 +5,7 @@
         Foreground="{DynamicResource App.Text}"
         Title="FileManage" Height="860" Width="1100" MinHeight="560" MinWidth="860"
         WindowStartupLocation="CenterScreen"
+        Icon="pack://application:,,,/app.ico"
         Closed="OnMainWindowClosed">
     <Window.InputBindings>
         <!--  全局快捷键（菜单栏 InputGestureText 同步展示）  -->
