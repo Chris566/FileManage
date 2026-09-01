@@ -43,6 +43,8 @@ public static class AppServices
 
     public static RuleConfigStore RuleStore { get; } = new();
 
+    public static RulePresetStore PresetStore { get; } = new();
+
     public static IClassificationReportWriter ReportWriter { get; } = new ExcelReportWriter();
 
     /// <summary>
@@ -83,29 +85,19 @@ public static class AppServices
     ];
 
     /// <summary>
-    /// 加载分类规则：优先 rules.json（用户自定义），无则写入默认规则集并返回默认值。
-    /// 加载异常（损坏文件）时回退默认集，不覆盖坏文件（便于用户手工恢复）。
+    /// 加载规则预设文档：v1 → v2 自动迁移（现有配置成为系统默认预设），详见 RulePresetStore。
     /// </summary>
+    public static RulePresetDocument LoadPresetDocument()
+        => PresetStore.LoadOrMigrate(RulesFilePath, DefaultRules);
+
+    /// <summary>保存规则预设文档（切换即生效：主窗口随后的 LoadRules 即取激活预设）。</summary>
+    public static void SavePresetDocument(RulePresetDocument document)
+        => PresetStore.Save(RulesFilePath, document);
+
+    /// <summary>加载当前生效的分类规则（= 激活预设的规则集）。</summary>
     public static IReadOnlyList<ClassificationRule> LoadRules()
     {
-        var loaded = RuleStore.Load(RulesFilePath);
-
-        if (loaded is { Count: > 0 })
-        {
-            return loaded;
-        }
-
-        if (!File.Exists(RulesFilePath))
-        {
-            RuleStore.Save(RulesFilePath, DefaultRules);
-        }
-
-        return DefaultRules;
-    }
-
-    /// <summary>保存分类规则到 rules.json。</summary>
-    public static void SaveRules(IReadOnlyList<ClassificationRule> rules)
-    {
-        RuleStore.Save(RulesFilePath, rules);
+        var document = LoadPresetDocument();
+        return document.Presets.First(p => p.Id == document.ActivePresetId).Rules;
     }
 }

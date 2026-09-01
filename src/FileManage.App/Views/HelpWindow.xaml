@@ -30,6 +30,9 @@
                         <TextBlock Text="{DynamicResource S.Help.Guide.Classify.T}" FontWeight="Bold" />
                         <TextBlock Text="{DynamicResource S.Help.Guide.Classify.B}" TextWrapping="Wrap"
                                    Foreground="{DynamicResource App.SubText}" Margin="0,2,0,10" />
+                        <TextBlock Text="{DynamicResource S.Help.Guide.Preset.T}" FontWeight="Bold" />
+                        <TextBlock Text="{DynamicResource S.Help.Guide.Preset.B}" TextWrapping="Wrap"
+                                   Foreground="{DynamicResource App.SubText}" Margin="0,2,0,10" />
                         <TextBlock Text="{DynamicResource S.Help.Guide.Conflict.T}" FontWeight="Bold" />
                         <TextBlock Text="{DynamicResource S.Help.Guide.Conflict.B}" TextWrapping="Wrap"
                                    Foreground="{DynamicResource App.SubText}" Margin="0,2,0,10" />
@@ -60,6 +63,9 @@
                                    Foreground="{DynamicResource App.SubText}" Margin="0,2,0,10" />
                         <TextBlock Text="{DynamicResource S.Help.Faq.Q5}" FontWeight="Bold" TextWrapping="Wrap" />
                         <TextBlock Text="{DynamicResource S.Help.Faq.A5}" TextWrapping="Wrap"
+                                   Foreground="{DynamicResource App.SubText}" Margin="0,2,0,10" />
+                        <TextBlock Text="{DynamicResource S.Help.Faq.Q6}" FontWeight="Bold" TextWrapping="Wrap" />
+                        <TextBlock Text="{DynamicResource S.Help.Faq.A6}" TextWrapping="Wrap"
                                    Foreground="{DynamicResource App.SubText}" Margin="0,2,0,10" />
                     </StackPanel>
                 </ScrollViewer>

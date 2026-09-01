@@ -61,6 +61,7 @@
     <sys:String x:Key="S.Tip.History">查看历史批次，可撤销指定批次或仅删除记录</sys:String>
     <sys:String x:Key="S.Tip.Duplicate">按内容哈希在源目录中查找重复文件</sys:String>
     <sys:String x:Key="S.Tip.Version">版本 {0} · 构建 {1}</sys:String>
+    <sys:String x:Key="S.Tip.GroupToggle">点击折叠 / 展开该分组</sys:String>
 
     <!-- 关于窗口 -->
     <sys:String x:Key="S.About.Title">关于 FileManage</sys:String>
@@ -90,6 +91,8 @@
     <sys:String x:Key="S.Help.Guide.Rename.B">支持替换链（多步查找替换）与命名模板（原文件名 + 前缀 / 序号）；照片类文件可读取 EXIF 拍摄日期参与命名。</sys:String>
     <sys:String x:Key="S.Help.Guide.Classify.T">分类整理</sys:String>
     <sys:String x:Key="S.Help.Guide.Classify.B">按规则将文件移动或复制到目标目录的类型子文件夹（如 图片 / 文档 / 视频），可选生成 Excel 分类报表。</sys:String>
+    <sys:String x:Key="S.Help.Guide.Preset.T">规则预设</sys:String>
+    <sys:String x:Key="S.Help.Guide.Preset.B">"规则管理"顶部可切换预设：系统默认预设（由现有规则迁移而来）受只读保护，仅可查看/复制/导出；可新建、复制、重命名、删除自定义预设，切换即时生效。尝试删除默认预设时会弹出保护提示。</sys:String>
     <sys:String x:Key="S.Help.Guide.Conflict.T">冲突与覆盖</sys:String>
     <sys:String x:Key="S.Help.Guide.Conflict.B">预览中以颜色标出四类冲突：计划内重复、目标已存在、路径过长、非法字符。目标已存在时可选择"询问"、"全部覆盖"或"全部跳过"。</sys:String>
     <sys:String x:Key="S.Help.Guide.Undo.T">撤销与历史</sys:String>
@@ -106,6 +109,8 @@
     <sys:String x:Key="S.Help.Faq.A4">默认排除 Office 临时文件（~$*）。可通过"包含 / 排除"框自定义 glob 模式，分号分隔。</sys:String>
     <sys:String x:Key="S.Help.Faq.Q5">执行中断电或崩溃怎么办？</sys:String>
     <sys:String x:Key="S.Help.Faq.A5">执行采用三阶段事务（备份 → 执行 → 提交/回滚），任何一步失败都会自动回滚到执行前状态，不会留下半成品状态。</sys:String>
+    <sys:String x:Key="S.Help.Faq.Q6">系统默认预设可以删除或修改吗？</sys:String>
+    <sys:String x:Key="S.Help.Faq.A6">不可以。默认预设受完全保护，内容与名称均锁定，删除时会明确提示。如需基于默认规则调整，请使用"复制"创建副本后编辑副本。</sys:String>
 
     <sys:String x:Key="S.Col.Original">原文件名</sys:String>
     <sys:String x:Key="S.Col.New">新文件名</sys:String>
@@ -133,7 +138,48 @@
     <sys:String x:Key="S.RE.UseSize">文件大小（字节）</sys:String>
     <sys:String x:Key="S.RE.UseDate">修改日期</sys:String>
     <sys:String x:Key="S.RE.Summary">条件摘要</sys:String>
-    <sys:String x:Key="S.RE.Hint">提示：点击保存后回到主窗口点【刷新预览】生效。优先级由左侧列表顺序决定。</sys:String>
+    <sys:String x:Key="S.RE.Hint">提示：切换预设后立即生效；修改规则后点击保存写盘并生效。优先级由左侧列表顺序决定。</sys:String>
+    <sys:String x:Key="S.RE.NewRule">新规则</sys:String>
+    <sys:String x:Key="S.RE.ImportDialogTitle">导入分类规则（将创建为新预设）</sys:String>
+    <sys:String x:Key="S.RE.ExportDialogTitle">导出当前预设规则</sys:String>
+    <sys:String x:Key="S.RE.JsonFilter">JSON 文件 (*.json)|*.json|全部文件 (*.*)|*.*</sys:String>
+    <sys:String x:Key="S.RE.ImportFailed">导入失败：文件不存在或格式不正确</sys:String>
+    <sys:String x:Key="S.RE.Exported">已导出 {0} 条规则到 {1}</sys:String>
+    <sys:String x:Key="S.RE.ExportFailed">导出失败: {0}</sys:String>
+
+    <!-- 规则预设系统 -->
+    <sys:String x:Key="S.Preset.Label">预设:</sys:String>
+    <sys:String x:Key="S.Preset.New">新建</sys:String>
+    <sys:String x:Key="S.Preset.CopyBtn">复制</sys:String>
+    <sys:String x:Key="S.Preset.Rename">重命名</sys:String>
+    <sys:String x:Key="S.Preset.DeleteBtn">删除</sys:String>
+    <sys:String x:Key="S.Preset.DefaultName">默认规则</sys:String>
+    <sys:String x:Key="S.Preset.BuiltInSuffix">系统</sys:String>
+    <sys:String x:Key="S.Preset.ReadOnlyBadge">系统默认预设 · 只读</sys:String>
+    <sys:String x:Key="S.Preset.EditableBadge">自定义预设 · 可编辑</sys:String>
+    <sys:String x:Key="S.Preset.DialogTitleNew">新建预设</sys:String>
+    <sys:String x:Key="S.Preset.DialogTitleCopy">复制预设</sys:String>
+    <sys:String x:Key="S.Preset.DialogTitleRename">重命名预设</sys:String>
+    <sys:String x:Key="S.Preset.PromptNew">请输入新预设名称：</sys:String>
+    <sys:String x:Key="S.Preset.PromptCopy">请输入新预设名称（复制自当前预设）：</sys:String>
+    <sys:String x:Key="S.Preset.PromptRename">请输入新名称：</sys:String>
+    <sys:String x:Key="S.Preset.NewPresetName">新预设</sys:String>
+    <sys:String x:Key="S.Preset.CopySuffix"> - 副本</sys:String>
+    <sys:String x:Key="S.Preset.DeleteProtected">系统默认预设受保护，不可删除或修改。如需相同规则可使用"复制"创建副本后编辑。</sys:String>
+    <sys:String x:Key="S.Preset.DeleteConfirm">确定删除预设"{0}"吗？该操作不可恢复。</sys:String>
+    <sys:String x:Key="S.Preset.DuplicateName">已存在同名预设，请换一个名称</sys:String>
+    <sys:String x:Key="S.Preset.NameRequired">预设名称不能为空</sys:String>
+    <sys:String x:Key="S.Preset.Switched">已切换生效：{0}</sys:String>
+    <sys:String x:Key="S.Preset.Created">已创建预设"{0}"并切换生效</sys:String>
+    <sys:String x:Key="S.Preset.Copied">已复制为"{0}"并切换生效</sys:String>
+    <sys:String x:Key="S.Preset.Renamed">已重命名为"{0}"</sys:String>
+    <sys:String x:Key="S.Preset.Deleted">已删除预设"{0}"，当前生效：{1}</sys:String>
+    <sys:String x:Key="S.Preset.Saved">已保存"{0}"并生效（{1} 条规则）</sys:String>
+    <sys:String x:Key="S.Preset.Imported">已导入 {0} 条规则为新预设"{1}"并生效</sys:String>
+    <sys:String x:Key="S.Preset.SaveFailed">保存失败: {0}</sys:String>
+
+    <sys:String x:Key="S.Common.Ok">确定</sys:String>
+    <sys:String x:Key="S.Common.Cancel">取消</sys:String>
 
     <!-- 替换规则 -->
     <sys:String x:Key="S.RC.Title">替换规则</sys:String>

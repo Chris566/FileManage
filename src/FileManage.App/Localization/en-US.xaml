@@ -61,6 +61,7 @@
     <sys:String x:Key="S.Tip.History">View past batches: undo a specific batch or delete its record</sys:String>
     <sys:String x:Key="S.Tip.Duplicate">Find duplicate files in the source folder by content hash</sys:String>
     <sys:String x:Key="S.Tip.Version">Version {0} · built {1}</sys:String>
+    <sys:String x:Key="S.Tip.GroupToggle">Click to collapse or expand this section</sys:String>
 
     <!-- About window -->
     <sys:String x:Key="S.About.Title">About FileManage</sys:String>
@@ -90,6 +91,8 @@
     <sys:String x:Key="S.Help.Guide.Rename.B">Supports replacement chains (multi-step find &amp; replace) and naming templates (original name with prefix / index). Photos can use EXIF capture dates in their names.</sys:String>
     <sys:String x:Key="S.Help.Guide.Classify.T">Classification</sys:String>
     <sys:String x:Key="S.Help.Guide.Classify.B">Moves or copies files into type-based subfolders of the target folder (Images / Documents / Videos…), optionally generating an Excel report.</sys:String>
+    <sys:String x:Key="S.Help.Guide.Preset.T">Rule Presets</sys:String>
+    <sys:String x:Key="S.Help.Guide.Preset.B">Switch presets at the top of "Manage Rules": the system default preset (migrated from your existing rules) is read-only — view, copy and export only. You can create, copy, rename and delete custom presets; switching takes effect immediately. Deleting the default preset shows a protection notice.</sys:String>
     <sys:String x:Key="S.Help.Guide.Conflict.T">Conflicts &amp; Overwrite</sys:String>
     <sys:String x:Key="S.Help.Guide.Conflict.B">Four conflict types are color-coded in the preview: in-plan duplicates, target exists, path too long, and invalid characters. For existing targets choose Ask, Overwrite All or Skip All.</sys:String>
     <sys:String x:Key="S.Help.Guide.Undo.T">Undo &amp; History</sys:String>
@@ -106,6 +109,8 @@
     <sys:String x:Key="S.Help.Faq.A4">Office temp files (~$*) are excluded by default. Customize with the include / exclude glob patterns, separated by semicolons.</sys:String>
     <sys:String x:Key="S.Help.Faq.Q5">What if execution is interrupted by a crash or power loss?</sys:String>
     <sys:String x:Key="S.Help.Faq.A5">Execution uses a three-phase transaction (backup → execute → commit/rollback). Any failure automatically rolls back to the pre-execution state, leaving no half-finished changes.</sys:String>
+    <sys:String x:Key="S.Help.Faq.Q6">Can the system default preset be deleted or modified?</sys:String>
+    <sys:String x:Key="S.Help.Faq.A6">No. The default preset is fully protected — both contents and name are locked, with an explicit notice on delete attempts. To adjust the default rules, use "Copy" to create an editable duplicate.</sys:String>
 
     <sys:String x:Key="S.Col.Original">Original</sys:String>
     <sys:String x:Key="S.Col.New">New name</sys:String>
@@ -133,7 +138,48 @@
     <sys:String x:Key="S.RE.UseSize">File size (bytes)</sys:String>
     <sys:String x:Key="S.RE.UseDate">Modified date</sys:String>
     <sys:String x:Key="S.RE.Summary">Condition summary</sys:String>
-    <sys:String x:Key="S.RE.Hint">Tip: click Save, then press Refresh Preview in the main window. Priority follows list order.</sys:String>
+    <sys:String x:Key="S.RE.Hint">Tip: switching a preset applies immediately; click Save to persist rule edits. Priority follows list order.</sys:String>
+    <sys:String x:Key="S.RE.NewRule">New Rule</sys:String>
+    <sys:String x:Key="S.RE.ImportDialogTitle">Import Rules (creates a new preset)</sys:String>
+    <sys:String x:Key="S.RE.ExportDialogTitle">Export Active Preset Rules</sys:String>
+    <sys:String x:Key="S.RE.JsonFilter">JSON files (*.json)|*.json|All files (*.*)|*.*</sys:String>
+    <sys:String x:Key="S.RE.ImportFailed">Import failed: file missing or invalid format</sys:String>
+    <sys:String x:Key="S.RE.Exported">Exported {0} rules to {1}</sys:String>
+    <sys:String x:Key="S.RE.ExportFailed">Export failed: {0}</sys:String>
+
+    <!-- Rule preset system -->
+    <sys:String x:Key="S.Preset.Label">Preset:</sys:String>
+    <sys:String x:Key="S.Preset.New">New</sys:String>
+    <sys:String x:Key="S.Preset.CopyBtn">Duplicate</sys:String>
+    <sys:String x:Key="S.Preset.Rename">Rename</sys:String>
+    <sys:String x:Key="S.Preset.DeleteBtn">Delete</sys:String>
+    <sys:String x:Key="S.Preset.DefaultName">Default Rules</sys:String>
+    <sys:String x:Key="S.Preset.BuiltInSuffix">System</sys:String>
+    <sys:String x:Key="S.Preset.ReadOnlyBadge">System default preset · read-only</sys:String>
+    <sys:String x:Key="S.Preset.EditableBadge">Custom preset · editable</sys:String>
+    <sys:String x:Key="S.Preset.DialogTitleNew">New Preset</sys:String>
+    <sys:String x:Key="S.Preset.DialogTitleCopy">Duplicate Preset</sys:String>
+    <sys:String x:Key="S.Preset.DialogTitleRename">Rename Preset</sys:String>
+    <sys:String x:Key="S.Preset.PromptNew">Enter a name for the new preset:</sys:String>
+    <sys:String x:Key="S.Preset.PromptCopy">Enter a name for the duplicate (copied from current preset):</sys:String>
+    <sys:String x:Key="S.Preset.PromptRename">Enter a new name:</sys:String>
+    <sys:String x:Key="S.Preset.NewPresetName">New Preset</sys:String>
+    <sys:String x:Key="S.Preset.CopySuffix"> - Copy</sys:String>
+    <sys:String x:Key="S.Preset.DeleteProtected">The system default preset is protected and cannot be deleted or modified. Use "Duplicate" to create an editable copy.</sys:String>
+    <sys:String x:Key="S.Preset.DeleteConfirm">Delete preset "{0}"? This cannot be undone.</sys:String>
+    <sys:String x:Key="S.Preset.DuplicateName">A preset with this name already exists</sys:String>
+    <sys:String x:Key="S.Preset.NameRequired">Preset name cannot be empty</sys:String>
+    <sys:String x:Key="S.Preset.Switched">Switched and applied: {0}</sys:String>
+    <sys:String x:Key="S.Preset.Created">Created preset "{0}" and applied it</sys:String>
+    <sys:String x:Key="S.Preset.Copied">Duplicated as "{0}" and applied it</sys:String>
+    <sys:String x:Key="S.Preset.Renamed">Renamed to "{0}"</sys:String>
+    <sys:String x:Key="S.Preset.Deleted">Deleted preset "{0}". Active preset: {1}</sys:String>
+    <sys:String x:Key="S.Preset.Saved">Saved "{0}" and applied it ({1} rules)</sys:String>
+    <sys:String x:Key="S.Preset.Imported">Imported {0} rules as new preset "{1}" and applied it</sys:String>
+    <sys:String x:Key="S.Preset.SaveFailed">Save failed: {0}</sys:String>
+
+    <sys:String x:Key="S.Common.Ok">OK</sys:String>
+    <sys:String x:Key="S.Common.Cancel">Cancel</sys:String>
 
     <!-- Replace chain -->
     <sys:String x:Key="S.RC.Title">Replace Rules</sys:String>

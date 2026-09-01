@@ -5,7 +5,7 @@ using FileManage.App.ViewModels;
 namespace FileManage.App.Views;
 
 /// <summary>
-/// 规则管理窗口：列表编辑 + 条件编辑 + 导入导出。
+/// 规则管理窗口：预设切换管理 + 列表编辑 + 条件编辑 + 导入导出。
 /// </summary>
 public partial class RuleEditorWindow : Window
 {
@@ -13,6 +13,6 @@ public partial class RuleEditorWindow : Window
     {
         InitializeComponent();
         UIStateService.AttachTitleBar(this);
-        DataContext = new RuleEditorViewModel(AppServices.LoadRules());
+        DataContext = new RuleEditorViewModel(AppServices.LoadPresetDocument());
     }
 }

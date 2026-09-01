@@ -16,6 +16,9 @@ public partial class App : Application
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 "FileManage"));
 
+        // 启动即完成规则预设 v1→v2 迁移（现有规则无损转为系统默认预设）
+        AppServices.LoadPresetDocument();
+
         base.OnStartup(e);
     }
 }

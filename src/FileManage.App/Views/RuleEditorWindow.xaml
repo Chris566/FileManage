@@ -7,6 +7,22 @@
         WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
     <DockPanel Margin="10">
 
+        <!-- 顶部：预设条（切换即生效；系统默认预设带只读徽标，删除受保护） -->
+        <DockPanel DockPanel.Dock="Top" Margin="0,0,0,8">
+            <TextBlock DockPanel.Dock="Right" Text="{Binding PresetBadge}" VerticalAlignment="Center"
+                       Foreground="{DynamicResource App.SubText}" Margin="10,0,0,0"
+                       TextTrimming="CharacterEllipsis" MinWidth="140" TextAlignment="Right" />
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{DynamicResource S.Preset.Label}" VerticalAlignment="Center" />
+                <ComboBox ItemsSource="{Binding Presets}" SelectedItem="{Binding SelectedPreset}"
+                          DisplayMemberPath="DisplayName" Width="230" Margin="6,0,10,0" />
+                <Button Content="{DynamicResource S.Preset.New}" Command="{Binding NewPresetCommand}" Padding="8,4" />
+                <Button Content="{DynamicResource S.Preset.CopyBtn}" Command="{Binding CopyPresetCommand}" Padding="8,4" Margin="4,0,0,0" />
+                <Button Content="{DynamicResource S.Preset.Rename}" Command="{Binding RenamePresetCommand}" Padding="8,4" Margin="4,0,0,0" />
+                <Button Content="{DynamicResource S.Preset.DeleteBtn}" Command="{Binding DeletePresetCommand}" Padding="8,4" Margin="4,0,0,0" />
+            </StackPanel>
+        </DockPanel>
+
         <!-- 底部状态与按钮 -->
         <DockPanel DockPanel.Dock="Bottom" Margin="0,10,0,0">
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
@@ -37,9 +53,9 @@
                          DisplayMemberPath="DisplayName" />
             </DockPanel>
 
-            <!-- 右：编辑面板 -->
+            <!-- 右：编辑面板（系统默认预设下锁定为只读） -->
             <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto"
-                          IsEnabled="{Binding HasSelection}"
+                          IsEnabled="{Binding CanEditSelection}"
                           DataContext="{Binding SelectedRule}">
                 <StackPanel>
                     <TextBlock Text="{DynamicResource S.RE.Name}" />
