@@ -499,6 +499,9 @@ public record PresetItem(Guid Id, string Name, bool IsBuiltIn)
     public string DisplayName => IsBuiltIn
         ? $"{Localize.T("S.Preset.DefaultName")}（{Localize.T("S.Preset.BuiltInSuffix")}）"
         : Name;
+
+    // 兜底：模板未生效的场合（如选中框回退渲染）也显示友好名称
+    public override string ToString() => DisplayName;
 }
 
 /// <summary>单条规则的可编辑包装（Conditions 拆解为简单输入项）。</summary>

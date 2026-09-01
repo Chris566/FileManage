@@ -15,7 +15,14 @@
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="{DynamicResource S.Preset.Label}" VerticalAlignment="Center" />
                 <ComboBox ItemsSource="{Binding Presets}" SelectedItem="{Binding SelectedPreset}"
-                          DisplayMemberPath="DisplayName" Width="230" Margin="6,0,10,0" />
+                          Width="230" Margin="6,0,10,0">
+                    <!-- 显式 ItemTemplate：自定义模板下选中框的 SelectionBoxItemTemplate 不吸收 DisplayMemberPath，会导致显示原始 ToString -->
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding DisplayName}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
                 <Button Content="{DynamicResource S.Preset.New}" Command="{Binding NewPresetCommand}" Padding="8,4" />
                 <Button Content="{DynamicResource S.Preset.CopyBtn}" Command="{Binding CopyPresetCommand}" Padding="8,4" Margin="4,0,0,0" />
                 <Button Content="{DynamicResource S.Preset.Rename}" Command="{Binding RenamePresetCommand}" Padding="8,4" Margin="4,0,0,0" />
