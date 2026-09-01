@@ -1,5 +1,10 @@
 # 更新日志 / Changelog
 
+## v1.6.2 (2026-09-01)
+
+- 移除主界面顶部冗余的"FileManage"标题栏，界面更简洁
+- "PowerBy 吴东东（Chris）"署名迁移至右下角状态栏版本号左侧（灰色小字，次信息层级）
+
 ## v1.6.1 (2026-09-01)
 
 - 修复：规则管理窗口预设下拉框（选中态）显示原始 `PresetItem { Id = ... }` ToString 而非友好名称"默认规则（系统）"的问题（自定义 ComboBox 模板下 `SelectionBoxItemTemplate` 不吸收 `DisplayMemberPath`，改用显式 `ItemTemplate` 渲染；`PresetItem` 重写 `ToString` 兜底）
