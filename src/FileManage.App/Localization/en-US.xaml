@@ -10,6 +10,8 @@
     <sys:String x:Key="S.Menu.Appearance">_Appearance</sys:String>
     <sys:String x:Key="S.Menu.Language">_Language</sys:String>
     <sys:String x:Key="S.Menu.Tools">_Tools</sys:String>
+    <sys:String x:Key="S.Menu.About">_About</sys:String>
+    <sys:String x:Key="S.Menu.AboutThis">About FileManage…</sys:String>
 
     <sys:String x:Key="S.SourceDir">Source folder</sys:String>
     <sys:String x:Key="S.Browse">Browse…</sys:String>
@@ -55,6 +57,21 @@
     <sys:String x:Key="S.Tip.History">View past batches: undo a specific batch or delete its record</sys:String>
     <sys:String x:Key="S.Tip.Duplicate">Find duplicate files in the source folder by content hash</sys:String>
     <sys:String x:Key="S.Tip.Version">Version {0} · built {1}</sys:String>
+
+    <!-- About window -->
+    <sys:String x:Key="S.About.Title">About FileManage</sys:String>
+    <sys:String x:Key="S.About.Description">Batch file renaming and organizing tool</sys:String>
+    <sys:String x:Key="S.About.Version">Version</sys:String>
+    <sys:String x:Key="S.About.Copyright">Copyright</sys:String>
+    <sys:String x:Key="S.About.License">License</sys:String>
+    <sys:String x:Key="S.About.LicenseLink">View license</sys:String>
+    <sys:String x:Key="S.About.Developer">Developer</sys:String>
+    <sys:String x:Key="S.About.Homepage">Project homepage</sys:String>
+    <sys:String x:Key="S.About.Issues">Report an issue</sys:String>
+    <sys:String x:Key="S.About.Changelog">Changelog…</sys:String>
+    <sys:String x:Key="S.About.Close">Close</sys:String>
+    <sys:String x:Key="S.Changelog.Title">Changelog</sys:String>
+    <sys:String x:Key="S.Changelog.Unavailable">Changelog content unavailable.</sys:String>
 
     <sys:String x:Key="S.Col.Original">Original</sys:String>
     <sys:String x:Key="S.Col.New">New name</sys:String>

@@ -31,6 +31,8 @@
   <ItemGroup>
     <!-- 构建时间戳（UTC），用于状态栏版本悬停提示 -->
     <AssemblyMetadata Include="BuildDate" Value="$([System.DateTime]::UtcNow.ToString('yyyy-MM-dd HH:mm')) UTC" />
+    <!-- 更新日志内嵌进程序集，供"关于"窗口查看器读取（单文件发布也可用） -->
+    <EmbeddedResource Include="..\..\CHANGELOG.md" LogicalName="CHANGELOG.md" />
   </ItemGroup>
 
 </Project>

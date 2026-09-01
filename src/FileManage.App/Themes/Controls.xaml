@@ -48,6 +48,15 @@
         <Setter Property="FontFamily" Value="Segoe UI, Microsoft YaHei UI" />
     </Style>
 
+    <!-- 链接式按钮（状态栏版本标签）：无边框透明底，悬停显示主题色底 -->
+    <Style x:Key="AppLinkButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Foreground" Value="{DynamicResource App.SubText}" />
+        <Setter Property="Padding" Value="6,2" />
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+
     <!-- 下拉框：自绘模板使背景/弹出面板随主题 -->
     <Style TargetType="ComboBox">
         <Setter Property="Background" Value="{DynamicResource App.Input.Background}" />

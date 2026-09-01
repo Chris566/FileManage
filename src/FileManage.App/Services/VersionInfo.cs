@@ -16,6 +16,10 @@ public static class VersionInfo
     /// <summary>状态栏/关于窗口显示文本：正式版加 v 前缀（如 v1.5.0），本地构建显示 dev。</summary>
     public static string VersionText => Version == "dev" ? "dev" : "v" + Version;
 
+    /// <summary>版权信息（csproj Copyright → AssemblyCopyrightAttribute）。</summary>
+    public static string Copyright { get; } =
+        Assembly.GetEntryAssembly()?.GetCustomAttribute<AssemblyCopyrightAttribute>()?.Copyright ?? "";
+
     private static string LoadVersion()
     {
         var attr = Assembly.GetEntryAssembly()?.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
@@ -32,7 +36,19 @@ public static class VersionInfo
 
     private static string LoadBuildDate()
     {
-        var all = Assembly.GetEntryAssembly()?.GetCustomAttributes<AssemblyMetadataAttribute>();
-        return all?.FirstOrDefault(m => m.Key == "BuildDate")?.Value ?? "";
+        var raw = Assembly.GetEntryAssembly()?.GetCustomAttributes<AssemblyMetadataAttribute>()
+            ?.FirstOrDefault(m => m.Key == "BuildDate")?.Value ?? "";
+
+        // 注入格式 "yyyy-MM-dd HH:mm UTC"，转换为本地时间显示
+        const string suffix = " UTC";
+        if (raw.EndsWith(suffix, StringComparison.Ordinal) &&
+            DateTime.TryParseExact(raw[..^suffix.Length], "yyyy-MM-dd HH:mm",
+                System.Globalization.CultureInfo.InvariantCulture,
+                System.Globalization.DateTimeStyles.AssumeUniversal, out var utc))
+        {
+            return utc.ToLocalTime().ToString("yyyy-MM-dd HH:mm");
+        }
+
+        return raw;
     }
 }

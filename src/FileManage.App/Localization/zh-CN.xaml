@@ -10,6 +10,8 @@
     <sys:String x:Key="S.Menu.Appearance">外观(_O)</sys:String>
     <sys:String x:Key="S.Menu.Language">语言(_L)</sys:String>
     <sys:String x:Key="S.Menu.Tools">工具(_T)</sys:String>
+    <sys:String x:Key="S.Menu.About">关于(_A)</sys:String>
+    <sys:String x:Key="S.Menu.AboutThis">关于 FileManage…</sys:String>
 
     <sys:String x:Key="S.SourceDir">源目录</sys:String>
     <sys:String x:Key="S.Browse">浏览…</sys:String>
@@ -55,6 +57,21 @@
     <sys:String x:Key="S.Tip.History">查看历史批次，可撤销指定批次或仅删除记录</sys:String>
     <sys:String x:Key="S.Tip.Duplicate">按内容哈希在源目录中查找重复文件</sys:String>
     <sys:String x:Key="S.Tip.Version">版本 {0} · 构建 {1}</sys:String>
+
+    <!-- 关于窗口 -->
+    <sys:String x:Key="S.About.Title">关于 FileManage</sys:String>
+    <sys:String x:Key="S.About.Description">批量文件重命名与分类整理工具</sys:String>
+    <sys:String x:Key="S.About.Version">版本</sys:String>
+    <sys:String x:Key="S.About.Copyright">版权</sys:String>
+    <sys:String x:Key="S.About.License">许可</sys:String>
+    <sys:String x:Key="S.About.LicenseLink">查看开源许可</sys:String>
+    <sys:String x:Key="S.About.Developer">开发者</sys:String>
+    <sys:String x:Key="S.About.Homepage">项目主页</sys:String>
+    <sys:String x:Key="S.About.Issues">问题反馈</sys:String>
+    <sys:String x:Key="S.About.Changelog">更新日志…</sys:String>
+    <sys:String x:Key="S.About.Close">关闭</sys:String>
+    <sys:String x:Key="S.Changelog.Title">更新日志</sys:String>
+    <sys:String x:Key="S.Changelog.Unavailable">更新日志内容不可用。</sys:String>
 
     <sys:String x:Key="S.Col.Original">原文件名</sys:String>
     <sys:String x:Key="S.Col.New">新文件名</sys:String>

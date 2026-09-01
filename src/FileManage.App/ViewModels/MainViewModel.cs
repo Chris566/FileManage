@@ -427,11 +427,17 @@ public partial class MainViewModel : ObservableObject
         var window = new Views.RuleEditorWindow { Owner = Application.Current.MainWindow };
         window.ShowDialog();
         StatusText = Localize.T("S.Status.RulesUpdated");
-
         if (Validate())
         {
             _ = RefreshPreviewCoreAsync();
         }
+    }
+
+    [RelayCommand]
+    private void OpenAbout()
+    {
+        var window = new Views.AboutWindow { Owner = Application.Current.MainWindow };
+        window.ShowDialog();
     }
 
     [RelayCommand]

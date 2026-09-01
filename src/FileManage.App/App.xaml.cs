@@ -19,4 +19,3 @@ public partial class App : Application
         base.OnStartup(e);
     }
 }
-
