@@ -17,15 +17,6 @@
         <KeyBinding Key="F1" Command="{Binding OpenHelpCommand}" />
     </Window.InputBindings>
     <DockPanel>
-        <!-- 顶部：标题（主题/语言切换已迁移至菜单栏） -->
-        <DockPanel DockPanel.Dock="Top" Margin="4">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                <TextBlock Text="FileManage" FontWeight="Bold" VerticalAlignment="Center" />
-                <TextBlock Text="PowerBy 吴东东（Chris）" VerticalAlignment="Center" Margin="10,1,0,0"
-                           FontSize="12" Foreground="{DynamicResource App.SubText}" />
-            </StackPanel>
-        </DockPanel>
-
         <!-- 顶部：菜单栏（外观 / 语言随语言字典切换；工具组带快捷键提示） -->
         <Menu DockPanel.Dock="Top" Padding="4,0">
             <MenuItem Header="{DynamicResource S.Menu.Appearance}">
@@ -101,9 +92,13 @@
             </StatusBarItem>
             <!-- 版本标签：与关于窗口同源；悬停显示完整版本与构建日期，点击打开关于窗口 -->
             <StatusBarItem DockPanel.Dock="Right">
-                <Button Style="{StaticResource AppLinkButton}"
-                        Content="{Binding VersionText}" ToolTip="{Binding VersionToolTip}"
-                        Command="{Binding OpenAboutCommand}" />
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="PowerBy 吴东东（Chris）"
+                               FontSize="11" Foreground="{DynamicResource App.SubText}" VerticalAlignment="Center" />
+                    <Button Style="{StaticResource AppLinkButton}"
+                            Content="{Binding VersionText}" ToolTip="{Binding VersionToolTip}"
+                            Command="{Binding OpenAboutCommand}" Margin="8,0,0,0" />
+                </StackPanel>
             </StatusBarItem>
         </StatusBar>
 
