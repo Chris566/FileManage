@@ -868,4 +868,38 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <!-- 选项卡：标签随主题（悬停/选中态），内容区随面板底色，避免深色模式白底残留 -->
+    <Style TargetType="TabControl">
+        <Setter Property="Background" Value="{DynamicResource App.Panel.Background}" />
+        <Setter Property="Foreground" Value="{DynamicResource App.Text}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource App.Border}" />
+    </Style>
+    <Style TargetType="TabItem">
+        <Setter Property="Foreground" Value="{DynamicResource App.Text}" />
+        <Setter Property="Padding" Value="12,6" />
+        <Setter Property="Margin" Value="0,0,2,0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabItem">
+                    <Border x:Name="Bd" Background="Transparent"
+                            BorderBrush="{DynamicResource App.Border}" BorderThickness="1,1,1,0"
+                            CornerRadius="4,4,0,0" Padding="{TemplateBinding Padding}">
+                        <ContentPresenter ContentSource="Header" VerticalAlignment="Center"
+                                          TextElement.Foreground="{TemplateBinding Foreground}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource App.Item.Hover}" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource App.Panel.Background}" />
+                            <Setter Property="Foreground" Value="{DynamicResource App.Accent}" />
+                            <Setter Property="FontWeight" Value="Bold" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

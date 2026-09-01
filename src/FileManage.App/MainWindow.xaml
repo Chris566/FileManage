@@ -14,6 +14,7 @@
         <KeyBinding Key="F5" Command="{Binding RefreshPreviewCommand}" />
         <KeyBinding Modifiers="Control" Key="E" Command="{Binding ExecuteCommand}" />
         <KeyBinding Modifiers="Control" Key="Z" Command="{Binding UndoCommand}" />
+        <KeyBinding Key="F1" Command="{Binding OpenHelpCommand}" />
     </Window.InputBindings>
     <DockPanel>
         <!-- 顶部：标题（主题/语言切换已迁移至菜单栏） -->
@@ -53,6 +54,13 @@
                           InputGestureText="Ctrl+E" />
                 <MenuItem Header="{DynamicResource S.UndoLast}" Command="{Binding UndoCommand}"
                           InputGestureText="Ctrl+Z" />
+            </MenuItem>
+            <MenuItem Header="{DynamicResource S.Menu.Help}">
+                <MenuItem Header="{DynamicResource S.Menu.Guide}" Command="{Binding OpenHelpCommand}"
+                          InputGestureText="F1" />
+                <MenuItem Header="{DynamicResource S.Menu.Faq}" Command="{Binding OpenHelpFaqCommand}" />
+                <Separator />
+                <MenuItem Header="{DynamicResource S.Menu.Homepage}" Command="{Binding OpenHomepageCommand}" />
             </MenuItem>
             <MenuItem Header="{DynamicResource S.Menu.About}">
                 <MenuItem Header="{DynamicResource S.Menu.AboutThis}" Command="{Binding OpenAboutCommand}" />

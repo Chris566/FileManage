@@ -440,6 +440,28 @@ public partial class MainViewModel : ObservableObject
         window.ShowDialog();
     }
 
+    /// <summary>帮助窗口：F1 / 菜单"用户指南"打开指南选项卡，"常见问题"打开 FAQ 选项卡。</summary>
+    [RelayCommand]
+    private void OpenHelp()
+    {
+        var window = new Views.HelpWindow(0) { Owner = Application.Current.MainWindow };
+        window.ShowDialog();
+    }
+
+    [RelayCommand]
+    private void OpenHelpFaq()
+    {
+        var window = new Views.HelpWindow(1) { Owner = Application.Current.MainWindow };
+        window.ShowDialog();
+    }
+
+    [RelayCommand]
+    private void OpenHomepage()
+    {
+        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(
+            "https://github.com/Chris566/FileManage") { UseShellExecute = true });
+    }
+
     [RelayCommand]
     private async Task OpenHistoryAsync()
     {

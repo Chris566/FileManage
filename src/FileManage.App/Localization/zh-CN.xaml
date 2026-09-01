@@ -10,6 +10,10 @@
     <sys:String x:Key="S.Menu.Appearance">外观(_O)</sys:String>
     <sys:String x:Key="S.Menu.Language">语言(_L)</sys:String>
     <sys:String x:Key="S.Menu.Tools">工具(_T)</sys:String>
+    <sys:String x:Key="S.Menu.Help">帮助(_H)</sys:String>
+    <sys:String x:Key="S.Menu.Guide">用户指南</sys:String>
+    <sys:String x:Key="S.Menu.Faq">常见问题</sys:String>
+    <sys:String x:Key="S.Menu.Homepage">项目主页</sys:String>
     <sys:String x:Key="S.Menu.About">关于(_A)</sys:String>
     <sys:String x:Key="S.Menu.AboutThis">关于 FileManage…</sys:String>
 
@@ -72,6 +76,36 @@
     <sys:String x:Key="S.About.Close">关闭</sys:String>
     <sys:String x:Key="S.Changelog.Title">更新日志</sys:String>
     <sys:String x:Key="S.Changelog.Unavailable">更新日志内容不可用。</sys:String>
+
+    <!-- 帮助窗口 -->
+    <sys:String x:Key="S.Help.Title">帮助</sys:String>
+    <sys:String x:Key="S.Help.GuideTab">用户指南</sys:String>
+    <sys:String x:Key="S.Help.FaqTab">常见问题</sys:String>
+    <sys:String x:Key="S.Help.Close">关闭</sys:String>
+    <sys:String x:Key="S.Help.Homepage">项目主页</sys:String>
+    <sys:String x:Key="S.Help.Issues">问题反馈</sys:String>
+    <sys:String x:Key="S.Help.Guide.Quick.T">快速上手</sys:String>
+    <sys:String x:Key="S.Help.Guide.Quick.B">选择源目录 →（可选）配置重命名与分类整理 → 点击"刷新预览"核对将发生的变更 → 点击"执行"。执行前会生成完整计划，实际改动与预览一致。</sys:String>
+    <sys:String x:Key="S.Help.Guide.Rename.T">重命名</sys:String>
+    <sys:String x:Key="S.Help.Guide.Rename.B">支持替换链（多步查找替换）与命名模板（原文件名 + 前缀 / 序号）；照片类文件可读取 EXIF 拍摄日期参与命名。</sys:String>
+    <sys:String x:Key="S.Help.Guide.Classify.T">分类整理</sys:String>
+    <sys:String x:Key="S.Help.Guide.Classify.B">按规则将文件移动或复制到目标目录的类型子文件夹（如 图片 / 文档 / 视频），可选生成 Excel 分类报表。</sys:String>
+    <sys:String x:Key="S.Help.Guide.Conflict.T">冲突与覆盖</sys:String>
+    <sys:String x:Key="S.Help.Guide.Conflict.B">预览中以颜色标出四类冲突：计划内重复、目标已存在、路径过长、非法字符。目标已存在时可选择"询问"、"全部覆盖"或"全部跳过"。</sys:String>
+    <sys:String x:Key="S.Help.Guide.Undo.T">撤销与历史</sys:String>
+    <sys:String x:Key="S.Help.Guide.Undo.B">每次执行自动备份、失败自动回滚；"撤销上次"与"历史"窗口可回滚变更，并同步删除本次生成的分类报表。</sys:String>
+    <sys:String x:Key="S.Help.Guide.Keys.T">快捷键</sys:String>
+    <sys:String x:Key="S.Help.Guide.Keys.B">F5 刷新预览 · Ctrl+E 执行 · Ctrl+Z 撤销上次 · Ctrl+R 规则管理 · Ctrl+D 重复检测 · Ctrl+H 历史 · F1 帮助</sys:String>
+    <sys:String x:Key="S.Help.Faq.Q1">预览和执行结果会不一致吗？</sys:String>
+    <sys:String x:Key="S.Help.Faq.A1">预览基于扫描时的文件系统状态。若此后有其他程序改动了文件，执行时会重新检测并按覆盖策略处理，新增冲突会以"目标已存在"标出。</sys:String>
+    <sys:String x:Key="S.Help.Faq.Q2">"询问 / 全部覆盖 / 全部跳过"是什么意思？</sys:String>
+    <sys:String x:Key="S.Help.Faq.A2">这是目标位置存在同名文件时的处理策略：询问逐一确认；全部覆盖直接替换；全部跳过保留原文件继续。默认"询问"。</sys:String>
+    <sys:String x:Key="S.Help.Faq.Q3">撤销会误删我的文件吗？</sys:String>
+    <sys:String x:Key="S.Help.Faq.A3">不会。撤销仅回滚本次操作：移动的文件移回原位、复制的副本被删除、重命名恢复原名；同时原子删除本次生成的分类报表。</sys:String>
+    <sys:String x:Key="S.Help.Faq.Q4">为什么有些文件没有被处理？</sys:String>
+    <sys:String x:Key="S.Help.Faq.A4">默认排除 Office 临时文件（~$*）。可通过"包含 / 排除"框自定义 glob 模式，分号分隔。</sys:String>
+    <sys:String x:Key="S.Help.Faq.Q5">执行中断电或崩溃怎么办？</sys:String>
+    <sys:String x:Key="S.Help.Faq.A5">执行采用三阶段事务（备份 → 执行 → 提交/回滚），任何一步失败都会自动回滚到执行前状态，不会留下半成品状态。</sys:String>
 
     <sys:String x:Key="S.Col.Original">原文件名</sys:String>
     <sys:String x:Key="S.Col.New">新文件名</sys:String>

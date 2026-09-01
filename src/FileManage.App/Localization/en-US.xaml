@@ -10,6 +10,10 @@
     <sys:String x:Key="S.Menu.Appearance">_Appearance</sys:String>
     <sys:String x:Key="S.Menu.Language">_Language</sys:String>
     <sys:String x:Key="S.Menu.Tools">_Tools</sys:String>
+    <sys:String x:Key="S.Menu.Help">_Help</sys:String>
+    <sys:String x:Key="S.Menu.Guide">User Guide</sys:String>
+    <sys:String x:Key="S.Menu.Faq">FAQ</sys:String>
+    <sys:String x:Key="S.Menu.Homepage">Project Homepage</sys:String>
     <sys:String x:Key="S.Menu.About">_About</sys:String>
     <sys:String x:Key="S.Menu.AboutThis">About FileManage…</sys:String>
 
@@ -72,6 +76,36 @@
     <sys:String x:Key="S.About.Close">Close</sys:String>
     <sys:String x:Key="S.Changelog.Title">Changelog</sys:String>
     <sys:String x:Key="S.Changelog.Unavailable">Changelog content unavailable.</sys:String>
+
+    <!-- Help window -->
+    <sys:String x:Key="S.Help.Title">Help</sys:String>
+    <sys:String x:Key="S.Help.GuideTab">User Guide</sys:String>
+    <sys:String x:Key="S.Help.FaqTab">FAQ</sys:String>
+    <sys:String x:Key="S.Help.Close">Close</sys:String>
+    <sys:String x:Key="S.Help.Homepage">Project Homepage</sys:String>
+    <sys:String x:Key="S.Help.Issues">Report an Issue</sys:String>
+    <sys:String x:Key="S.Help.Guide.Quick.T">Quick Start</sys:String>
+    <sys:String x:Key="S.Help.Guide.Quick.B">Pick a source folder → (optionally) configure renaming and classification → click "Refresh Preview" to review the changes → click "Execute". A complete plan is generated before execution; what you preview is exactly what happens.</sys:String>
+    <sys:String x:Key="S.Help.Guide.Rename.T">Renaming</sys:String>
+    <sys:String x:Key="S.Help.Guide.Rename.B">Supports replacement chains (multi-step find &amp; replace) and naming templates (original name with prefix / index). Photos can use EXIF capture dates in their names.</sys:String>
+    <sys:String x:Key="S.Help.Guide.Classify.T">Classification</sys:String>
+    <sys:String x:Key="S.Help.Guide.Classify.B">Moves or copies files into type-based subfolders of the target folder (Images / Documents / Videos…), optionally generating an Excel report.</sys:String>
+    <sys:String x:Key="S.Help.Guide.Conflict.T">Conflicts &amp; Overwrite</sys:String>
+    <sys:String x:Key="S.Help.Guide.Conflict.B">Four conflict types are color-coded in the preview: in-plan duplicates, target exists, path too long, and invalid characters. For existing targets choose Ask, Overwrite All or Skip All.</sys:String>
+    <sys:String x:Key="S.Help.Guide.Undo.T">Undo &amp; History</sys:String>
+    <sys:String x:Key="S.Help.Guide.Undo.B">Every run is backed up with automatic rollback on failure. "Undo Last" and the history window roll back changes and atomically remove the generated report.</sys:String>
+    <sys:String x:Key="S.Help.Guide.Keys.T">Shortcuts</sys:String>
+    <sys:String x:Key="S.Help.Guide.Keys.B">F5 refresh preview · Ctrl+E execute · Ctrl+Z undo last · Ctrl+R rules · Ctrl+D duplicates · Ctrl+H history · F1 help</sys:String>
+    <sys:String x:Key="S.Help.Faq.Q1">Will the result differ from the preview?</sys:String>
+    <sys:String x:Key="S.Help.Faq.A1">The preview is based on the file system state at scan time. If files change afterwards, execution re-checks them and applies the overwrite policy; new conflicts appear as "target exists".</sys:String>
+    <sys:String x:Key="S.Help.Faq.Q2">What do Ask / Overwrite All / Skip All mean?</sys:String>
+    <sys:String x:Key="S.Help.Faq.A2">The policy for existing files at the target: Ask confirms each case; Overwrite All replaces them; Skip All keeps the originals and continues. Default is Ask.</sys:String>
+    <sys:String x:Key="S.Help.Faq.Q3">Can undo delete my files by mistake?</sys:String>
+    <sys:String x:Key="S.Help.Faq.A3">No. Undo only rolls back the last run: moved files are moved back, copies are removed, renamed files restore their original names; the generated report is removed atomically.</sys:String>
+    <sys:String x:Key="S.Help.Faq.Q4">Why were some files not processed?</sys:String>
+    <sys:String x:Key="S.Help.Faq.A4">Office temp files (~$*) are excluded by default. Customize with the include / exclude glob patterns, separated by semicolons.</sys:String>
+    <sys:String x:Key="S.Help.Faq.Q5">What if execution is interrupted by a crash or power loss?</sys:String>
+    <sys:String x:Key="S.Help.Faq.A5">Execution uses a three-phase transaction (backup → execute → commit/rollback). Any failure automatically rolls back to the pre-execution state, leaving no half-finished changes.</sys:String>
 
     <sys:String x:Key="S.Col.Original">Original</sys:String>
     <sys:String x:Key="S.Col.New">New name</sys:String>
