@@ -23,20 +23,60 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <Button Content="{DynamicResource S.Preset.New}" Command="{Binding NewPresetCommand}" Padding="8,4" />
-                <Button Content="{DynamicResource S.Preset.CopyBtn}" Command="{Binding CopyPresetCommand}" Padding="8,4" Margin="4,0,0,0" />
-                <Button Content="{DynamicResource S.Preset.Rename}" Command="{Binding RenamePresetCommand}" Padding="8,4" Margin="4,0,0,0" />
-                <Button Content="{DynamicResource S.Preset.DeleteBtn}" Command="{Binding DeletePresetCommand}" Padding="8,4" Margin="4,0,0,0" />
+                <Button Command="{Binding NewPresetCommand}" Padding="8,4" ToolTip="{DynamicResource S.Preset.New}">
+                    <StackPanel Orientation="Horizontal">
+                        <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.Add}" />
+                        <TextBlock Text="{DynamicResource S.Preset.New}" Margin="4,0,0,0" />
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding CopyPresetCommand}" Padding="8,4" Margin="4,0,0,0" ToolTip="{DynamicResource S.Preset.CopyBtn}">
+                    <StackPanel Orientation="Horizontal">
+                        <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.Copy}" />
+                        <TextBlock Text="{DynamicResource S.Preset.CopyBtn}" Margin="4,0,0,0" />
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding RenamePresetCommand}" Padding="8,4" Margin="4,0,0,0" ToolTip="{DynamicResource S.Preset.Rename}">
+                    <StackPanel Orientation="Horizontal">
+                        <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.Rename}" />
+                        <TextBlock Text="{DynamicResource S.Preset.Rename}" Margin="4,0,0,0" />
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding DeletePresetCommand}" Padding="8,4" Margin="4,0,0,0" ToolTip="{DynamicResource S.Preset.DeleteBtn}">
+                    <StackPanel Orientation="Horizontal">
+                        <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.Delete}" />
+                        <TextBlock Text="{DynamicResource S.Preset.DeleteBtn}" Margin="4,0,0,0" />
+                    </StackPanel>
+                </Button>
             </StackPanel>
         </DockPanel>
 
         <!-- 底部状态与按钮 -->
         <DockPanel DockPanel.Dock="Bottom" Margin="0,10,0,0">
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
-                <Button Content="{DynamicResource S.RE.Import}" Command="{Binding ImportCommand}" Padding="12,6" MinWidth="72" />
-                <Button Content="{DynamicResource S.RE.Export}" Command="{Binding ExportCommand}" Padding="12,6" MinWidth="72" Margin="8,0,0,0" />
-                <Button Content="{DynamicResource S.RE.Save}" Command="{Binding SaveCommand}" Padding="12,6" MinWidth="72" Margin="8,0,0,0" />
-                <Button Content="{DynamicResource S.RE.Close}" IsCancel="True" Padding="12,6" MinWidth="72" Margin="8,0,0,0" />
+                <Button Command="{Binding ImportCommand}" Padding="12,6" MinWidth="72" ToolTip="{DynamicResource S.RE.Import}">
+                    <StackPanel Orientation="Horizontal">
+                        <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.Import}" VerticalAlignment="Center" />
+                        <TextBlock Text="{DynamicResource S.RE.Import}" Margin="6,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding ExportCommand}" Padding="12,6" MinWidth="72" Margin="8,0,0,0" ToolTip="{DynamicResource S.RE.Export}">
+                    <StackPanel Orientation="Horizontal">
+                        <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.Export}" VerticalAlignment="Center" />
+                        <TextBlock Text="{DynamicResource S.RE.Export}" Margin="6,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding SaveCommand}" Padding="12,6" MinWidth="72" Margin="8,0,0,0" ToolTip="{DynamicResource S.RE.Save}">
+                    <StackPanel Orientation="Horizontal">
+                        <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.Save}" VerticalAlignment="Center" />
+                        <TextBlock Text="{DynamicResource S.RE.Save}" Margin="6,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+                <Button IsCancel="True" Padding="12,6" MinWidth="72" Margin="8,0,0,0" ToolTip="{DynamicResource S.RE.Close}">
+                    <StackPanel Orientation="Horizontal">
+                        <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.Close}" VerticalAlignment="Center" />
+                        <TextBlock Text="{DynamicResource S.RE.Close}" Margin="6,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
             </StackPanel>
             <TextBlock Text="{Binding StatusText}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
         </DockPanel>
@@ -50,10 +90,24 @@
             <!-- 左：规则列表 -->
             <DockPanel Grid.Column="0" Margin="0,0,10,0">
                 <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,6">
-                    <Button Content="{DynamicResource S.RE.Add}" Command="{Binding AddCommand}" Padding="8,4" />
-                    <Button Content="{DynamicResource S.RE.Delete}" Command="{Binding DeleteCommand}" Padding="8,4" Margin="4,0,0,0" />
-                    <Button Content="{DynamicResource S.RE.Up}" Command="{Binding MoveUpCommand}" Padding="8,4" Margin="4,0,0,0" />
-                    <Button Content="{DynamicResource S.RE.Down}" Command="{Binding MoveDownCommand}" Padding="8,4" Margin="4,0,0,0" />
+                    <Button Command="{Binding AddCommand}" Padding="8,4" ToolTip="{DynamicResource S.RE.Add}">
+                        <StackPanel Orientation="Horizontal">
+                            <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.Add}" />
+                            <TextBlock Text="{DynamicResource S.RE.Add}" Margin="4,0,0,0" />
+                        </StackPanel>
+                    </Button>
+                    <Button Command="{Binding DeleteCommand}" Padding="8,4" Margin="4,0,0,0" ToolTip="{DynamicResource S.RE.Delete}">
+                        <StackPanel Orientation="Horizontal">
+                            <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.Delete}" />
+                            <TextBlock Text="{DynamicResource S.RE.Delete}" Margin="4,0,0,0" />
+                        </StackPanel>
+                    </Button>
+                    <Button Command="{Binding MoveUpCommand}" Padding="8,4" Margin="4,0,0,0" ToolTip="{DynamicResource S.RE.Up}">
+                        <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.Up}" />
+                    </Button>
+                    <Button Command="{Binding MoveDownCommand}" Padding="8,4" Margin="4,0,0,0" ToolTip="{DynamicResource S.RE.Down}">
+                        <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.Down}" />
+                    </Button>
                 </StackPanel>
                 <ListBox ItemsSource="{Binding Rules}"
                          SelectedItem="{Binding SelectedRule}"

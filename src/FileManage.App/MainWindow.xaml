@@ -20,61 +20,137 @@
         <!-- 顶部：菜单栏（外观 / 语言随语言字典切换；工具组带快捷键提示） -->
         <Menu DockPanel.Dock="Top" Padding="4,0">
             <MenuItem Header="{DynamicResource S.Menu.Appearance}">
+                <MenuItem.Icon>
+                    <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.Appearance}" />
+                </MenuItem.Icon>
                 <MenuItem Header="{DynamicResource S.Theme.Light}" IsCheckable="True"
                           IsChecked="{Binding IsLightTheme, Mode=TwoWay}" />
                 <MenuItem Header="{DynamicResource S.Theme.Dark}" IsCheckable="True"
                           IsChecked="{Binding IsDarkTheme, Mode=TwoWay}" />
             </MenuItem>
             <MenuItem Header="{DynamicResource S.Menu.Language}">
+                <MenuItem.Icon>
+                    <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.Language}" />
+                </MenuItem.Icon>
                 <MenuItem Header="中文" IsCheckable="True"
                           IsChecked="{Binding IsChinese, Mode=TwoWay}" />
                 <MenuItem Header="English" IsCheckable="True"
                           IsChecked="{Binding IsEnglish, Mode=TwoWay}" />
             </MenuItem>
             <MenuItem Header="{DynamicResource S.Menu.Tools}">
+                <MenuItem.Icon>
+                    <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.Tools}" />
+                </MenuItem.Icon>
                 <MenuItem Header="{DynamicResource S.RuleEditor}" Command="{Binding OpenRuleEditorCommand}"
-                          InputGestureText="Ctrl+R" />
+                          InputGestureText="Ctrl+R">
+                    <MenuItem.Icon>
+                        <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.RuleEditor}" />
+                    </MenuItem.Icon>
+                </MenuItem>
                 <MenuItem Header="{DynamicResource S.Duplicate}" Command="{Binding OpenDuplicateCommand}"
-                          InputGestureText="Ctrl+D" />
+                          InputGestureText="Ctrl+D">
+                    <MenuItem.Icon>
+                        <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.Duplicate}" />
+                    </MenuItem.Icon>
+                </MenuItem>
                 <MenuItem Header="{DynamicResource S.History}" Command="{Binding OpenHistoryCommand}"
-                          InputGestureText="Ctrl+H" />
+                          InputGestureText="Ctrl+H">
+                    <MenuItem.Icon>
+                        <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.History}" />
+                    </MenuItem.Icon>
+                </MenuItem>
                 <Separator />
                 <MenuItem Header="{DynamicResource S.Refresh}" Command="{Binding RefreshPreviewCommand}"
-                          InputGestureText="F5" />
+                          InputGestureText="F5">
+                    <MenuItem.Icon>
+                        <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.Refresh}" />
+                    </MenuItem.Icon>
+                </MenuItem>
                 <MenuItem Header="{DynamicResource S.Execute}" Command="{Binding ExecuteCommand}"
-                          InputGestureText="Ctrl+E" />
+                          InputGestureText="Ctrl+E">
+                    <MenuItem.Icon>
+                        <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.Execute}" />
+                    </MenuItem.Icon>
+                </MenuItem>
                 <MenuItem Header="{DynamicResource S.UndoLast}" Command="{Binding UndoCommand}"
-                          InputGestureText="Ctrl+Z" />
+                          InputGestureText="Ctrl+Z">
+                    <MenuItem.Icon>
+                        <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.Undo}" />
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="{DynamicResource S.Menu.Help}">
+                <MenuItem.Icon>
+                    <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.Help}" />
+                </MenuItem.Icon>
                 <MenuItem Header="{DynamicResource S.Menu.Guide}" Command="{Binding OpenHelpCommand}"
-                          InputGestureText="F1" />
-                <MenuItem Header="{DynamicResource S.Menu.Faq}" Command="{Binding OpenHelpFaqCommand}" />
+                          InputGestureText="F1">
+                    <MenuItem.Icon>
+                        <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.Guide}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="{DynamicResource S.Menu.Faq}" Command="{Binding OpenHelpFaqCommand}">
+                    <MenuItem.Icon>
+                        <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.Faq}" />
+                    </MenuItem.Icon>
+                </MenuItem>
                 <Separator />
-                <MenuItem Header="{DynamicResource S.Menu.Homepage}" Command="{Binding OpenHomepageCommand}" />
+                <MenuItem Header="{DynamicResource S.Menu.Homepage}" Command="{Binding OpenHomepageCommand}">
+                    <MenuItem.Icon>
+                        <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.Homepage}" />
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="{DynamicResource S.Menu.About}">
+                <MenuItem.Icon>
+                    <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.About}" />
+                </MenuItem.Icon>
                 <MenuItem Header="{DynamicResource S.Menu.AboutThis}" Command="{Binding OpenAboutCommand}" />
             </MenuItem>
         </Menu>
 
-        <!-- 顶部：操作工具栏（WrapPanel 防窄窗口溢出；悬停显示详细提示） -->
+        <!-- 顶部：操作工具栏（图标+文字；WrapPanel 防窄窗口溢出；悬停显示详细提示） -->
         <WrapPanel DockPanel.Dock="Top" Margin="4,0,4,4">
             <Button Style="{StaticResource AppToolBarButton}"
-                    Content="{DynamicResource S.Refresh}" ToolTip="{DynamicResource S.Tip.Refresh}"
-                    Command="{Binding RefreshPreviewCommand}" />
+                    ToolTip="{DynamicResource S.Tip.Refresh}"
+                    Command="{Binding RefreshPreviewCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <Path Style="{StaticResource AppIcon20}" Data="{DynamicResource Icon.Refresh}" VerticalAlignment="Center" />
+                    <TextBlock Text="{DynamicResource S.Refresh}" VerticalAlignment="Center" Margin="6,0,0,0" />
+                </StackPanel>
+            </Button>
             <Button Style="{StaticResource AppToolBarButton}"
-                    Content="{DynamicResource S.Execute}" ToolTip="{DynamicResource S.Tip.Execute}"
-                    Command="{Binding ExecuteCommand}" Margin="8,0,0,0" />
+                    ToolTip="{DynamicResource S.Tip.Execute}"
+                    Command="{Binding ExecuteCommand}" Margin="8,0,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <Path Style="{StaticResource AppIcon20}" Data="{DynamicResource Icon.Execute}" VerticalAlignment="Center" />
+                    <TextBlock Text="{DynamicResource S.Execute}" VerticalAlignment="Center" Margin="6,0,0,0" />
+                </StackPanel>
+            </Button>
             <Button Style="{StaticResource AppToolBarButton}"
-                    Content="{DynamicResource S.UndoLast}" ToolTip="{DynamicResource S.Tip.Undo}"
-                    Command="{Binding UndoCommand}" Margin="8,0,0,0" />
+                    ToolTip="{DynamicResource S.Tip.Undo}"
+                    Command="{Binding UndoCommand}" Margin="8,0,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <Path Style="{StaticResource AppIcon20}" Data="{DynamicResource Icon.Undo}" VerticalAlignment="Center" />
+                    <TextBlock Text="{DynamicResource S.UndoLast}" VerticalAlignment="Center" Margin="6,0,0,0" />
+                </StackPanel>
+            </Button>
             <Button Style="{StaticResource AppToolBarButton}"
-                    Content="{DynamicResource S.History}" ToolTip="{DynamicResource S.Tip.History}"
-                    Command="{Binding OpenHistoryCommand}" Margin="8,0,0,0" />
+                    ToolTip="{DynamicResource S.Tip.History}"
+                    Command="{Binding OpenHistoryCommand}" Margin="8,0,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <Path Style="{StaticResource AppIcon20}" Data="{DynamicResource Icon.History}" VerticalAlignment="Center" />
+                    <TextBlock Text="{DynamicResource S.History}" VerticalAlignment="Center" Margin="6,0,0,0" />
+                </StackPanel>
+            </Button>
             <Button Style="{StaticResource AppToolBarButton}"
-                    Content="{DynamicResource S.Duplicate}" ToolTip="{DynamicResource S.Tip.Duplicate}"
-                    Command="{Binding OpenDuplicateCommand}" Margin="8,0,0,0" />
+                    ToolTip="{DynamicResource S.Tip.Duplicate}"
+                    Command="{Binding OpenDuplicateCommand}" Margin="8,0,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <Path Style="{StaticResource AppIcon20}" Data="{DynamicResource Icon.Duplicate}" VerticalAlignment="Center" />
+                    <TextBlock Text="{DynamicResource S.Duplicate}" VerticalAlignment="Center" Margin="6,0,0,0" />
+                </StackPanel>
+            </Button>
         </WrapPanel>
 
         <StatusBar DockPanel.Dock="Bottom">
@@ -121,7 +197,13 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <GroupBox Grid.Row="0" Style="{StaticResource AppCollapsibleGroup}"
-                              Tag="{Binding SourceGroupExpanded, Mode=TwoWay}" Header="{DynamicResource S.SourceDir}" Padding="8">
+                              Tag="{Binding SourceGroupExpanded, Mode=TwoWay}" Padding="8">
+                        <GroupBox.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.Source}" VerticalAlignment="Center" />
+                                <TextBlock Text="{DynamicResource S.SourceDir}" VerticalAlignment="Center" Margin="6,0,0,0" />
+                            </StackPanel>
+                        </GroupBox.Header>
                         <StackPanel>
                             <DockPanel>
                                 <Button DockPanel.Dock="Right" Content="{DynamicResource S.Browse}"
@@ -141,7 +223,13 @@
                     </GroupBox>
 
                     <GroupBox Grid.Row="1" Style="{StaticResource AppCollapsibleGroup}"
-                              Tag="{Binding RenameGroupExpanded, Mode=TwoWay}" Header="{DynamicResource S.Rename}" Padding="8" Margin="0,8,0,0">
+                              Tag="{Binding RenameGroupExpanded, Mode=TwoWay}" Padding="8" Margin="0,8,0,0">
+                        <GroupBox.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.RenameGroup}" VerticalAlignment="Center" />
+                                <TextBlock Text="{DynamicResource S.Rename}" VerticalAlignment="Center" Margin="6,0,0,0" />
+                            </StackPanel>
+                        </GroupBox.Header>
                         <StackPanel>
                             <CheckBox Content="{DynamicResource S.RenameEnabled}" IsChecked="{Binding NamingEnabled}" />
                             <TextBlock Text="{DynamicResource S.Template}" Margin="0,8,0,2" />
@@ -166,7 +254,13 @@
                     </GroupBox>
 
                     <GroupBox Grid.Row="2" Style="{StaticResource AppCollapsibleGroup}"
-                              Tag="{Binding ClassifyGroupExpanded, Mode=TwoWay}" Header="{DynamicResource S.Classify}" Padding="8" Margin="0,8,0,0">
+                              Tag="{Binding ClassifyGroupExpanded, Mode=TwoWay}" Padding="8" Margin="0,8,0,0">
+                        <GroupBox.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.Classify}" VerticalAlignment="Center" />
+                                <TextBlock Text="{DynamicResource S.Classify}" VerticalAlignment="Center" Margin="6,0,0,0" />
+                            </StackPanel>
+                        </GroupBox.Header>
                         <StackPanel>
                             <CheckBox Content="{DynamicResource S.ClassifyEnabled}"
                                       IsChecked="{Binding ClassificationEnabled}" />
@@ -190,7 +284,13 @@
                     </GroupBox>
 
                     <GroupBox Grid.Row="3" Style="{StaticResource AppCollapsibleGroup}"
-                              Tag="{Binding ExecOptionsGroupExpanded, Mode=TwoWay}" Header="{DynamicResource S.ExecOptions}" Padding="8" Margin="0,8,0,0">
+                              Tag="{Binding ExecOptionsGroupExpanded, Mode=TwoWay}" Padding="8" Margin="0,8,0,0">
+                        <GroupBox.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.ExecOptions}" VerticalAlignment="Center" />
+                                <TextBlock Text="{DynamicResource S.ExecOptions}" VerticalAlignment="Center" Margin="6,0,0,0" />
+                            </StackPanel>
+                        </GroupBox.Header>
                         <StackPanel>
                             <TextBlock Text="{DynamicResource S.WhenExists}" Margin="0,0,0,2" />
                             <ComboBox SelectedIndex="{Binding SelectedPolicyIndex}">

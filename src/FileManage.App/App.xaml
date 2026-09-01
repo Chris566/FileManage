@@ -6,7 +6,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!-- 控件隐式样式（引用画刷，随主题变色） -->
+                <!-- 控件隐式样式 + 图标系统（Geometry + AppIcon 多尺寸样式，内嵌于此字典） -->
                 <ResourceDictionary Source="Themes/Controls.xaml" />
                 <!-- 默认主题与语言（App 启动时按 settings.json 覆盖） -->
                 <ResourceDictionary Source="Themes/Light.xaml" />
