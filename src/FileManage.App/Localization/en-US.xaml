@@ -54,6 +54,7 @@
     <sys:String x:Key="S.Tip.Undo">Revert the last execution and delete its associated report</sys:String>
     <sys:String x:Key="S.Tip.History">View past batches: undo a specific batch or delete its record</sys:String>
     <sys:String x:Key="S.Tip.Duplicate">Find duplicate files in the source folder by content hash</sys:String>
+    <sys:String x:Key="S.Tip.Version">Version {0} · built {1}</sys:String>
 
     <sys:String x:Key="S.Col.Original">Original</sys:String>
     <sys:String x:Key="S.Col.New">New name</sys:String>

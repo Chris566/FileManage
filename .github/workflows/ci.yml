@@ -42,7 +42,13 @@ jobs:
           dotnet-version: 8.0.x
 
       - name: Publish (self-contained single file)
-        run: dotnet publish src/FileManage.App/FileManage.App.csproj -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true /p:EnableCompressionInSingleFile=true -o publish
+        shell: pwsh
+        run: |
+          $ver = $env:GITHUB_REF_NAME -replace '^v', ''
+          dotnet publish src/FileManage.App/FileManage.App.csproj -c Release -r win-x64 --self-contained true `
+            /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true /p:EnableCompressionInSingleFile=true `
+            /p:InformationalVersion=$ver -o publish
+          "InformationalVersion=$ver" | Out-Host
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4

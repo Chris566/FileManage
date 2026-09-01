@@ -188,6 +188,14 @@ public partial class MainViewModel : ObservableObject
         }
     }
 
+    // ---------- 版本信息（状态栏右下角；与关于窗口同源） ----------
+
+    public string VersionText => Services.VersionInfo.VersionText;
+
+    /// <summary>悬停提示：完整版本 + 构建日期（文案随语言切换刷新）。</summary>
+    public string VersionToolTip =>
+        string.Format(Localize.T("S.Tip.Version"), Services.VersionInfo.VersionText, Services.VersionInfo.BuildDate);
+
     // ---------- 状态 ----------
 
     [ObservableProperty]
@@ -375,6 +383,7 @@ public partial class MainViewModel : ObservableObject
         OnPropertyChanged(nameof(IsChinese));
         OnPropertyChanged(nameof(IsEnglish));
         OnPropertyChanged(nameof(ReplaceChainButtonText));
+        OnPropertyChanged(nameof(VersionToolTip));
         StatusText = Localize.T("S.Status.LanguageSwitched");
     }
 

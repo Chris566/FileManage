@@ -19,10 +19,18 @@
 
     <!-- 发布元数据 -->
     <Version>1.0.0</Version>
+    <!-- 版本显示：本地构建为 dev，CI 发布时由 tag 经 -p:InformationalVersion 覆盖 -->
+    <InformationalVersion>dev</InformationalVersion>
+    <Copyright>Copyright © 2026 吴东东（Chris）</Copyright>
     <Product>FileManage</Product>
     <Description>批量文件重命名与分类整理工具</Description>
     <Authors>d01-product</Authors>
     <SatelliteResourceLanguages>zh-CN</SatelliteResourceLanguages>
   </PropertyGroup>
+
+  <ItemGroup>
+    <!-- 构建时间戳（UTC），用于状态栏版本悬停提示 -->
+    <AssemblyMetadata Include="BuildDate" Value="$([System.DateTime]::UtcNow.ToString('yyyy-MM-dd HH:mm')) UTC" />
+  </ItemGroup>
 
 </Project>

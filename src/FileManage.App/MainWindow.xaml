@@ -76,12 +76,22 @@
         </WrapPanel>
 
         <StatusBar DockPanel.Dock="Bottom">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <DockPanel LastChildFill="False" />
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
             <StatusBarItem>
                 <ProgressBar Width="220" Height="14" Maximum="100"
                              Value="{Binding ProgressPercent, Mode=OneWay}" />
             </StatusBarItem>
             <StatusBarItem>
                 <TextBlock Text="{Binding StatusText}" />
+            </StatusBarItem>
+            <!-- 版本标签：与关于窗口同源；悬停显示完整版本与构建日期，点击打开关于窗口（M3 接入） -->
+            <StatusBarItem DockPanel.Dock="Right">
+                <TextBlock Text="{Binding VersionText}" ToolTip="{Binding VersionToolTip}"
+                           Foreground="{DynamicResource App.SubText}" Margin="0,0,2,0" />
             </StatusBarItem>
         </StatusBar>
 
