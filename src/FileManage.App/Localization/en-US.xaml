@@ -15,6 +15,10 @@
     <sys:String x:Key="S.Rename">Rename</sys:String>
     <sys:String x:Key="S.RenameEnabled">Enable renaming</sys:String>
     <sys:String x:Key="S.Template">Template</sys:String>
+    <sys:String x:Key="S.Template.PrefixOriginal">Prefix + original name</sys:String>
+    <sys:String x:Key="S.Template.PrefixIndexOriginal">Prefix + index + original name</sys:String>
+    <sys:String x:Key="S.Template.Original">Original name</sys:String>
+    <sys:String x:Key="S.Template.IndexOriginal">Index + original name</sys:String>
     <sys:String x:Key="S.Prefix">Prefix</sys:String>
     <sys:String x:Key="S.KeepExt">Keep original extension</sys:String>
     <sys:String x:Key="S.ReadExif">Read photo capture date (EXIF, for {ExifDate}/{ExifYear})</sys:String>
@@ -33,6 +37,18 @@
     <sys:String x:Key="S.UndoLast">Undo last</sys:String>
     <sys:String x:Key="S.History">History…</sys:String>
     <sys:String x:Key="S.Duplicate">Find duplicates…</sys:String>
+
+    <!-- Overwrite policy items -->
+    <sys:String x:Key="S.Policy.Ask">Ask each time</sys:String>
+    <sys:String x:Key="S.Policy.OverwriteAll">Overwrite all</sys:String>
+    <sys:String x:Key="S.Policy.SkipAll">Skip all</sys:String>
+
+    <!-- Toolbar button tooltips -->
+    <sys:String x:Key="S.Tip.Refresh">Rescan the source folder and rebuild the rename / organize preview</sys:String>
+    <sys:String x:Key="S.Tip.Execute">Run the planned rename and organize operations</sys:String>
+    <sys:String x:Key="S.Tip.Undo">Revert the last execution and delete its associated report</sys:String>
+    <sys:String x:Key="S.Tip.History">View past batches: undo a specific batch or delete its record</sys:String>
+    <sys:String x:Key="S.Tip.Duplicate">Find duplicate files in the source folder by content hash</sys:String>
 
     <sys:String x:Key="S.Col.Original">Original</sys:String>
     <sys:String x:Key="S.Col.New">New name</sys:String>

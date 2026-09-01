@@ -18,7 +18,7 @@
                     <Border x:Name="Bd"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="1" CornerRadius="2">
+                            BorderThickness="1" CornerRadius="4">
                         <ContentPresenter Margin="{TemplateBinding Padding}"
                                           HorizontalAlignment="Center" VerticalAlignment="Center"
                                           RecognizesAccessKey="True" />
@@ -37,6 +37,15 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <!-- 主工具栏按钮：统一高度 / 字号 / 内边距，文本由内容撑开保证完整显示 -->
+    <Style x:Key="AppToolBarButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+        <Setter Property="Height" Value="32" />
+        <Setter Property="Padding" Value="16,0" />
+        <Setter Property="MinWidth" Value="96" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="FontFamily" Value="Segoe UI, Microsoft YaHei UI" />
     </Style>
 
     <!-- 下拉框：自绘模板使背景/弹出面板随主题 -->

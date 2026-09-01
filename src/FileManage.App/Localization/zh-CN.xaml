@@ -15,6 +15,10 @@
     <sys:String x:Key="S.Rename">重命名</sys:String>
     <sys:String x:Key="S.RenameEnabled">启用重命名</sys:String>
     <sys:String x:Key="S.Template">模板</sys:String>
+    <sys:String x:Key="S.Template.PrefixOriginal">前缀 + 原文件名</sys:String>
+    <sys:String x:Key="S.Template.PrefixIndexOriginal">前缀 + 序号 + 原文件名</sys:String>
+    <sys:String x:Key="S.Template.Original">原文件名</sys:String>
+    <sys:String x:Key="S.Template.IndexOriginal">序号 + 原文件名</sys:String>
     <sys:String x:Key="S.Prefix">前缀</sys:String>
     <sys:String x:Key="S.KeepExt">保留原文件后缀</sys:String>
     <sys:String x:Key="S.ReadExif">读取照片拍摄时间（EXIF，用于 {ExifDate}/{ExifYear}）</sys:String>
@@ -33,6 +37,18 @@
     <sys:String x:Key="S.UndoLast">撤销上次</sys:String>
     <sys:String x:Key="S.History">历史…</sys:String>
     <sys:String x:Key="S.Duplicate">重复检测…</sys:String>
+
+    <!-- 覆盖策略下拉项 -->
+    <sys:String x:Key="S.Policy.Ask">每次询问</sys:String>
+    <sys:String x:Key="S.Policy.OverwriteAll">全部覆盖</sys:String>
+    <sys:String x:Key="S.Policy.SkipAll">全部跳过</sys:String>
+
+    <!-- 工具栏按钮提示 -->
+    <sys:String x:Key="S.Tip.Refresh">重新扫描源目录并生成重命名 / 分类预览</sys:String>
+    <sys:String x:Key="S.Tip.Execute">按预览计划执行重命名与分类整理</sys:String>
+    <sys:String x:Key="S.Tip.Undo">撤销上一次执行，并同步删除其关联的分类报表</sys:String>
+    <sys:String x:Key="S.Tip.History">查看历史批次，可撤销指定批次或仅删除记录</sys:String>
+    <sys:String x:Key="S.Tip.Duplicate">按内容哈希在源目录中查找重复文件</sys:String>
 
     <sys:String x:Key="S.Col.Original">原文件名</sys:String>
     <sys:String x:Key="S.Col.New">新文件名</sys:String>

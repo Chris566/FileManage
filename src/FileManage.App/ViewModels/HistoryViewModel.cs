@@ -38,13 +38,23 @@ public partial class HistoryViewModel : ObservableObject
 
         var result = await Task.Run(() => AppServices.UndoManager.Undo(batch));
 
+        if (result.Aborted)
+        {
+            // 原子性：关联报表删除失败 → 撤销中止，批次记录保留供重试
+            ResultText = $"撤销已中止：关联报表删除失败（{result.Errors[0]}）。文件未被修改，可关闭占用该报表的程序后重试。";
+            return;
+        }
+
         // 撤销后删除该批次记录（批次不可重复撤销）
         AppServices.UndoStore.Delete(batch.Id);
         Reload();
 
         var batchTag = batch.Id.ToString("N")[..8];
+        var reportNote = result.ReportsDeleted > 0
+            ? $"，同步删除关联报表 {result.ReportsDeleted} 份"
+            : "";
         ResultText = result.Success
-            ? $"已撤销批次 {batchTag}…：恢复 {result.Reverted} 项"
+            ? $"已撤销批次 {batchTag}…：恢复 {result.Reverted} 项{reportNote}"
             : $"撤销完成：{result.Reverted} 项成功，{result.Skipped} 项跳过，{result.Errors.Count} 项失败" +
               (result.Errors.Count > 0 ? $" — {result.Errors[0]}" : "");
     }

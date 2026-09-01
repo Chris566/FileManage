@@ -77,6 +77,13 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private NamingTemplateItem _selectedTemplate = NamingTemplateItem.Defaults[0];
 
+    /// <summary>模板下拉框索引（显示文本由语言字典 S.Template.* 提供，随语言切换即时刷新）。</summary>
+    public int SelectedTemplateIndex
+    {
+        get => Array.IndexOf(NamingTemplateItem.Defaults, SelectedTemplate);
+        set => SelectedTemplate = NamingTemplateItem.Defaults[value];
+    }
+
     [ObservableProperty]
     private string _prefix = "";
 
@@ -111,6 +118,14 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private OverwritePolicy _selectedPolicy = OverwritePolicy.Ask;
 
+    /// <summary>覆盖策略下拉框索引（0=每次询问 1=全部覆盖 2=全部跳过）。
+    /// 用索引绑定而非 SelectedValuePath，保证选择框显示本地化文本（DynamicResource 即时切换）。</summary>
+    public int SelectedPolicyIndex
+    {
+        get => (int)SelectedPolicy;
+        set => SelectedPolicy = (OverwritePolicy)value;
+    }
+
     // ---------- 界面状态（主题 / 语言） ----------
 
     [ObservableProperty]
@@ -141,11 +156,6 @@ public partial class MainViewModel : ObservableObject
     private bool _isBusy;
 
     public ObservableCollection<PreviewRowViewModel> PreviewRows { get; } = [];
-
-    public NamingTemplateItem[] Templates { get; } = NamingTemplateItem.Defaults;
-
-    public OverwritePolicy[] Policies { get; } =
-        [OverwritePolicy.Ask, OverwritePolicy.OverwriteAll, OverwritePolicy.SkipAll];
 
     // ---------- 命令 ----------
 
@@ -236,6 +246,8 @@ public partial class MainViewModel : ObservableObject
 
                     if (reportPath is not null)
                     {
+                        // 报表路径写回本批次撤销记录：撤销时同步删除（原子性）
+                        AttachReportToUndoBatch(report.BatchId, reportPath);
                         StatusText += Localize.F("S.Status.ReportGenerated", reportPath);
                     }
                 }
@@ -274,10 +286,21 @@ public partial class MainViewModel : ObservableObject
             }
 
             var result = await Task.Run(() => _undoManager.Undo(latest));
+
+            if (result.Aborted)
+            {
+                // 原子性：关联报表删除失败 → 撤销中止，保留批次记录供重试
+                StatusText = $"撤销已中止：关联报表删除失败（{result.Errors[0]}）。文件未被修改，可关闭占用该报表的程序后重试。";
+                return;
+            }
+
             _undoStore.Delete(latest.Id);
 
+            var reportNote = result.ReportsDeleted > 0
+                ? $"，同步删除关联报表 {result.ReportsDeleted} 份"
+                : "";
             StatusText = result.Success
-                ? $"已撤销上一次操作（{result.Reverted} 项）"
+                ? $"已撤销上一次操作（{result.Reverted} 项{reportNote}）"
                 : $"撤销完成：{result.Reverted} 项成功，{result.Errors.Count} 项失败";
 
             await RefreshPreviewCoreAsync();
@@ -437,6 +460,28 @@ public partial class MainViewModel : ObservableObject
         var exists = (string name) => File.Exists(Path.Combine(TargetDirectory, name));
         var fileName = ClassificationReportNamer.BuildFileName(SourceDirectory, DateTime.Now, exists);
         return AppServices.ReportWriter.Write(TargetDirectory, fileName, rows);
+    }
+
+    /// <summary>
+    /// 将报表文件路径写回本次执行对应的撤销批次（按批次 Id 匹配），
+    /// 撤销该批次时由 UndoManager 同步删除报表，保证撤销与报表删除的原子性。
+    /// 关联失败仅降级为"撤销时少删一份报表"，不影响执行结果本身。
+    /// </summary>
+    private void AttachReportToUndoBatch(Guid batchId, string reportPath)
+    {
+        try
+        {
+            var batch = _undoStore.LoadAll().FirstOrDefault(b => b.Id == batchId);
+
+            if (batch is not null)
+            {
+                _undoStore.Save(batch with { ReportPaths = [.. batch.ReportPaths, reportPath] });
+            }
+        }
+        catch
+        {
+            // 忽略关联失败
+        }
     }
 
     private bool Validate()

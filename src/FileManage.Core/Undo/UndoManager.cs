@@ -5,6 +5,8 @@ namespace FileManage.Core.Undo;
 /// <summary>
 /// 撤销管理器：逆序执行 UndoBatch 中的逆操作，恢复到执行前状态。
 /// 单条失败不中断整体（记录错误继续），保证尽量多的文件被恢复。
+/// 原子性约定：先删除批次关联的分类整理报表，全部成功才开始恢复文件；
+/// 报表删除失败则整体中止（文件不动），避免出现"文件已还原但报表仍描述旧状态"的不一致。
 /// </summary>
 public sealed class UndoManager(IFileSystemService fileSystem)
 {
@@ -13,6 +15,36 @@ public sealed class UndoManager(IFileSystemService fileSystem)
         var reverted = 0;
         var skipped = 0;
         var errors = new List<string>();
+        var reportsDeleted = 0;
+
+        // 阶段 0：同步删除关联报表（存在才删；任一失败 → 中止，文件未动）
+        foreach (var reportPath in batch.ReportPaths)
+        {
+            try
+            {
+                if (fileSystem.FileExists(reportPath))
+                {
+                    fileSystem.DeleteFile(reportPath);
+                    reportsDeleted++;
+                }
+            }
+            catch (Exception ex)
+            {
+                errors.Add($"关联报表删除失败 {Path.GetFileName(reportPath)}: {ex.Message}");
+            }
+        }
+
+        if (errors.Count > 0)
+        {
+            return new UndoResult
+            {
+                Reverted = 0,
+                Skipped = 0,
+                Errors = errors,
+                ReportsDeleted = reportsDeleted,
+                Aborted = true
+            };
+        }
 
         for (var i = batch.Actions.Count - 1; i >= 0; i--)
         {
@@ -37,7 +69,8 @@ public sealed class UndoManager(IFileSystemService fileSystem)
         {
             Reverted = reverted,
             Skipped = skipped,
-            Errors = errors
+            Errors = errors,
+            ReportsDeleted = reportsDeleted
         };
     }
 

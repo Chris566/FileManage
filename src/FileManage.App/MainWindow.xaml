@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Background="{DynamicResource App.Window.Background}"
         Foreground="{DynamicResource App.Text}"
-        Title="FileManage" Height="720" Width="1100" MinHeight="560" MinWidth="860"
+        Title="FileManage" Height="860" Width="1100" MinHeight="560" MinWidth="860"
         WindowStartupLocation="CenterScreen"
         Closed="OnMainWindowClosed">
     <DockPanel>
@@ -19,21 +19,30 @@
                     <ComboBoxItem Content="English" />
                 </ComboBox>
             </StackPanel>
-            <TextBlock Text="FileManage" FontWeight="Bold" VerticalAlignment="Center" />
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="FileManage" FontWeight="Bold" VerticalAlignment="Center" />
+                <TextBlock Text="PowerBy 吴东东（Chris）" VerticalAlignment="Center" Margin="10,1,0,0"
+                           FontSize="12" Foreground="{DynamicResource App.SubText}" />
+            </StackPanel>
         </DockPanel>
 
-        <!-- 顶部：操作工具栏（WrapPanel 防窄窗口溢出） -->
+        <!-- 顶部：操作工具栏（WrapPanel 防窄窗口溢出；悬停显示详细提示） -->
         <WrapPanel DockPanel.Dock="Top" Margin="4,0,4,4">
-            <Button Content="{DynamicResource S.Refresh}" Command="{Binding RefreshPreviewCommand}"
-                    Padding="12,6" MinWidth="92" />
-            <Button Content="{DynamicResource S.Execute}" Command="{Binding ExecuteCommand}"
-                    Padding="12,6" MinWidth="92" Margin="8,0,0,0" />
-            <Button Content="{DynamicResource S.UndoLast}" Command="{Binding UndoCommand}"
-                    Padding="12,6" MinWidth="92" Margin="8,0,0,0" />
-            <Button Content="{DynamicResource S.History}" Command="{Binding OpenHistoryCommand}"
-                    Padding="12,6" MinWidth="72" Margin="8,0,0,0" />
-            <Button Content="{DynamicResource S.Duplicate}" Command="{Binding OpenDuplicateCommand}"
-                    Padding="12,6" MinWidth="92" Margin="8,0,0,0" />
+            <Button Style="{StaticResource AppToolBarButton}"
+                    Content="{DynamicResource S.Refresh}" ToolTip="{DynamicResource S.Tip.Refresh}"
+                    Command="{Binding RefreshPreviewCommand}" />
+            <Button Style="{StaticResource AppToolBarButton}"
+                    Content="{DynamicResource S.Execute}" ToolTip="{DynamicResource S.Tip.Execute}"
+                    Command="{Binding ExecuteCommand}" Margin="8,0,0,0" />
+            <Button Style="{StaticResource AppToolBarButton}"
+                    Content="{DynamicResource S.UndoLast}" ToolTip="{DynamicResource S.Tip.Undo}"
+                    Command="{Binding UndoCommand}" Margin="8,0,0,0" />
+            <Button Style="{StaticResource AppToolBarButton}"
+                    Content="{DynamicResource S.History}" ToolTip="{DynamicResource S.Tip.History}"
+                    Command="{Binding OpenHistoryCommand}" Margin="8,0,0,0" />
+            <Button Style="{StaticResource AppToolBarButton}"
+                    Content="{DynamicResource S.Duplicate}" ToolTip="{DynamicResource S.Tip.Duplicate}"
+                    Command="{Binding OpenDuplicateCommand}" Margin="8,0,0,0" />
         </WrapPanel>
 
         <StatusBar DockPanel.Dock="Bottom">
@@ -80,9 +89,12 @@
                         <StackPanel>
                             <CheckBox Content="{DynamicResource S.RenameEnabled}" IsChecked="{Binding NamingEnabled}" />
                             <TextBlock Text="{DynamicResource S.Template}" Margin="0,8,0,2" />
-                            <ComboBox ItemsSource="{Binding Templates}"
-                                      SelectedItem="{Binding SelectedTemplate}"
-                                      DisplayMemberPath="DisplayName" />
+                            <ComboBox SelectedIndex="{Binding SelectedTemplateIndex}">
+                                <ComboBoxItem Content="{DynamicResource S.Template.PrefixOriginal}" />
+                                <ComboBoxItem Content="{DynamicResource S.Template.PrefixIndexOriginal}" />
+                                <ComboBoxItem Content="{DynamicResource S.Template.Original}" />
+                                <ComboBoxItem Content="{DynamicResource S.Template.IndexOriginal}" />
+                            </ComboBox>
                             <TextBlock Text="{DynamicResource S.Prefix}" Margin="0,8,0,2" />
                             <TextBox Text="{Binding Prefix, UpdateSourceTrigger=PropertyChanged}" />
                             <CheckBox Content="{DynamicResource S.KeepExt}"
@@ -123,8 +135,11 @@
                     <GroupBox Header="{DynamicResource S.ExecOptions}" Padding="8" Margin="0,8,0,0">
                         <StackPanel>
                             <TextBlock Text="{DynamicResource S.WhenExists}" Margin="0,0,0,2" />
-                            <ComboBox ItemsSource="{Binding Policies}"
-                                      SelectedItem="{Binding SelectedPolicy}" />
+                            <ComboBox SelectedIndex="{Binding SelectedPolicyIndex}">
+                                <ComboBoxItem Content="{DynamicResource S.Policy.Ask}" />
+                                <ComboBoxItem Content="{DynamicResource S.Policy.OverwriteAll}" />
+                                <ComboBoxItem Content="{DynamicResource S.Policy.SkipAll}" />
+                            </ComboBox>
                         </StackPanel>
                     </GroupBox>
                 </StackPanel>

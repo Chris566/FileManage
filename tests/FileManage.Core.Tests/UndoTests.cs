@@ -172,6 +172,150 @@ public class UndoTests : IDisposable
 }
 
 /// <summary>
+/// 撤销与关联报表删除的原子性：撤销批次先删关联分类报表（全部成功才恢复文件；
+/// 报表删除失败则中止，文件不动）。
+/// </summary>
+public class UndoReportTests : IDisposable
+{
+    private readonly TempDir _source = new();
+    private readonly TempDir _target = new();
+    private readonly TempDir _backup = new();
+    private readonly TempDir _undoRoot = new();
+
+    /// <summary>执行一个 copy b.txt → target 的计划，返回（批次, 报表路径写入器）。</summary>
+    private async Task<(UndoBatch Batch, Func<string, UndoBatch> Attach)> ExecuteCopyAsync()
+    {
+        var bPath = _source.CreateFileWithContent("b.txt", "BBB");
+        var plan = new OperationPlan(Guid.NewGuid(), DateTime.Now,
+        [
+            new PlanEntry
+            {
+                Item = TestHelper.Item("b.txt", _source.Path),
+                RequestedName = "b.txt", FinalName = "b.txt",
+                ConflictType = ConflictType.None,
+                Transfer = new CopyOp(bPath, _target.Path, "b.txt")
+            }
+        ]);
+
+        var executor = new TransactionExecutor(
+            new FileSystemService(),
+            new FileBackupService(_backup.Path),
+            new JsonUndoStore(_undoRoot.Path));
+        var report = await executor.ExecuteAsync(plan, OverwritePolicy.SkipAll);
+
+        Assert.True(report.Succeeded > 0);
+        var store = new JsonUndoStore(_undoRoot.Path);
+        var batch = Assert.Single(store.LoadAll());
+
+        // 模拟 MainViewModel.AttachReportToUndoBatch：报表路径写回批次
+        Func<string, UndoBatch> attach = reportPath =>
+        {
+            var updated = batch with { ReportPaths = [.. batch.ReportPaths, reportPath] };
+            store.Save(updated);
+            return Assert.Single(store.LoadAll());
+        };
+
+        return (batch, attach);
+    }
+
+    [Fact]
+    public async Task Undo_WithAttachedReports_DeletesReportsAndRestoresFiles()
+    {
+        var (batch, attach) = await ExecuteCopyAsync();
+
+        var report1 = Path.Combine(_target.Path, "src202608311200001.xlsx");
+        var report2 = Path.Combine(_target.Path, "src202608311200002.xlsx");
+        File.WriteAllText(report1, "xlsx1");
+        File.WriteAllText(report2, "xlsx2");
+
+        var updated = attach(report1);
+        updated = updated with { ReportPaths = [.. updated.ReportPaths, report2] };
+        new JsonUndoStore(_undoRoot.Path).Save(updated);
+
+        var result = new UndoManager(new FileSystemService()).Undo(updated);
+
+        Assert.True(result.Success, string.Join("; ", result.Errors));
+        Assert.Equal(2, result.ReportsDeleted);
+        Assert.False(result.Aborted);
+        Assert.False(File.Exists(report1));
+        Assert.False(File.Exists(report2));
+        // 文件恢复：复制出的 b.txt 已删除
+        Assert.False(File.Exists(Path.Combine(_target.Path, "b.txt")));
+    }
+
+    [Fact]
+    public async Task Undo_ReportDeleteFails_AbortsAndKeepsFiles()
+    {
+        var (batch, attach) = await ExecuteCopyAsync();
+
+        var reportPath = Path.Combine(_target.Path, "src202608311200003.xlsx");
+        File.WriteAllText(reportPath, "xlsx");
+        var updated = attach(reportPath);
+
+        var manager = new UndoManager(new FileSystemService());
+
+        // 独占锁定报表 → 删除失败 → 撤销中止
+        using (var lockStream = new FileStream(reportPath, FileMode.Open, FileAccess.Read, FileShare.None))
+        {
+            var aborted = manager.Undo(updated);
+
+            Assert.True(aborted.Aborted);
+            Assert.Equal(0, aborted.Reverted);
+            Assert.NotEmpty(aborted.Errors);
+            // 文件未被修改：复制出的文件仍在
+            Assert.True(File.Exists(Path.Combine(_target.Path, "b.txt")));
+            // 报表仍在
+            Assert.True(File.Exists(reportPath));
+        }
+
+        // 释放锁定后重试：成功，报表删除、文件恢复
+        var result = manager.Undo(updated);
+        Assert.True(result.Success, string.Join("; ", result.Errors));
+        Assert.Equal(1, result.ReportsDeleted);
+        Assert.False(File.Exists(reportPath));
+        Assert.False(File.Exists(Path.Combine(_target.Path, "b.txt")));
+    }
+
+    [Fact]
+    public async Task Undo_MissingReportFile_CountsAsSkippedNotError()
+    {
+        var (batch, attach) = await ExecuteCopyAsync();
+
+        var ghost = Path.Combine(_target.Path, "ghost_report.xlsx");
+        var updated = attach(ghost); // 路径已关联但文件不存在（如已被手动删除）
+
+        var result = new UndoManager(new FileSystemService()).Undo(updated);
+
+        Assert.True(result.Success, string.Join("; ", result.Errors));
+        Assert.Equal(0, result.ReportsDeleted);
+        Assert.False(result.Aborted);
+        Assert.False(File.Exists(Path.Combine(_target.Path, "b.txt")));
+    }
+
+    [Fact]
+    public async Task Undo_LegacyBatchWithoutReports_RestoresFilesNormally()
+    {
+        // 旧版本批次（无 ReportPaths 字段）撤销行为不变
+        var (batch, _) = await ExecuteCopyAsync();
+
+        Assert.Empty(batch.ReportPaths);
+        var result = new UndoManager(new FileSystemService()).Undo(batch);
+
+        Assert.True(result.Success, string.Join("; ", result.Errors));
+        Assert.Equal(0, result.ReportsDeleted);
+        Assert.False(File.Exists(Path.Combine(_target.Path, "b.txt")));
+    }
+
+    public void Dispose()
+    {
+        _source.Dispose();
+        _target.Dispose();
+        _backup.Dispose();
+        _undoRoot.Dispose();
+    }
+}
+
+/// <summary>
 /// JsonUndoStore 持久化往返：多态 UndoAction 序列化保留。
 /// </summary>
 public class JsonUndoStoreTests : IDisposable
@@ -188,7 +332,10 @@ public class JsonUndoStoreTests : IDisposable
             new UndoCopyCreated(@"D:\dst\copied.txt"),
             new UndoMove(@"D:\dst\moved.txt", @"D:\src\moved.txt"),
             new UndoOverwrite(@"D:\dst\overwritten.txt", @"D:\backup\1_overwritten.txt")
-        ]);
+        ])
+        {
+            ReportPaths = [@"D:\target\报表202608301200001.xlsx"]
+        };
 
         store.Save(batch);
         var loaded = Assert.Single(store.LoadAll());
@@ -200,6 +347,7 @@ public class JsonUndoStoreTests : IDisposable
         Assert.IsType<UndoCopyCreated>(loaded.Actions[1]);
         Assert.IsType<UndoMove>(loaded.Actions[2]);
         Assert.IsType<UndoOverwrite>(loaded.Actions[3]);
+        Assert.Equal(batch.ReportPaths, loaded.ReportPaths);
 
         var rename = Assert.IsType<UndoRename>(loaded.Actions[0]);
         Assert.Equal(@"D:\dst\new.txt", rename.CurrentPath);

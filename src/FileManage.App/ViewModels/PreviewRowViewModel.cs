@@ -5,19 +5,17 @@ namespace FileManage.App.ViewModels;
 
 /// <summary>
 /// 命名模板预设（对齐旧版 $renameTemplateMap 四个下拉项）。
+/// 下拉框显示文本由语言字典（S.Template.*）提供，此处仅承载模板字符串。
 /// </summary>
-public sealed record NamingTemplateItem(string DisplayName, string Template)
+public sealed record NamingTemplateItem(string Template)
 {
     public static NamingTemplateItem[] Defaults { get; } =
     [
-        new("前缀 + 原文件名", "{Prefix}{OriginalName}"),
-        new("前缀 + 序号 + 原文件名", "{Prefix}{Index}_{BaseName}"),
-        new("原文件名", "{BaseName}"),
-        new("序号 + 原文件名", "{Index}_{BaseName}")
+        new("{Prefix}{OriginalName}"),
+        new("{Prefix}{Index}_{BaseName}"),
+        new("{BaseName}"),
+        new("{Index}_{BaseName}")
     ];
-
-    // 下拉框等场景默认显示模板名称，避免输出 record 的 ToString 结构
-    public override string ToString() => DisplayName;
 }
 
 /// <summary>
