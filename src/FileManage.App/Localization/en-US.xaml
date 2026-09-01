@@ -6,6 +6,11 @@
     <sys:String x:Key="S.Theme.Light">Light</sys:String>
     <sys:String x:Key="S.Theme.Dark">Dark</sys:String>
 
+    <!-- Menu bar -->
+    <sys:String x:Key="S.Menu.Appearance">_Appearance</sys:String>
+    <sys:String x:Key="S.Menu.Language">_Language</sys:String>
+    <sys:String x:Key="S.Menu.Tools">_Tools</sys:String>
+
     <sys:String x:Key="S.SourceDir">Source folder</sys:String>
     <sys:String x:Key="S.Browse">Browse…</sys:String>
     <sys:String x:Key="S.IncludeSub">Include subdirectories</sys:String>

@@ -732,6 +732,114 @@
         </Setter>
     </Style>
 
+    <!-- 菜单栏：顶栏随窗口主题，底部 1px 分隔线 -->
+    <Style TargetType="Menu">
+        <Setter Property="Background" Value="{DynamicResource App.Window.Background}" />
+        <Setter Property="Foreground" Value="{DynamicResource App.Text}" />
+        <Setter Property="FontFamily" Value="Segoe UI, Microsoft YaHei UI" />
+        <Setter Property="Padding" Value="4,0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Menu">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{DynamicResource App.Border}"
+                            BorderThickness="0,0,0,1">
+                        <ItemsPresenter Margin="{TemplateBinding Padding}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- 顶栏菜单标题模板：悬停/展开随主题，弹出层淡入 -->
+    <ControlTemplate x:Key="AppTopLevelMenuItemTemplate" TargetType="MenuItem">
+        <Grid>
+            <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                    CornerRadius="3" Padding="10,5" Margin="2,2">
+                <ContentPresenter ContentSource="Header" RecognizesAccessKey="True"
+                                  VerticalAlignment="Center" />
+            </Border>
+            <Popup x:Name="PART_Popup" IsOpen="{TemplateBinding IsSubmenuOpen}"
+                   Focusable="False" AllowsTransparency="True"
+                   Placement="Bottom" PopupAnimation="Fade" StaysOpen="False">
+                <Border Background="{DynamicResource App.Input.Background}"
+                        BorderBrush="{DynamicResource App.Border}" BorderThickness="1"
+                        CornerRadius="3" Margin="0,3,0,0" Padding="0,4"
+                        MaxHeight="420">
+                    <StackPanel IsItemsHost="True"
+                                KeyboardNavigation.DirectionalNavigation="Cycle" />
+                </Border>
+            </Popup>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsHighlighted" Value="True">
+                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource App.Item.Hover}" />
+            </Trigger>
+            <Trigger Property="IsSubmenuOpen" Value="True">
+                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource App.Item.Selected}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!-- 子菜单项模板：对勾列 + 标题 + 快捷键提示（右对齐灰字） -->
+    <ControlTemplate x:Key="AppSubMenuItemTemplate" TargetType="MenuItem">
+        <Border x:Name="Bd" Background="Transparent" Padding="10,6" Margin="4,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="16" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Path x:Name="Check" Data="M 1 4.5 L 4.5 8 L 10 1.5"
+                      Stroke="{DynamicResource App.Accent}" StrokeThickness="2"
+                      StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                      VerticalAlignment="Center" Visibility="Collapsed" />
+                <ContentPresenter Grid.Column="1" ContentSource="Header" RecognizesAccessKey="True"
+                                  VerticalAlignment="Center" />
+                <TextBlock Grid.Column="2" Text="{TemplateBinding InputGestureText}"
+                           Foreground="{DynamicResource App.SubText}" Margin="20,0,0,0"
+                           VerticalAlignment="Center" />
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsHighlighted" Value="True">
+                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource App.Item.Hover}" />
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter TargetName="Check" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.45" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!-- 菜单项：按角色切换模板（顶栏标题 / 子菜单项），配色全部随主题 -->
+    <Style TargetType="MenuItem">
+        <Setter Property="Foreground" Value="{DynamicResource App.Text}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Template" Value="{StaticResource AppSubMenuItemTemplate}" />
+        <Style.Triggers>
+            <Trigger Property="Role" Value="TopLevelHeader">
+                <Setter Property="Template" Value="{StaticResource AppTopLevelMenuItemTemplate}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- 菜单内分隔线 -->
+    <Style TargetType="Separator">
+        <Setter Property="Background" Value="{DynamicResource App.Border}" />
+        <Setter Property="Height" Value="1" />
+        <Setter Property="Margin" Value="10,4" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Separator">
+                    <Border Background="{TemplateBinding Background}" Height="1" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!-- 进度条：轨道随主题，进度块用主题强调色 -->
     <Style TargetType="ProgressBar">
         <Setter Property="Foreground" Value="{DynamicResource App.Accent}" />

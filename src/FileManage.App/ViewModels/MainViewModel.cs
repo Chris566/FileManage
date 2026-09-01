@@ -134,6 +134,50 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private int _selectedLanguageIndex;
 
+    /// <summary>外观菜单：浅色单选（拒绝取消选中，与 SelectedThemeIndex 同步）。</summary>
+    public bool IsLightTheme
+    {
+        get => SelectedThemeIndex == 0;
+        set
+        {
+            if (SelectedThemeIndex == 0) { OnPropertyChanged(); }
+            else if (value) { SelectedThemeIndex = 0; }
+        }
+    }
+
+    /// <summary>外观菜单：深色单选。</summary>
+    public bool IsDarkTheme
+    {
+        get => SelectedThemeIndex == 1;
+        set
+        {
+            if (SelectedThemeIndex == 1) { OnPropertyChanged(); }
+            else if (value) { SelectedThemeIndex = 1; }
+        }
+    }
+
+    /// <summary>语言菜单：中文单选。</summary>
+    public bool IsChinese
+    {
+        get => SelectedLanguageIndex == 0;
+        set
+        {
+            if (SelectedLanguageIndex == 0) { OnPropertyChanged(); }
+            else if (value) { SelectedLanguageIndex = 0; }
+        }
+    }
+
+    /// <summary>语言菜单：English 单选。</summary>
+    public bool IsEnglish
+    {
+        get => SelectedLanguageIndex == 1;
+        set
+        {
+            if (SelectedLanguageIndex == 1) { OnPropertyChanged(); }
+            else if (value) { SelectedLanguageIndex = 1; }
+        }
+    }
+
     /// <summary>"替换规则… (N)"（模板文案来自语言字典，随语言切换刷新）。</summary>
     public string ReplaceChainButtonText
     {
@@ -319,6 +363,8 @@ public partial class MainViewModel : ObservableObject
     {
         UIStateService.ApplyTheme(value == 1 ? "dark" : "light");
         UIStateService.Save(UIStateService.Settings with { Theme = value == 1 ? "dark" : "light" });
+        OnPropertyChanged(nameof(IsLightTheme));
+        OnPropertyChanged(nameof(IsDarkTheme));
     }
 
     partial void OnSelectedLanguageIndexChanged(int value)
@@ -326,6 +372,8 @@ public partial class MainViewModel : ObservableObject
         var language = value == 1 ? "en-US" : "zh-CN";
         UIStateService.ApplyLanguage(language);
         UIStateService.Save(UIStateService.Settings with { Language = language });
+        OnPropertyChanged(nameof(IsChinese));
+        OnPropertyChanged(nameof(IsEnglish));
         OnPropertyChanged(nameof(ReplaceChainButtonText));
         StatusText = Localize.T("S.Status.LanguageSwitched");
     }

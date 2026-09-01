@@ -6,25 +6,55 @@
         Title="FileManage" Height="860" Width="1100" MinHeight="560" MinWidth="860"
         WindowStartupLocation="CenterScreen"
         Closed="OnMainWindowClosed">
+    <Window.InputBindings>
+        <!--  全局快捷键（菜单栏 InputGestureText 同步展示）  -->
+        <KeyBinding Modifiers="Control" Key="R" Command="{Binding OpenRuleEditorCommand}" />
+        <KeyBinding Modifiers="Control" Key="D" Command="{Binding OpenDuplicateCommand}" />
+        <KeyBinding Modifiers="Control" Key="H" Command="{Binding OpenHistoryCommand}" />
+        <KeyBinding Key="F5" Command="{Binding RefreshPreviewCommand}" />
+        <KeyBinding Modifiers="Control" Key="E" Command="{Binding ExecuteCommand}" />
+        <KeyBinding Modifiers="Control" Key="Z" Command="{Binding UndoCommand}" />
+    </Window.InputBindings>
     <DockPanel>
-        <!-- 顶部：标题 + 主题/语言切换 -->
+        <!-- 顶部：标题（主题/语言切换已迁移至菜单栏） -->
         <DockPanel DockPanel.Dock="Top" Margin="4">
-            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
-                <ComboBox SelectedIndex="{Binding SelectedThemeIndex}" MinWidth="80">
-                    <ComboBoxItem Content="{DynamicResource S.Theme.Light}" />
-                    <ComboBoxItem Content="{DynamicResource S.Theme.Dark}" />
-                </ComboBox>
-                <ComboBox SelectedIndex="{Binding SelectedLanguageIndex}" MinWidth="100" Margin="8,0,0,0">
-                    <ComboBoxItem Content="中文" />
-                    <ComboBoxItem Content="English" />
-                </ComboBox>
-            </StackPanel>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <TextBlock Text="FileManage" FontWeight="Bold" VerticalAlignment="Center" />
                 <TextBlock Text="PowerBy 吴东东（Chris）" VerticalAlignment="Center" Margin="10,1,0,0"
                            FontSize="12" Foreground="{DynamicResource App.SubText}" />
             </StackPanel>
         </DockPanel>
+
+        <!-- 顶部：菜单栏（外观 / 语言随语言字典切换；工具组带快捷键提示） -->
+        <Menu DockPanel.Dock="Top" Padding="4,0">
+            <MenuItem Header="{DynamicResource S.Menu.Appearance}">
+                <MenuItem Header="{DynamicResource S.Theme.Light}" IsCheckable="True"
+                          IsChecked="{Binding IsLightTheme, Mode=TwoWay}" />
+                <MenuItem Header="{DynamicResource S.Theme.Dark}" IsCheckable="True"
+                          IsChecked="{Binding IsDarkTheme, Mode=TwoWay}" />
+            </MenuItem>
+            <MenuItem Header="{DynamicResource S.Menu.Language}">
+                <MenuItem Header="中文" IsCheckable="True"
+                          IsChecked="{Binding IsChinese, Mode=TwoWay}" />
+                <MenuItem Header="English" IsCheckable="True"
+                          IsChecked="{Binding IsEnglish, Mode=TwoWay}" />
+            </MenuItem>
+            <MenuItem Header="{DynamicResource S.Menu.Tools}">
+                <MenuItem Header="{DynamicResource S.RuleEditor}" Command="{Binding OpenRuleEditorCommand}"
+                          InputGestureText="Ctrl+R" />
+                <MenuItem Header="{DynamicResource S.Duplicate}" Command="{Binding OpenDuplicateCommand}"
+                          InputGestureText="Ctrl+D" />
+                <MenuItem Header="{DynamicResource S.History}" Command="{Binding OpenHistoryCommand}"
+                          InputGestureText="Ctrl+H" />
+                <Separator />
+                <MenuItem Header="{DynamicResource S.Refresh}" Command="{Binding RefreshPreviewCommand}"
+                          InputGestureText="F5" />
+                <MenuItem Header="{DynamicResource S.Execute}" Command="{Binding ExecuteCommand}"
+                          InputGestureText="Ctrl+E" />
+                <MenuItem Header="{DynamicResource S.UndoLast}" Command="{Binding UndoCommand}"
+                          InputGestureText="Ctrl+Z" />
+            </MenuItem>
+        </Menu>
 
         <!-- 顶部：操作工具栏（WrapPanel 防窄窗口溢出；悬停显示详细提示） -->
         <WrapPanel DockPanel.Dock="Top" Margin="4,0,4,4">

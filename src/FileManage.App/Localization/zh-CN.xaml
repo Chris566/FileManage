@@ -6,6 +6,11 @@
     <sys:String x:Key="S.Theme.Light">浅色</sys:String>
     <sys:String x:Key="S.Theme.Dark">深色</sys:String>
 
+    <!-- 菜单栏 -->
+    <sys:String x:Key="S.Menu.Appearance">外观(_O)</sys:String>
+    <sys:String x:Key="S.Menu.Language">语言(_L)</sys:String>
+    <sys:String x:Key="S.Menu.Tools">工具(_T)</sys:String>
+
     <sys:String x:Key="S.SourceDir">源目录</sys:String>
     <sys:String x:Key="S.Browse">浏览…</sys:String>
     <sys:String x:Key="S.IncludeSub">包含子目录</sys:String>
