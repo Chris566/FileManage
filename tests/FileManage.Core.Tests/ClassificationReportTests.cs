@@ -195,4 +195,34 @@ public class ClassificationReportBuilderTests : IDisposable
 
         Assert.Equal("无冲突（复制未执行）", row.Conflict);
     }
+
+    [Fact]
+    public void BuildPreview_SkipAll_ExcludesTargetExistsEntries()
+    {
+        // 目标已存在 → SkipAll 时执行会跳过，扫描报表应排除该条目
+        _target.SubDir("PDF");
+        File.WriteAllText(Path.Combine(_target.Path, "PDF", "a.pdf"), "OLD");
+
+        var plan = BuildPlan(["a.pdf", "b.pdf"], naming: null);
+
+        var rows = ClassificationReportBuilder.BuildPreview(plan, OverwritePolicy.SkipAll);
+        var row = Assert.Single(rows);
+
+        Assert.Equal("b.pdf", row.OriginalName);
+    }
+
+    [Theory]
+    [InlineData(OverwritePolicy.Ask)]
+    [InlineData(OverwritePolicy.OverwriteAll)]
+    public void BuildPreview_AskOrOverwriteAll_KeepsTargetExistsEntries(OverwritePolicy policy)
+    {
+        _target.SubDir("PDF");
+        File.WriteAllText(Path.Combine(_target.Path, "PDF", "a.pdf"), "OLD");
+
+        var plan = BuildPlan(["a.pdf"], naming: null);
+
+        var row = Assert.Single(ClassificationReportBuilder.BuildPreview(plan, policy));
+
+        Assert.Equal("文件已存在", row.Conflict);
+    }
 }

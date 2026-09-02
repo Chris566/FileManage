@@ -574,7 +574,7 @@ public partial class MainViewModel : ObservableObject
         try
         {
             var plan = await Task.Run(BuildPlan);
-            var rows = ClassificationReportBuilder.BuildPreview(plan);
+            var rows = ClassificationReportBuilder.BuildPreview(plan, SelectedPolicy);
 
             if (rows.Count == 0)
             {
@@ -674,7 +674,7 @@ public partial class MainViewModel : ObservableObject
                 Path.GetDirectoryName(reportPath)!,
                 $"RestoreLog{DateTime.Now:yyyyMMddHHmmss}.txt");
 
-            var result = await Task.Run(() => ExecuteRestore(entries, logPath));
+            var result = await Task.Run(() => ExecuteRestore(entries, logPath, SelectedPolicy, _overwriteResolver));
 
             StatusText = result.Success
                 ? Localize.F("S.Status.RestoreSuccess", result.Restored, result.Skipped, logPath)
@@ -695,6 +695,101 @@ public partial class MainViewModel : ObservableObject
             IsBusy = false;
             ProgressPercent = 0;
         }
+    }
+
+    /// <summary>
+    /// 执行单条回覆复制。与"执行选项"同步：原始位置已存在时按覆盖策略处理
+    /// （全部覆盖/全部跳过/逐个询问），与分类整理执行的冲突行为保持一致。
+    /// </summary>
+    private RestoreResult ExecuteRestore(
+        List<RestoreEntry> entries,
+        string logPath,
+        OverwritePolicy policy,
+        IOverwriteResolver? resolver)
+    {
+        var restored = 0;
+        var skipped = 0;
+        var errors = new List<string>();
+        var restoredEntries = new List<RestoreEntry>();
+        var currentPolicy = policy;
+        var operatorName = Environment.UserName;
+        var logLines = new List<string>
+        {
+            $"FileManage 文件回覆日志",
+            $"操作时间: {DateTime.Now:yyyy-MM-dd HH:mm:ss}",
+            $"操作人员: {operatorName}",
+            $"总文件数: {entries.Count}",
+            $"覆盖策略: {DescribePolicy(policy)}",
+            new string('-', 80)
+        };
+
+        for (var i = 0; i < entries.Count; i++)
+        {
+            var entry = entries[i];
+            ProgressPercent = (i + 1) * 100.0 / entries.Count;
+            StatusText = Localize.F("S.Status.RestoreProgress", i + 1, entries.Count, entry.NewName);
+
+            try
+            {
+                var targetDir = Path.GetDirectoryName(entry.OriginalPath);
+
+                if (!string.IsNullOrEmpty(targetDir))
+                {
+                    Directory.CreateDirectory(targetDir);
+                }
+
+                var overwrite = false;
+
+                if (File.Exists(entry.OriginalPath))
+                {
+                    var decision = OverwriteDecider.Decide(entry.OriginalPath, resolver, ref currentPolicy);
+
+                    if (decision is OverwriteDecision.Skip or OverwriteDecision.SkipAll)
+                    {
+                        skipped++;
+                        logLines.Add($"[{DateTime.Now:HH:mm:ss}] 跳过 | {entry.NewName} → {entry.OriginalPath} | 目标已存在（按执行选项跳过）");
+                        continue;
+                    }
+
+                    overwrite = true;
+                }
+
+                File.Copy(entry.NewPath, entry.OriginalPath, overwrite);
+                restored++;
+                restoredEntries.Add(entry);
+
+                logLines.Add($"[{DateTime.Now:HH:mm:ss}] 覆盖成功 | {entry.NewName} → {entry.OriginalPath} | 规则: {entry.RuleName}");
+            }
+            catch (Exception ex)
+            {
+                errors.Add($"{entry.NewName}: {ex.Message}");
+                logLines.Add($"[{DateTime.Now:HH:mm:ss}] 覆盖失败 | {entry.NewName} → {entry.OriginalPath} | 错误: {ex.Message}");
+            }
+        }
+
+        logLines.Add(new string('-', 80));
+        logLines.Add($"成功: {restored}, 跳过: {skipped}, 失败: {errors.Count}");
+
+        File.WriteAllLines(logPath, logLines);
+
+        return new RestoreResult
+        {
+            Total = entries.Count,
+            Restored = restored,
+            Skipped = skipped,
+            Errors = errors,
+            RestoredEntries = restoredEntries
+        };
+    }
+
+    private static string DescribePolicy(OverwritePolicy policy)
+    {
+        return policy switch
+        {
+            OverwritePolicy.OverwriteAll => "全部覆盖",
+            OverwritePolicy.SkipAll => "全部跳过",
+            _ => "每次询问"
+        };
     }
 
     /// <summary>

@@ -60,15 +60,23 @@ public static class ClassificationReportBuilder
 
     /// <summary>
     /// 仅从计划组装报表行（不含执行结果，用于扫描导出报表）。
-    /// 冲突列仅展示计划阶段检测到的冲突，不附加执行状态注记。
+    /// 与"执行选项"同步：全部跳过策略下，目标已存在的条目执行时会被跳过，报表中一并排除；
+    /// 询问/全部覆盖策略保留条目（冲突列如实标注，供用户判断）。
     /// </summary>
-    public static IReadOnlyList<ClassificationReportRow> BuildPreview(OperationPlan plan)
+    public static IReadOnlyList<ClassificationReportRow> BuildPreview(OperationPlan plan, OverwritePolicy policy)
     {
         var rows = new List<ClassificationReportRow>();
 
         foreach (var entry in plan.Entries)
         {
             if (entry.Classification is null)
+            {
+                continue;
+            }
+
+            if (policy == OverwritePolicy.SkipAll
+                && (entry.ConflictType == ConflictType.TargetExists
+                    || entry.CopyConflictType == ConflictType.TargetExists))
             {
                 continue;
             }

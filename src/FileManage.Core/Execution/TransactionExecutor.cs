@@ -71,7 +71,7 @@ public sealed class TransactionExecutor(
 
                 if (fileSystem.FileExists(targetPath))
                 {
-                    var decision = Decide(targetPath, resolver, ref currentPolicy);
+                    var decision = OverwriteDecider.Decide(targetPath, resolver, ref currentPolicy);
 
                     if (decision is OverwriteDecision.Skip or OverwriteDecision.SkipAll)
                     {
@@ -269,45 +269,6 @@ public sealed class TransactionExecutor(
             MoveOp m => (Path.Combine(m.TargetDir, m.TargetName), m.TargetDir),
             _ => throw new InvalidOperationException($"未知操作类型: {op.GetType().Name}")
         };
-    }
-
-    private OverwriteDecision Decide(
-        string targetPath,
-        IOverwriteResolver? resolver,
-        ref OverwritePolicy currentPolicy)
-    {
-        switch (currentPolicy)
-        {
-            case OverwritePolicy.OverwriteAll:
-                return OverwriteDecision.Overwrite;
-
-            case OverwritePolicy.SkipAll:
-                return OverwriteDecision.Skip;
-
-            case OverwritePolicy.Ask:
-                if (resolver is null)
-                {
-                    // 无询问渠道时保守跳过
-                    return OverwriteDecision.Skip;
-                }
-
-                var decision = resolver.Resolve(targetPath);
-
-                switch (decision)
-                {
-                    case OverwriteDecision.OverwriteAll:
-                        currentPolicy = OverwritePolicy.OverwriteAll;
-                        return OverwriteDecision.Overwrite;
-                    case OverwriteDecision.SkipAll:
-                        currentPolicy = OverwritePolicy.SkipAll;
-                        return OverwriteDecision.Skip;
-                    default:
-                        return decision;
-                }
-
-            default:
-                return OverwriteDecision.Skip;
-        }
     }
 
     private static string Describe(Operation op)
