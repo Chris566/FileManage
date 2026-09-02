@@ -48,6 +48,8 @@
     <sys:String x:Key="S.UndoLast">撤销上次</sys:String>
     <sys:String x:Key="S.History">历史…</sys:String>
     <sys:String x:Key="S.Duplicate">重复检测…</sys:String>
+    <sys:String x:Key="S.ScanExportReport">扫描导出报表</sys:String>
+    <sys:String x:Key="S.Restore">文件回覆…</sys:String>
 
     <!-- 覆盖策略下拉项 -->
     <sys:String x:Key="S.Policy.Ask">每次询问</sys:String>
@@ -60,6 +62,8 @@
     <sys:String x:Key="S.Tip.Undo">撤销上一次执行，并同步删除其关联的分类报表</sys:String>
     <sys:String x:Key="S.Tip.History">查看历史批次，可撤销指定批次或仅删除记录</sys:String>
     <sys:String x:Key="S.Tip.Duplicate">按内容哈希在源目录中查找重复文件</sys:String>
+    <sys:String x:Key="S.Tip.ScanExportReport">扫描源目录并按规则分析，生成 Excel 报表至源目录（不执行文件操作）</sys:String>
+    <sys:String x:Key="S.Tip.Restore">从分类整理报表读取映射，将分类后的文件覆盖回原始位置</sys:String>
     <sys:String x:Key="S.Tip.Version">版本 {0} · 构建 {1}</sys:String>
     <sys:String x:Key="S.Tip.GroupToggle">点击折叠 / 展开该分组</sys:String>
 
@@ -246,4 +250,19 @@
     <sys:String x:Key="S.Status.ReportFailed">；报表生成失败: {0}</sys:String>
     <sys:String x:Key="S.Dialog.PickSource">选择源目录</sys:String>
     <sys:String x:Key="S.Dialog.PickTarget">选择分类目标目录</sys:String>
+
+    <!-- 扫描导出报表 & 文件回覆 -->
+    <sys:String x:Key="S.Dialog.PickReport">选择分类整理报表文件</sys:String>
+    <sys:String x:Key="S.Dialog.RestoreConfirm">即将把 {0} 个文件从分类位置覆盖回原始位置（其中 {1} 个原文件已存在，将被覆盖）。&#x0a;报表来源：{2}&#x0a;&#x0a;确定继续？</sys:String>
+    <sys:String x:Key="S.Status.NeedClassifyEnabled">请先启用分类整理并设置目标目录</sys:String>
+    <sys:String x:Key="S.Status.NoClassifiedFiles">没有命中分类规则的文件，无法生成报表</sys:String>
+    <sys:String x:Key="S.Status.ScanReportGenerated">已生成扫描报表（{1} 个文件）：{0}</sys:String>
+    <sys:String x:Key="S.Status.ScanReportFailed">扫描报表生成失败: {0}</sys:String>
+    <sys:String x:Key="S.Status.ReportReadFailed">报表读取失败: {0}</sys:String>
+    <sys:String x:Key="S.Status.NoRestorableFiles">报表中未找到可回覆的文件（分类位置文件不存在）</sys:String>
+    <sys:String x:Key="S.Status.RestoreCancelled">已取消文件回覆</sys:String>
+    <sys:String x:Key="S.Status.RestoreProgress">回覆中 ({0}/{1}) {2}</sys:String>
+    <sys:String x:Key="S.Status.RestoreSuccess">回覆完成：成功 {0} 个，跳过 {1} 个。日志：{2}</sys:String>
+    <sys:String x:Key="S.Status.RestorePartial">回覆完成：成功 {0} 个，跳过 {1} 个，失败 {2} 个。日志：{3}</sys:String>
+    <sys:String x:Key="S.Status.RestoreFailed">回覆失败: {0}</sys:String>
 </ResourceDictionary>

@@ -47,6 +47,8 @@ public static class AppServices
 
     public static IClassificationReportWriter ReportWriter { get; } = new ExcelReportWriter();
 
+    public static IClassificationReportReader ReportReader { get; } = new ExcelReportReader();
+
     /// <summary>
     /// 内置默认规则集（设计文档 §4.3），优先级即列表顺序。
     /// </summary>

@@ -516,6 +516,215 @@ public partial class MainViewModel : ObservableObject
         }
     }
 
+    // ---------- 扫描导出报表 ----------
+
+    /// <summary>
+    /// 扫描源目录，按规则管理配置分析文件，生成与"生成分类整理报表"格式一致的 Excel，
+    /// 保存至源目录根目录。不执行任何文件操作（纯预览报表）。
+    /// </summary>
+    [RelayCommand]
+    private async Task ScanAndExportReportAsync()
+    {
+        if (!ValidateForReport())
+        {
+            return;
+        }
+
+        IsBusy = true;
+
+        try
+        {
+            var plan = await Task.Run(BuildPlan);
+            var rows = ClassificationReportBuilder.BuildPreview(plan);
+
+            if (rows.Count == 0)
+            {
+                StatusText = Localize.T("S.Status.NoClassifiedFiles");
+                return;
+            }
+
+            var reportPath = await Task.Run(() =>
+            {
+                var exists = (string name) => File.Exists(Path.Combine(SourceDirectory, name));
+                var fileName = ClassificationReportNamer.BuildFileName(SourceDirectory, DateTime.Now, exists);
+                return AppServices.ReportWriter.Write(SourceDirectory, fileName, rows);
+            });
+
+            StatusText = Localize.F("S.Status.ScanReportGenerated", reportPath, rows.Count);
+        }
+        catch (Exception ex)
+        {
+            StatusText = Localize.F("S.Status.ScanReportFailed", ex.Message);
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+    }
+
+    // ---------- 文件回覆 ----------
+
+    /// <summary>
+    /// 从分类整理报表读取路径映射，将分类目标位置的文件覆盖回原始位置。
+    /// 流程：选择报表 → 解析映射 → 确认 → 复制覆盖 → 记录日志。
+    /// </summary>
+    [RelayCommand]
+    private async Task RestoreFromReportAsync()
+    {
+        // 1. 选择报表文件
+        var dialog = new Microsoft.Win32.OpenFileDialog
+        {
+            Title = Localize.T("S.Dialog.PickReport"),
+            Filter = "Excel (*.xlsx)|*.xlsx",
+            InitialDirectory = string.IsNullOrEmpty(SourceDirectory) ? "" : SourceDirectory
+        };
+
+        if (dialog.ShowDialog() != true)
+        {
+            return;
+        }
+
+        var reportPath = dialog.FileName;
+
+        // 2. 解析报表
+        List<RestoreEntry> entries;
+
+        try
+        {
+            entries = (await Task.Run(() => AppServices.ReportReader.Read(reportPath)))
+                .Where(e => File.Exists(e.NewPath))
+                .ToList();
+        }
+        catch (Exception ex)
+        {
+            StatusText = Localize.F("S.Status.ReportReadFailed", ex.Message);
+            return;
+        }
+
+        if (entries.Count == 0)
+        {
+            StatusText = Localize.T("S.Status.NoRestorableFiles");
+            return;
+        }
+
+        // 3. 确认对话框
+        var sourceCount = entries.Count(e => File.Exists(e.OriginalPath));
+        var confirmMessage = Localize.F(
+            "S.Dialog.RestoreConfirm",
+            entries.Count, sourceCount, Path.GetFileName(reportPath));
+
+        var confirm = MessageBox.Show(
+            confirmMessage,
+            Localize.T("S.Restore"),
+            MessageBoxButton.OKCancel,
+            MessageBoxImage.Warning);
+
+        if (confirm != MessageBoxResult.OK)
+        {
+            StatusText = Localize.T("S.Status.RestoreCancelled");
+            return;
+        }
+
+        // 4. 执行回覆
+        IsBusy = true;
+        ProgressPercent = 0;
+
+        try
+        {
+            var logPath = Path.Combine(
+                Path.GetDirectoryName(reportPath)!,
+                $"RestoreLog{DateTime.Now:yyyyMMddHHmmss}.txt");
+
+            var result = await Task.Run(() => ExecuteRestore(entries, logPath));
+
+            StatusText = result.Success
+                ? Localize.F("S.Status.RestoreSuccess", result.Restored, result.Skipped, logPath)
+                : Localize.F("S.Status.RestorePartial", result.Restored, result.Skipped, result.Errors.Count, logPath);
+        }
+        catch (Exception ex)
+        {
+            StatusText = Localize.F("S.Status.RestoreFailed", ex.Message);
+        }
+        finally
+        {
+            IsBusy = false;
+            ProgressPercent = 0;
+        }
+    }
+
+    private RestoreResult ExecuteRestore(List<RestoreEntry> entries, string logPath)
+    {
+        var restored = 0;
+        var skipped = 0;
+        var errors = new List<string>();
+        var operatorName = Environment.UserName;
+        var logLines = new List<string>
+        {
+            $"FileManage 文件回覆日志",
+            $"操作时间: {DateTime.Now:yyyy-MM-dd HH:mm:ss}",
+            $"操作人员: {operatorName}",
+            $"总文件数: {entries.Count}",
+            new string('-', 80)
+        };
+
+        for (var i = 0; i < entries.Count; i++)
+        {
+            var entry = entries[i];
+            ProgressPercent = (i + 1) * 100.0 / entries.Count;
+            StatusText = Localize.F("S.Status.RestoreProgress", i + 1, entries.Count, entry.NewName);
+
+            try
+            {
+                var targetDir = Path.GetDirectoryName(entry.OriginalPath);
+
+                if (!string.IsNullOrEmpty(targetDir))
+                {
+                    Directory.CreateDirectory(targetDir);
+                }
+
+                File.Copy(entry.NewPath, entry.OriginalPath, overwrite: true);
+                restored++;
+
+                logLines.Add($"[{DateTime.Now:HH:mm:ss}] 覆盖成功 | {entry.NewName} → {entry.OriginalPath} | 规则: {entry.RuleName}");
+            }
+            catch (Exception ex)
+            {
+                errors.Add($"{entry.NewName}: {ex.Message}");
+                logLines.Add($"[{DateTime.Now:HH:mm:ss}] 覆盖失败 | {entry.NewName} → {entry.OriginalPath} | 错误: {ex.Message}");
+            }
+        }
+
+        logLines.Add(new string('-', 80));
+        logLines.Add($"成功: {restored}, 跳过: {skipped}, 失败: {errors.Count}");
+
+        File.WriteAllLines(logPath, logLines);
+
+        return new RestoreResult
+        {
+            Total = entries.Count,
+            Restored = restored,
+            Skipped = skipped,
+            Errors = errors
+        };
+    }
+
+    private bool ValidateForReport()
+    {
+        if (string.IsNullOrWhiteSpace(SourceDirectory) || !Directory.Exists(SourceDirectory))
+        {
+            StatusText = Localize.T("S.Status.InvalidSource");
+            return false;
+        }
+
+        if (!ClassificationEnabled || string.IsNullOrWhiteSpace(TargetDirectory))
+        {
+            StatusText = Localize.T("S.Status.NeedClassifyEnabled");
+            return false;
+        }
+
+        return true;
+    }
+
     // ---------- 内部 ----------
 
     private OperationPlan BuildPlan()

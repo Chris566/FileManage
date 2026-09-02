@@ -58,6 +58,37 @@ public static class ClassificationReportBuilder
             outcomeByOp.TryGetValue(op, out var value) ? value : OperationOutcome.NotExecuted;
     }
 
+    /// <summary>
+    /// 仅从计划组装报表行（不含执行结果，用于扫描导出报表）。
+    /// 冲突列仅展示计划阶段检测到的冲突，不附加执行状态注记。
+    /// </summary>
+    public static IReadOnlyList<ClassificationReportRow> BuildPreview(OperationPlan plan)
+    {
+        var rows = new List<ClassificationReportRow>();
+
+        foreach (var entry in plan.Entries)
+        {
+            if (entry.Classification is null)
+            {
+                continue;
+            }
+
+            rows.Add(new ClassificationReportRow
+            {
+                OriginalName = entry.Item.Name,
+                OriginalPath = entry.Item.FullPath,
+                NewName = NewNameOf(entry),
+                NewPath = NewPathOf(entry),
+                Category = entry.Classification.TargetSubfolder,
+                Operation = OperationText(entry),
+                Conflict = ConflictText(entry, null, null),
+                RuleName = entry.Classification.Rule.Name
+            });
+        }
+
+        return rows;
+    }
+
     private static string NewNameOf(PlanEntry entry)
     {
         return entry.Transfer switch

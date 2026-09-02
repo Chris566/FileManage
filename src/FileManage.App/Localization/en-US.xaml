@@ -48,6 +48,8 @@
     <sys:String x:Key="S.UndoLast">Undo last</sys:String>
     <sys:String x:Key="S.History">History…</sys:String>
     <sys:String x:Key="S.Duplicate">Find duplicates…</sys:String>
+    <sys:String x:Key="S.ScanExportReport">Scan &amp; Export Report</sys:String>
+    <sys:String x:Key="S.Restore">Restore Files…</sys:String>
 
     <!-- Overwrite policy items -->
     <sys:String x:Key="S.Policy.Ask">Ask each time</sys:String>
@@ -60,6 +62,8 @@
     <sys:String x:Key="S.Tip.Undo">Revert the last execution and delete its associated report</sys:String>
     <sys:String x:Key="S.Tip.History">View past batches: undo a specific batch or delete its record</sys:String>
     <sys:String x:Key="S.Tip.Duplicate">Find duplicate files in the source folder by content hash</sys:String>
+    <sys:String x:Key="S.Tip.ScanExportReport">Scan source folder and analyze by rules; generate an Excel report in the source folder (no file operations)</sys:String>
+    <sys:String x:Key="S.Tip.Restore">Read path mappings from a classification report and copy classified files back to their original locations</sys:String>
     <sys:String x:Key="S.Tip.Version">Version {0} · built {1}</sys:String>
     <sys:String x:Key="S.Tip.GroupToggle">Click to collapse or expand this section</sys:String>
 
@@ -246,4 +250,19 @@
     <sys:String x:Key="S.Status.ReportFailed">; Report generation failed: {0}</sys:String>
     <sys:String x:Key="S.Dialog.PickSource">Select source directory</sys:String>
     <sys:String x:Key="S.Dialog.PickTarget">Select classification target directory</sys:String>
+
+    <!-- Scan export report & file restore -->
+    <sys:String x:Key="S.Dialog.PickReport">Select a classification report file</sys:String>
+    <sys:String x:Key="S.Dialog.RestoreConfirm">About to copy {0} file(s) from their classified locations back to original paths ({1} original file(s) exist and will be overwritten).&#x0a;Report: {2}&#x0a;&#x0a;Continue?</sys:String>
+    <sys:String x:Key="S.Status.NeedClassifyEnabled">Please enable classification and set a target directory first</sys:String>
+    <sys:String x:Key="S.Status.NoClassifiedFiles">No files matched classification rules; cannot generate report</sys:String>
+    <sys:String x:Key="S.Status.ScanReportGenerated">Scan report generated ({1} files): {0}</sys:String>
+    <sys:String x:Key="S.Status.ScanReportFailed">Scan report generation failed: {0}</sys:String>
+    <sys:String x:Key="S.Status.ReportReadFailed">Report read failed: {0}</sys:String>
+    <sys:String x:Key="S.Status.NoRestorableFiles">No restorable files found in the report (classified files no longer exist)</sys:String>
+    <sys:String x:Key="S.Status.RestoreCancelled">File restore cancelled</sys:String>
+    <sys:String x:Key="S.Status.RestoreProgress">Restoring ({0}/{1}) {2}</sys:String>
+    <sys:String x:Key="S.Status.RestoreSuccess">Restore complete: {0} succeeded, {1} skipped. Log: {2}</sys:String>
+    <sys:String x:Key="S.Status.RestorePartial">Restore complete: {0} succeeded, {1} skipped, {2} failed. Log: {3}</sys:String>
+    <sys:String x:Key="S.Status.RestoreFailed">Restore failed: {0}</sys:String>
 </ResourceDictionary>

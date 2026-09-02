@@ -152,6 +152,22 @@
                     <TextBlock Text="{DynamicResource S.Duplicate}" VerticalAlignment="Center" Margin="6,0,0,0" />
                 </StackPanel>
             </Button>
+            <Button Style="{StaticResource AppToolBarButton}"
+                    ToolTip="{DynamicResource S.Tip.ScanExportReport}"
+                    Command="{Binding ScanAndExportReportCommand}" Margin="8,0,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <Path Style="{StaticResource AppIcon20}" Data="{DynamicResource Icon.ScanExport}" VerticalAlignment="Center" />
+                    <TextBlock Text="{DynamicResource S.ScanExportReport}" VerticalAlignment="Center" Margin="6,0,0,0" />
+                </StackPanel>
+            </Button>
+            <Button Style="{StaticResource AppToolBarButton}"
+                    ToolTip="{DynamicResource S.Tip.Restore}"
+                    Command="{Binding RestoreFromReportCommand}" Margin="8,0,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <Path Style="{StaticResource AppIcon20}" Data="{DynamicResource Icon.Restore}" VerticalAlignment="Center" />
+                    <TextBlock Text="{DynamicResource S.Restore}" VerticalAlignment="Center" Margin="6,0,0,0" />
+                </StackPanel>
+            </Button>
         </WrapPanel>
 
         <StatusBar DockPanel.Dock="Bottom">
