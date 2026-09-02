@@ -68,7 +68,7 @@ public static class UpdateInstaller
     /// <param name="currentExePath">当前运行的 exe 路径。</param>
     public static void InstallAndRestart(string downloadedZipPath, string currentExePath)
     {
-        var appRoot = AppDomain.CurrentDomain.BaseDirectory;
+        var appRoot = AppPaths.Root; // 启动器 exe 所在根目录（BaseDirectory 会指向 runtime\，不能用）
         var dataDir = Path.Combine(appRoot, "Data");
         var backupDir = Path.Combine(appRoot, "_update_backup");
         var extractDir = Path.Combine(Path.GetTempPath(), $"FileManage_Update_{Guid.NewGuid():N}");

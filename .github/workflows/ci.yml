@@ -41,17 +41,23 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
-      - name: Publish (self-contained portable folder)
+      - name: Publish (self-contained, runtime in subfolder)
         shell: pwsh
         run: |
           $ver = $env:GITHUB_REF_NAME -replace '^v', ''
+          # 主程序 self-contained 发布
           dotnet publish src/FileManage.App/FileManage.App.csproj -c Release -r win-x64 --self-contained true `
-            /p:InformationalVersion=$ver -o publish
+            /p:InformationalVersion=$ver -o publish-runtime
           "InformationalVersion=$ver" | Out-Host
-          # 瘦身：排除调试符号与崩溃转储工具（最终用户无需）
-          Remove-Item "publish/*.pdb" -Force
-          Remove-Item "publish/createdump.exe" -Force -ErrorAction SilentlyContinue
-          # 生成版本清单（相对路径 + SHA256），供客户端增量安装与跨版本残留清理
+          # 编排：runtime\ 子目录承载全部运行时与依赖（删除 apphost/符号/崩溃转储）
+          New-Item -ItemType Directory -Path publish/runtime -Force | Out-Null
+          Move-Item publish-runtime/* publish/runtime/
+          Remove-Item "publish/runtime/FileManage.exe","publish/runtime/*.pdb" -Force
+          Remove-Item "publish/runtime/createdump.exe" -Force -ErrorAction SilentlyContinue
+          # NativeAOT 启动器 → 根目录 FileManage.exe（hostfxr 从 runtime\ 加载运行时）
+          dotnet publish src/FileManage.Launcher/FileManage.Launcher.csproj -c Release -r win-x64 -o publish-launcher
+          Copy-Item publish-launcher/FileManage.Launcher.exe publish/FileManage.exe -Force
+          # 生成版本清单（根目录相对路径，如 runtime/xxx.dll），供客户端增量安装与跨版本残留清理
           $files = Get-ChildItem publish -Recurse -File | ForEach-Object {
             @{
               path  = [IO.Path]::GetRelativePath("publish", $_.FullName).Replace('\', '/')
@@ -64,9 +70,18 @@ jobs:
             generatedAt = (Get-Date).ToUniversalTime().ToString("o")
             files = $files
           } | ConvertTo-Json -Depth 4 | Set-Content "publish/manifest.json" -Encoding UTF8
-          # 便携版：zip 根目录即 FileManage.exe + 依赖，数据写入解压目录下 Data\
+          # 便携版：zip 根目录 = FileManage.exe + runtime\ + manifest.json，数据写入解压目录下 Data\
           Compress-Archive -Path "publish/*" -DestinationPath "FileManage-$($env:GITHUB_REF_NAME).zip"
           Get-Item "FileManage-$($env:GITHUB_REF_NAME).zip" | Out-Host
+
+      - name: Smoke test (launcher boots WPF app)
+        shell: pwsh
+        run: |
+          $p = Start-Process "publish/FileManage.exe" -PassThru
+          Start-Sleep -Seconds 10
+          if ($p.HasExited) { throw "启动器提前退出（退出码 $($p.ExitCode)），可能 runtime 布局或 hostfxr 初始化失败" }
+          Stop-Process -Id $p.Id -Force
+          "启动冒烟测试通过（进程存活）" | Out-Host
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4

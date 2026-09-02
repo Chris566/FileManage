@@ -8,8 +8,12 @@ namespace FileManage.App.Services;
 /// </summary>
 public static class AppPaths
 {
-    /// <summary>exe 所在目录（单文件/文件夹发布均适用）。</summary>
-    public static string Root { get; } = AppContext.BaseDirectory;
+    /// <summary>
+    /// exe 所在目录。用 ProcessPath（启动器 exe 真实路径）而非 BaseDirectory：
+    /// 便携版经 runtime\ 子目录承载运行时，BaseDirectory 指向 runtime\，数据必须在根目录。
+    /// </summary>
+    public static string Root { get; } =
+        Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory;
 
     /// <summary>旧版数据位置（单文件版），用于一次性自动迁移。</summary>
     public static string LegacyAppDataRoot { get; } = Path.Combine(

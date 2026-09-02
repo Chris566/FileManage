@@ -65,10 +65,11 @@ src/
   FileManage.Core            纯逻辑：命名引擎、规则引擎、计划器、事务执行、撤销、去重
   FileManage.Infrastructure  IO 实现：文件系统、EXIF、备份、撤销存储、规则/设置持久化、更新清单
   FileManage.App             WPF UI（MVVM，CommunityToolkit.Mvvm）+ 路径布局/更新服务
+  FileManage.Launcher        NativeAOT 启动器（hostfxr 从 runtime\ 加载运行时）
 tests/FileManage.Core.Tests  xUnit 单元测试 + 旧版黄金快照回归
 docs/DESIGN.md               架构与里程碑设计文档
 tools/                       旧版 PS 工具黄金快照生成脚本
-scripts/publish.ps1          便携文件夹发布脚本（与 CI 一致）
+scripts/publish.ps1          便携版发布脚本（与 CI 一致）
 ```
 
 ## 文件分类标准
@@ -77,14 +78,13 @@ scripts/publish.ps1          便携文件夹发布脚本（与 CI 一致）
 
 | 位置 | 内容 | 说明 |
 |---|---|---|
-| 根目录 | `FileManage.exe` | 应用入口。**必须与运行时依赖同级**（.NET 宿主机制：apphost 启动时在同级目录解析 hostfxr/coreclr/主 dll/runtimeconfig，无法移入子文件夹） |
-| 根目录 | `hostfxr.dll`、`coreclr.dll`、`clrjit.dll`、`PresentationFramework.dll` 等 | .NET 8 运行时与 WPF 框架库（self-contained 自带），由 `dotnet publish` 官方布局生成，**不要手工移动** |
-| 根目录 | `ClosedXML.dll` 等第三方依赖 dll | NuGet 包依赖，同级加载 |
+| 根目录 | `FileManage.exe` | 唯一根目录文件（NativeAOT 启动器，含应用图标）。通过 hostfxr 从 `runtime\` 加载 .NET 运行时并启动主程序（`hostfxr_initialize_for_dotnet_command_line` + `hostfxr_run_app`，与 apphost 同一执行路径，WPF 行为无差异） |
+| `runtime\` | .NET 8 运行时、WPF 框架库、第三方依赖 dll、`FileManage.dll`、`FileManage.runtimeconfig.json` | 运行时与依赖统一承载目录；由 `dotnet publish` 生成，`runtime\` 内部布局不要手工调整 |
 | 根目录 | `manifest.json` | 版本文件清单（相对路径 + SHA256），应用内更新用于增量安装与跨版本残留清理 |
 | `Data\` | `rules.json`、`settings.json`、`undo\`、`backup\` | **用户数据**（详见"数据文件位置"），更新时全程排除、永不覆盖 |
 | `_update_backup\` | 更新前的程序文件备份 | 更新失败自动回滚用；更新成功后下次启动自动清理；不出现于发布包 |
 
-发布时排除的文件：`*.pdb`（调试符号）、`createdump.exe`（运行时崩溃转储工具）——最终用户无需。
+发布时排除的文件：`*.pdb`（调试符号）、`createdump.exe`（运行时崩溃转储工具）、主程序 apphost（由启动器替代）——最终用户无需。
 
 ### 新增文件归放规则
 
