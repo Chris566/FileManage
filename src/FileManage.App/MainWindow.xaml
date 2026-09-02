@@ -6,6 +6,7 @@
         Title="FileManage" Height="860" Width="1100" MinHeight="560" MinWidth="860"
         WindowStartupLocation="CenterScreen"
         Icon="pack://application:,,,/app.ico"
+        AllowDrop="True" Drop="OnWindowDrop" DragOver="OnWindowDragOver"
         Closed="OnMainWindowClosed">
     <Window.InputBindings>
         <!--  全局快捷键（菜单栏 InputGestureText 同步展示）  -->
@@ -99,6 +100,11 @@
                 <MenuItem Header="{DynamicResource S.Menu.Homepage}" Command="{Binding OpenHomepageCommand}">
                     <MenuItem.Icon>
                         <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.Homepage}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="{DynamicResource S.Menu.CheckUpdate}" Command="{Binding CheckForUpdatesCommand}">
+                    <MenuItem.Icon>
+                        <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.Update}" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
@@ -321,15 +327,15 @@
             </ScrollViewer>
 
             <!-- 右列：预览区 -->
-            <DataGrid Grid.Column="1"
-                      Background="{DynamicResource App.Panel.Background}"
-                      Foreground="{DynamicResource App.Text}"
-                      ItemsSource="{Binding PreviewRows}"
-                      AutoGenerateColumns="False"
-                      IsReadOnly="True"
-                      CanUserAddRows="False"
-                      HeadersVisibility="Column"
-                      SelectionMode="Single">
+            <Grid Grid.Column="1">
+                <DataGrid Background="{DynamicResource App.Panel.Background}"
+                          Foreground="{DynamicResource App.Text}"
+                          ItemsSource="{Binding PreviewRows}"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          CanUserAddRows="False"
+                          HeadersVisibility="Column"
+                          SelectionMode="Single">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{DynamicResource S.Col.Original}" Binding="{Binding OriginalName}" Width="2*" />
                     <DataGridTextColumn Header="{DynamicResource S.Col.New}" Binding="{Binding NewName}" Width="2*" />
@@ -355,7 +361,21 @@
                         </Style.Triggers>
                     </Style>
                 </DataGrid.RowStyle>
-            </DataGrid>
+                </DataGrid>
+
+                <!-- 空状态提示：预览区无数据时显示 -->
+                <Border HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Visibility="{Binding PreviewRows.Count, Converter={StaticResource ZeroToVisibleConverter}}"
+                        Background="{DynamicResource App.Panel.Background}">
+                    <StackPanel HorizontalAlignment="Center">
+                        <Path Style="{StaticResource AppIcon48}" Data="{DynamicResource Icon.EmptyPreview}"
+                              HorizontalAlignment="Center" Margin="0,0,0,12"
+                              Fill="{DynamicResource App.SubText}" />
+                        <TextBlock Text="{DynamicResource S.EmptyPreview}" FontSize="14"
+                                   Foreground="{DynamicResource App.SubText}" HorizontalAlignment="Center" />
+                    </StackPanel>
+                </Border>
+            </Grid>
         </Grid>
     </DockPanel>
 </Window>

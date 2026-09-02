@@ -57,6 +57,37 @@ public partial class MainViewModel : ObservableObject
         _renameGroupExpanded = settings.RenameGroupExpanded;
         _classifyGroupExpanded = settings.ClassifyGroupExpanded;
         _execOptionsGroupExpanded = settings.ExecOptionsGroupExpanded;
+
+        // 便捷版：启动时若上次目录有效，自动加载预览（减少一次手动点击）
+        _ = Task.Run(async () =>
+        {
+            await Task.Delay(200); // 等待窗口渲染完成
+            await Application.Current.Dispatcher.InvokeAsync(async () =>
+            {
+                if (Validate())
+                {
+                    await RefreshPreviewCoreAsync();
+                }
+            });
+        });
+    }
+
+    /// <summary>源目录变更后自动刷新预览（便捷版：省去手动点击"刷新预览"）。</summary>
+    partial void OnSourceDirectoryChanged(string value)
+    {
+        if (Validate())
+        {
+            _ = RefreshPreviewCoreAsync();
+        }
+    }
+
+    /// <summary>目标目录变更后自动刷新预览（分类启用时）。</summary>
+    partial void OnTargetDirectoryChanged(string value)
+    {
+        if (ClassificationEnabled && Validate())
+        {
+            _ = RefreshPreviewCoreAsync();
+        }
     }
 
     // ---------- 源目录与扫描 ----------
@@ -493,6 +524,12 @@ public partial class MainViewModel : ObservableObject
     }
 
     [RelayCommand]
+    private async Task CheckForUpdatesAsync()
+    {
+        await App.CheckForUpdatesAsync(silent: false);
+    }
+
+    [RelayCommand]
     private async Task OpenHistoryAsync()
     {
         var window = new Views.HistoryWindow { Owner = Application.Current.MainWindow };
@@ -545,9 +582,9 @@ public partial class MainViewModel : ObservableObject
 
             var reportPath = await Task.Run(() =>
             {
-                var exists = (string name) => File.Exists(Path.Combine(SourceDirectory, name));
-                var fileName = ClassificationReportNamer.BuildFileName(SourceDirectory, DateTime.Now, exists);
-                return AppServices.ReportWriter.Write(SourceDirectory, fileName, rows);
+                var exists = (string name) => File.Exists(Path.Combine(TargetDirectory, name));
+                var fileName = ClassificationReportNamer.BuildFileName(SourceDirectory, DateTime.Now, exists, "扫描导出报表");
+                return AppServices.ReportWriter.Write(TargetDirectory, fileName, rows);
             });
 
             StatusText = Localize.F("S.Status.ScanReportGenerated", reportPath, rows.Count);

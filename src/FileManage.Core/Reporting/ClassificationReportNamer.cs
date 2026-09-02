@@ -3,7 +3,7 @@ using System.Globalization;
 namespace FileManage.Core.Reporting;
 
 /// <summary>
-/// 报表文件命名器：源文件夹名称 + 执行时间（yyyyMMddHHmmss）+ 数字序号。
+/// 报表文件命名器：{源文件夹名}{-描述-}{yyyyMMddHHmmss}{序号}.xlsx
 /// 序号从 1 开始，同一执行时间已存在同名报表时递增，确保不覆盖历史报表。
 /// </summary>
 public static class ClassificationReportNamer
@@ -14,10 +14,12 @@ public static class ClassificationReportNamer
     /// <param name="sourceDirectory">源目录（取其末级文件夹名作为前缀）。</param>
     /// <param name="executionTime">执行时间（本地时间，精确到秒参与命名）。</param>
     /// <param name="fileExists">文件存在性探测（目标目录下是否已有同名报表）。</param>
+    /// <param name="descriptor">描述文本（如"分类整理报表"或"扫描导出报表"），默认"分类整理报表"。</param>
     public static string BuildFileName(
         string sourceDirectory,
         DateTime executionTime,
-        Func<string, bool> fileExists)
+        Func<string, bool> fileExists,
+        string descriptor = "分类整理报表")
     {
         var sourceName = Path.GetFileName(
             sourceDirectory.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
@@ -31,7 +33,7 @@ public static class ClassificationReportNamer
 
         for (var sequence = 1; ; sequence++)
         {
-            var name = $"{sourceName}{timestamp}{sequence}.xlsx";
+            var name = $"{sourceName}-{descriptor}-{timestamp}{sequence}.xlsx";
 
             if (!fileExists(name))
             {

@@ -265,4 +265,24 @@
     <sys:String x:Key="S.Status.RestoreSuccess">回覆完成：成功 {0} 个，跳过 {1} 个。日志：{2}</sys:String>
     <sys:String x:Key="S.Status.RestorePartial">回覆完成：成功 {0} 个，跳过 {1} 个，失败 {2} 个。日志：{3}</sys:String>
     <sys:String x:Key="S.Status.RestoreFailed">回覆失败: {0}</sys:String>
+
+    <!-- 便捷版：空状态提示 -->
+    <sys:String x:Key="S.EmptyPreview">选择源目录或拖放文件夹到窗口以加载预览</sys:String>
+
+    <!-- 远程更新 -->
+    <sys:String x:Key="S.Menu.CheckUpdate">检查更新…</sys:String>
+    <sys:String x:Key="S.Update.Title">软件更新</sys:String>
+    <sys:String x:Key="S.Update.NewVersionAvailable">发现新版本</sys:String>
+    <sys:String x:Key="S.Update.CurrentVersion">当前版本:</sys:String>
+    <sys:String x:Key="S.Update.LatestVersion">最新版本:</sys:String>
+    <sys:String x:Key="S.Update.DownloadInstall">下载并安装</sys:String>
+    <sys:String x:Key="S.Update.OpenBrowser">在浏览器打开</sys:String>
+    <sys:String x:Key="S.Update.Later">以后再说</sys:String>
+    <sys:String x:Key="S.Update.Downloading">正在下载…</sys:String>
+    <sys:String x:Key="S.Update.Installing">正在安装，应用将自动重启…</sys:String>
+    <sys:String x:Key="S.Update.NoAsset">未找到可下载的安装包，请前往 GitHub 手动下载。</sys:String>
+    <sys:String x:Key="S.Update.CannotLocateExe">无法定位当前程序路径，更新中止。</sys:String>
+    <sys:String x:Key="S.Update.DownloadFailed">下载失败: {0}&#x0a;请稍后重试或前往 GitHub 手动下载。</sys:String>
+    <sys:String x:Key="S.Update.CheckFailed">检查更新失败，请检查网络连接后重试。</sys:String>
+    <sys:String x:Key="S.Update.AlwaysLatest">当前已是最新版本（{0}）。</sys:String>
 </ResourceDictionary>

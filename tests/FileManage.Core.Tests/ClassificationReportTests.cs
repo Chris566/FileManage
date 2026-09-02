@@ -24,18 +24,18 @@ public class ClassificationReportNamerTests
 
         var name = ClassificationReportNamer.BuildFileName(sourceDir, time, _ => false);
 
-        Assert.Equal($"{expectedPrefix}202608311234561.xlsx", name);
+        Assert.Equal($"{expectedPrefix}-分类整理报表-202608311234561.xlsx", name);
     }
 
     [Fact]
     public void BuildFileName_SequenceIncrementsWhileFileExists()
     {
         var time = new DateTime(2026, 8, 31, 12, 34, 56);
-        var existing = new HashSet<string> { "照片202608311234561.xlsx", "照片202608311234562.xlsx" };
+        var existing = new HashSet<string> { "照片-分类整理报表-202608311234561.xlsx", "照片-分类整理报表-202608311234562.xlsx" };
 
         var name = ClassificationReportNamer.BuildFileName(@"D:\data\照片", time, existing.Contains);
 
-        Assert.Equal("照片202608311234563.xlsx", name);
+        Assert.Equal("照片-分类整理报表-202608311234563.xlsx", name);
     }
 
     [Fact]
@@ -43,7 +43,17 @@ public class ClassificationReportNamerTests
     {
         var name = ClassificationReportNamer.BuildFileName(@"D:\", new DateTime(2026, 8, 31, 0, 0, 0), _ => false);
 
-        Assert.Equal("Report202608310000001.xlsx", name);
+        Assert.Equal("Report-分类整理报表-202608310000001.xlsx", name);
+    }
+
+    [Fact]
+    public void BuildFileName_WithScanExportDescriptor_UsesDescriptorInName()
+    {
+        var time = new DateTime(2026, 8, 31, 12, 34, 56);
+
+        var name = ClassificationReportNamer.BuildFileName(@"D:\data\照片", time, _ => false, "扫描导出报表");
+
+        Assert.Equal("照片-扫描导出报表-202608311234561.xlsx", name);
     }
 }
 

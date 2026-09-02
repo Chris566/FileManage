@@ -970,6 +970,8 @@
     <StreamGeometry x:Key="Icon.Duplicate">M9 9h10v10H9zM4 14V4h10</StreamGeometry>
     <StreamGeometry x:Key="Icon.ScanExport">M4 4h6v2H6v12h12v-4h2v6H4V4zM14 4h6v6h-2V7.41l-5.29 5.3-1.42-1.42 5.3-5.29H14V4z</StreamGeometry>
     <StreamGeometry x:Key="Icon.Restore">M9 14l-5-5 5-5M4 9h7a5 5 0 0 1 5 5v1M20 4v6h-6</StreamGeometry>
+    <StreamGeometry x:Key="Icon.EmptyPreview">M3 3h18v14H3zM3 21h18M9 7h6M9 11h4</StreamGeometry>
+    <StreamGeometry x:Key="Icon.Update">M12 4V2L8 6l4 4V8a4 4 0 1 1-4 4H6a6 6 0 1 0 6-6z</StreamGeometry>
     <StreamGeometry x:Key="Icon.RuleEditor">M4 6h16M4 12h16M4 18h10M5 6v12M5 6V4h14v2</StreamGeometry>
     <StreamGeometry x:Key="Icon.Browse">M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z</StreamGeometry>
 

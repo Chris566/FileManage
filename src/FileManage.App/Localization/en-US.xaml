@@ -265,4 +265,24 @@
     <sys:String x:Key="S.Status.RestoreSuccess">Restore complete: {0} succeeded, {1} skipped. Log: {2}</sys:String>
     <sys:String x:Key="S.Status.RestorePartial">Restore complete: {0} succeeded, {1} skipped, {2} failed. Log: {3}</sys:String>
     <sys:String x:Key="S.Status.RestoreFailed">Restore failed: {0}</sys:String>
+
+    <!-- Convenience: empty preview state -->
+    <sys:String x:Key="S.EmptyPreview">Select a source folder or drag a folder onto the window to load preview</sys:String>
+
+    <!-- Remote update -->
+    <sys:String x:Key="S.Menu.CheckUpdate">Check for Updates…</sys:String>
+    <sys:String x:Key="S.Update.Title">Software Update</sys:String>
+    <sys:String x:Key="S.Update.NewVersionAvailable">A new version is available</sys:String>
+    <sys:String x:Key="S.Update.CurrentVersion">Current version:</sys:String>
+    <sys:String x:Key="S.Update.LatestVersion">Latest version:</sys:String>
+    <sys:String x:Key="S.Update.DownloadInstall">Download &amp; Install</sys:String>
+    <sys:String x:Key="S.Update.OpenBrowser">Open in Browser</sys:String>
+    <sys:String x:Key="S.Update.Later">Later</sys:String>
+    <sys:String x:Key="S.Update.Downloading">Downloading…</sys:String>
+    <sys:String x:Key="S.Update.Installing">Installing, the app will restart automatically…</sys:String>
+    <sys:String x:Key="S.Update.NoAsset">No downloadable installer found. Please download manually from GitHub.</sys:String>
+    <sys:String x:Key="S.Update.CannotLocateExe">Cannot locate the current executable path. Update aborted.</sys:String>
+    <sys:String x:Key="S.Update.DownloadFailed">Download failed: {0}&#x0a;Please try again later or download manually from GitHub.</sys:String>
+    <sys:String x:Key="S.Update.CheckFailed">Update check failed. Please check your network connection and try again.</sys:String>
+    <sys:String x:Key="S.Update.AlwaysLatest">You are running the latest version ({0}).</sys:String>
 </ResourceDictionary>

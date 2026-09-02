@@ -1,3 +1,4 @@
+using System.IO;
 using System.Windows;
 using FileManage.App.Services;
 using FileManage.App.ViewModels;
@@ -64,6 +65,39 @@ public partial class MainWindow : Window
             && y.Value >= top - 10
             && x.Value <= left + SystemParameters.VirtualScreenWidth - 100
             && y.Value <= top + SystemParameters.VirtualScreenHeight - 50;
+    }
+
+    /// <summary>拖放文件夹到窗口：自动设置源目录并触发预览。</summary>
+    private void OnWindowDragOver(object sender, DragEventArgs e)
+    {
+        if (e.Data.GetDataPresent(DataFormats.FileDrop))
+        {
+            e.Effects = DragDropEffects.Copy;
+        }
+        else
+        {
+            e.Effects = DragDropEffects.None;
+        }
+
+        e.Handled = true;
+    }
+
+    private void OnWindowDrop(object sender, DragEventArgs e)
+    {
+        if (e.Data.GetData(DataFormats.FileDrop) is not string[] paths || paths.Length == 0)
+        {
+            return;
+        }
+
+        var path = paths[0];
+
+        // 仅接受目录
+        if (Directory.Exists(path) && DataContext is MainViewModel vm)
+        {
+            vm.SourceDirectory = path;
+        }
+
+        e.Handled = true;
     }
 
     private void OnMainWindowClosed(object? sender, EventArgs e)

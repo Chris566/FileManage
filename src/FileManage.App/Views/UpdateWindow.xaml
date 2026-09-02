@@ -1,0 +1,65 @@
+<Window x:Class="FileManage.App.Views.UpdateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Background="{DynamicResource App.Window.Background}"
+        Foreground="{DynamicResource App.Text}"
+        Title="FileManage" Width="560" Height="480"
+        WindowStartupLocation="CenterOwner" ResizeMode="CanMinimize"
+        ShowInTaskbar="False"
+        SourceInitialized="OnSourceInitialized">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- 标题：新版本可用 -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,12">
+            <Path Style="{StaticResource AppIcon32}" Data="{DynamicResource Icon.Update}"
+                  Fill="{DynamicResource App.Accent}" VerticalAlignment="Center" />
+            <TextBlock x:Name="TitleText" FontSize="18" FontWeight="Bold"
+                       VerticalAlignment="Center" Margin="12,0,0,0" />
+        </StackPanel>
+
+        <!-- 版本信息 -->
+        <StackPanel Grid.Row="1" Margin="0,0,0,12">
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                <TextBlock Text="{DynamicResource S.Update.CurrentVersion}" Foreground="{DynamicResource App.SubText}" />
+                <TextBlock x:Name="CurrentVersionText" Margin="8,0,0,0" FontWeight="Medium" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{DynamicResource S.Update.LatestVersion}" Foreground="{DynamicResource App.SubText}" />
+                <TextBlock x:Name="LatestVersionText" Margin="8,0,0,0" FontWeight="Medium" />
+            </StackPanel>
+        </StackPanel>
+
+        <!-- 下载进度条 -->
+        <StackPanel x:Name="ProgressPanel" Grid.Row="2" Margin="0,0,0,12" Visibility="Collapsed">
+            <ProgressBar x:Name="DownloadProgress" Height="20" Maximum="100" />
+            <TextBlock x:Name="ProgressText" HorizontalAlignment="Center" Margin="0,4,0,0"
+                       Foreground="{DynamicResource App.SubText}" />
+        </StackPanel>
+
+        <!-- 更新日志 -->
+        <Border Grid.Row="3" BorderBrush="{DynamicResource App.Border}" BorderThickness="1"
+                CornerRadius="4" Margin="0,0,0,12">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="8">
+                <TextBlock x:Name="ChangelogText" TextWrapping="Wrap" FontSize="13"
+                           Foreground="{DynamicResource App.Text}" />
+            </ScrollViewer>
+        </Border>
+
+        <!-- 底部按钮 -->
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="DownloadButton" Content="{DynamicResource S.Update.DownloadInstall}"
+                    Padding="16,8" Click="OnDownloadClick" />
+            <Button Content="{DynamicResource S.Update.OpenBrowser}" Margin="8,0,8,0"
+                    Padding="16,8" Click="OnOpenBrowser" />
+            <Button Content="{DynamicResource S.Update.Later}" Padding="16,8"
+                    IsCancel="True" Click="OnCancel" />
+        </StackPanel>
+    </Grid>
+</Window>
