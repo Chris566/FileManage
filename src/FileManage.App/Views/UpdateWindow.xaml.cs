@@ -26,9 +26,29 @@ public partial class UpdateWindow : Window
         TitleText.Text = Localize.T("S.Update.NewVersionAvailable");
         CurrentVersionText.Text = "v" + _currentVersion;
         LatestVersionText.Text = "v" + _updateInfo.Version;
-        ChangelogText.Text = string.IsNullOrEmpty(_updateInfo.Body)
-            ? _updateInfo.Name
-            : _updateInfo.Body;
+
+        // 合并在线 Release 正文 + 内嵌 CHANGELOG 对应版本兜底：
+        //   - 无网/API 失败时：嵌入 changelog 段落仍存在（打包时由 tag message 写入的版本说明）
+        //   - 有网时：在线正文先显示，嵌入 changelog 作参考
+        var onlineBody = (string.IsNullOrWhiteSpace(_updateInfo.Body) || _updateInfo.Body == _updateInfo.Name)
+            ? ""
+            : _updateInfo.Body.Trim();
+
+        var embeddedSection = ChangelogLoader.LoadVersionSection(_updateInfo.Version).Trim();
+        var sections = new List<string>(2);
+        if (!string.IsNullOrEmpty(onlineBody))
+        {
+            sections.Add(onlineBody);
+        }
+        if (!string.IsNullOrEmpty(embeddedSection) &&
+            !string.Equals(onlineBody, embeddedSection, StringComparison.Ordinal))
+        {
+            sections.Add(embeddedSection);
+        }
+
+        ChangelogText.Text = sections.Count == 0
+            ? (string.IsNullOrEmpty(_updateInfo.Name) ? "更新日志不可用。" : _updateInfo.Name)
+            : string.Join("\n\n", sections);
     }
 
     private void OnSourceInitialized(object sender, EventArgs e)

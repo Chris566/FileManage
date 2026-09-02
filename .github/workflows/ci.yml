@@ -45,7 +45,29 @@ jobs:
         shell: pwsh
         run: |
           $ver = $env:GITHUB_REF_NAME -replace '^v', ''
-          # 主程序 self-contained 发布
+          $today = Get-Date -Format "yyyy-MM-dd"
+
+          # 每次打包前，从所有 git tag（含本次新 tag）重建 CHANGELOG.md 并回写工作树
+          # 按版本号降序：v1.2.3 → ## v1.2.3 (日期) 后跟 tag 附注消息（更新说明）
+          $changelog = @("# 更新日志 / Changelog", "")
+          git tag --sort=-v:refname | ForEach-Object {
+              $tag = $_
+              $versionLine = $tag
+              # 读取 tag 创建日期（ISO 日期段），若读不到回退今日
+              $date = git log -1 --format=%cs "$tag^{}" 2>$null
+              if (-not $date) { $date = $today }
+              if ($tag -match '^v\d') { $changelog += "", "## $tag ($date)", "" } else { $changelog += "", "## $tag", "" }
+              $body = git tag -l --format='%(contents)' $tag
+              # 去掉 tag 附注第一行（通常是标题摘要，与 ## 标题重复），只保留后续段落
+              $bodyLines = @($body -split "`r?`n")
+              if ($bodyLines.Count -gt 1) {
+                  $changelog += ($bodyLines[1..($bodyLines.Count-1)] | Where-Object { $_.Trim().Length -gt 0 })
+              }
+          }
+          $changelog -join "`n" | Set-Content CHANGELOG.md -Encoding UTF8
+          "CHANGELOG regenerated: $((Get-Content CHANGELOG.md | Measure-Object -Line).Lines) lines" | Out-Host
+
+          # 主程序 self-contained 发布（CHANGELOG.md EmbeddedResource 会含重建后的最新日志）
           dotnet publish src/FileManage.App/FileManage.App.csproj -c Release -r win-x64 --self-contained true `
             /p:InformationalVersion=$ver -o publish-runtime
           "InformationalVersion=$ver" | Out-Host

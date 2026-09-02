@@ -20,6 +20,33 @@ if (-not (Test-Path $dotnet))
     $dotnet = (Get-Command dotnet -ErrorAction SilentlyContinue).Source
 }
 
+# 0) 每次打包前从所有 git tag 重建 CHANGELOG.md（最新版 tag 附注即为本版更新说明）
+$changelog = @("# 更新日志 / Changelog", "")
+$today = Get-Date -Format "yyyy-MM-dd"
+$tags = git tag --sort=-v:refname 2>$null
+if ($tags)
+{
+    foreach ($tag in $tags) {
+        $date = git log -1 --format=%cs "$tag^{}" 2>$null
+        if (-not $date) { $date = $today }
+        $changelog += "", "## $tag ($date)", ""
+        $body = git tag -l --format='%(contents)' $tag 2>$null
+        if ($body) {
+            $lines = @($body -split "`r?`n")
+            if ($lines.Count -gt 1) {
+                $changelog += ($lines[1..($lines.Count-1)] | Where-Object { $_.Trim().Length -gt 0 })
+            }
+        }
+    }
+}
+else
+{
+    $changelog += "", "（本地开发版：未检出 git tag，发布产物使用 CI 时会自动写入完整更新日志）", ""
+}
+$changelogPath = Join-Path $root "CHANGELOG.md"
+$changelog -join "`n" | Set-Content $changelogPath -Encoding UTF8
+Write-Host "CHANGELOG.md 已重建（含 $($tags.Count) 个版本，嵌入二进制）" -ForegroundColor Cyan
+
 # 1) 主程序 self-contained 发布
 & $dotnet publish (Join-Path $root "src/FileManage.App/FileManage.App.csproj") `
     -c $Configuration -r $Runtime --self-contained true `

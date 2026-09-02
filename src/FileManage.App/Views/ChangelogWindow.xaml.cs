@@ -1,11 +1,9 @@
-using System.IO;
-using System.Reflection;
 using System.Windows;
 using FileManage.App.Services;
 
 namespace FileManage.App.Views;
 
-/// <summary>更新日志查看器：内容来自程序集内嵌资源 CHANGELOG.md（LogicalName 固定名）。</summary>
+/// <summary>更新日志查看器：内容来自程序集内嵌资源 CHANGELOG.md（每次 CI 打包前由 git tag 重建，含新版本）。</summary>
 public partial class ChangelogWindow : Window
 {
     public ChangelogWindow()
@@ -17,15 +15,6 @@ public partial class ChangelogWindow : Window
 
     private void Load()
     {
-        using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("CHANGELOG.md");
-        if (stream is null)
-        {
-            ContentBox.Text = Application.Current.TryFindResource("S.Changelog.Unavailable") as string
-                ?? "更新日志内容不可用。";
-            return;
-        }
-
-        using var reader = new StreamReader(stream);
-        ContentBox.Text = reader.ReadToEnd();
+        ContentBox.Text = ChangelogLoader.LoadFull();
     }
 }
