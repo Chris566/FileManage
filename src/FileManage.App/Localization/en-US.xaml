@@ -89,32 +89,71 @@
     <sys:String x:Key="S.Help.Close">Close</sys:String>
     <sys:String x:Key="S.Help.Homepage">Project Homepage</sys:String>
     <sys:String x:Key="S.Help.Issues">Report an Issue</sys:String>
-    <sys:String x:Key="S.Help.Guide.Quick.T">Quick Start</sys:String>
-    <sys:String x:Key="S.Help.Guide.Quick.B">Pick a source folder → (optionally) configure renaming and classification → click "Refresh Preview" to review the changes → click "Execute". A complete plan is generated before execution; what you preview is exactly what happens.</sys:String>
-    <sys:String x:Key="S.Help.Guide.Rename.T">Renaming</sys:String>
-    <sys:String x:Key="S.Help.Guide.Rename.B">Supports replacement chains (multi-step find &amp; replace) and naming templates (original name with prefix / index). Photos can use EXIF capture dates in their names.</sys:String>
-    <sys:String x:Key="S.Help.Guide.Classify.T">Classification</sys:String>
-    <sys:String x:Key="S.Help.Guide.Classify.B">Moves or copies files into type-based subfolders of the target folder (Images / Documents / Videos…), optionally generating an Excel report.</sys:String>
-    <sys:String x:Key="S.Help.Guide.Preset.T">Rule Presets</sys:String>
-    <sys:String x:Key="S.Help.Guide.Preset.B">Switch presets at the top of "Manage Rules": the system default preset (migrated from your existing rules) is read-only — view, copy and export only. You can create, copy, rename and delete custom presets; switching takes effect immediately. Deleting the default preset shows a protection notice.</sys:String>
-    <sys:String x:Key="S.Help.Guide.Conflict.T">Conflicts &amp; Overwrite</sys:String>
-    <sys:String x:Key="S.Help.Guide.Conflict.B">Four conflict types are color-coded in the preview: in-plan duplicates, target exists, path too long, and invalid characters. For existing targets choose Ask, Overwrite All or Skip All.</sys:String>
-    <sys:String x:Key="S.Help.Guide.Undo.T">Undo &amp; History</sys:String>
-    <sys:String x:Key="S.Help.Guide.Undo.B">Every run is backed up with automatic rollback on failure. "Undo Last" and the history window roll back changes and atomically remove the generated report.</sys:String>
-    <sys:String x:Key="S.Help.Guide.Keys.T">Shortcuts</sys:String>
+    <!-- User Guide: each entry is an icon+numbered-step card -->
+    <sys:String x:Key="S.Help.Guide.Quick.T">1 Quick Start · overall flow</sys:String>
+    <sys:String x:Key="S.Help.Guide.Quick.B">1. Pick a source folder (Browse or drag a folder directly onto the window). 2. Enable "Rename" or "Organize" as needed; disabled groups are dimmed to prevent mistakes. 3. The preview table refreshes automatically; verify Original / New name / Category / Target path / Conflict column by column. 4. Choose a conflict policy under "Execution" and click Execute. 5. The status bar reports success / skip counts afterwards; use "Undo Last" to roll back if needed.</sys:String>
+
+    <sys:String x:Key="S.Help.Guide.Source.T">2 Source folder · drag &amp; drop</sys:String>
+    <sys:String x:Key="S.Help.Guide.Source.B">1. Click "Browse…" to select a source folder, or drag a folder onto the "Source folder" or "Organize" drop zones. 2. An accent-colored border with a hint appears while hovering. 3. Multiple dropped folders are handled by taking the first; permission issues produce a clear message instead of failing silently. 4. Tick "Include subdirectories" to scan recursively; the include / exclude boxes support glob patterns (e.g. *.pdf;*.docx, semicolon separated).</sys:String>
+
+    <sys:String x:Key="S.Help.Guide.Rename.T">3 Batch renaming</sys:String>
+    <sys:String x:Key="S.Help.Guide.Rename.B">1. Tick "Enable renaming". 2. Pick a naming template from the dropdown (Prefix + original / Index + original / EXIF date, etc.). 3. Type a prefix; for photos tick "Read photo capture date (EXIF)" to enable {ExifDate} / {ExifYear} placeholders. 4. Click "Replace rules…" to open the multi-step replace chain: literal / regex / case change / trim / remove chars, applied in order. 5. The preview table shows results in real time; conflict rows are color-highlighted by type.</sys:String>
+
+    <sys:String x:Key="S.Help.Guide.Classify.T">4 Organize (classify)</sys:String>
+    <sys:String x:Key="S.Help.Guide.Classify.B">1. Tick "Enable organizing". 2. Click "Browse…" to pick the target folder, or drag the target folder onto the "Organize" area. 3. Tick "Copy" to keep source files (safe default); untick to move. 4. Tick "Generate report" to write an Excel summary after execution. 5. Click "Manage rules…" to add/remove rules and adjust priority (first-match wins).</sys:String>
+
+    <sys:String x:Key="S.Help.Guide.RuleEditor.T">5 Rule editor</sys:String>
+    <sys:String x:Key="S.Help.Guide.RuleEditor.B">1. Click "+ Add" at the top to create a rule. 2. Fill the rule name and target subfolder template (supports {Category}, {ExifYear}, {Date:yyyy}). 3. Match conditions support extension lists (.jpg;.png), filename regex, size ranges and date ranges; all conditions must hold (AND). 4. Use "Up / Down" to reorder priority (higher in the list matches first). 5. Import / export JSON to share rule sets across devices or with teammates.</sys:String>
+
+    <sys:String x:Key="S.Help.Guide.Preset.T">6 Rule presets</sys:String>
+    <sys:String x:Key="S.Help.Guide.Preset.B">1. Switch presets in the rule editor dropdown; switching takes effect immediately in the main preview. 2. The built-in "Default Rules (System)" is fully locked — neither the content nor the name can be edited, renamed or deleted (a protection notice appears if you try). 3. Custom presets support New / Duplicate / Rename / Delete; when adapting the default rules, Duplicate → edit the copy is the recommended flow. 4. Unsaved edits are auto-saved before switching so nothing is lost. 5. Rule edits persist only after "Save" (rules.json v2: multiple presets + active marker).</sys:String>
+
+    <sys:String x:Key="S.Help.Guide.ScanReport.T">7 Scan &amp; Export Report</sys:String>
+    <sys:String x:Key="S.Help.Guide.ScanReport.B">1. Configure the source folder, classification target folder and rules. 2. Click the "Scan &amp; Export Report" toolbar button. 3. The system generates a full preview by the current rules (no file operations performed) and writes an xlsx named `{Source}-ScanExportReport-{Timestamp}{Seq}.xlsx` to the classification target directory. 4. Under policy "Skip All", entries whose target already exists are excluded from the report, matching the actual execution result. 5. The report format is identical to "Classification Report" for easy offline review or hand-off.</sys:String>
+
+    <sys:String x:Key="S.Help.Guide.Restore.T">8 Restore Files</sys:String>
+    <sys:String x:Key="S.Help.Guide.Restore.B">1. Click the "Restore Files…" toolbar button. 2. Pick an xlsx previously generated by "Classification Report" or "Scan &amp; Export Report". 3. The system parses original-path → new-path mappings and applies the overwrite policy: ask / overwrite all / skip all when original files exist. 4. After restore finishes a dialog lets you optionally "Delete classified files" and "Delete the classification report" (two independent checkboxes, both off by default). 5. A detailed RestoreLog file records each file's success / skip / failure, operation time and operator (Windows username).</sys:String>
+
+    <sys:String x:Key="S.Help.Guide.Conflict.T">9 Conflicts &amp; overwrite policy</sys:String>
+    <sys:String x:Key="S.Help.Guide.Conflict.B">The preview table marks four conflict types by color. 1. Blue: in-plan duplicates (automatically renumbered to avoid collision). 2. Yellow: target already exists (resolved by the overwrite policy). 3. Red: path too long or filename contains illegal chars (blocking — must be fixed before execution). 4. Every conflict also has a text description in the Conflict column for easy locating.</sys:String>
+
+    <sys:String x:Key="S.Help.Guide.Undo.T">10 Undo · History · Transactional execution</sys:String>
+    <sys:String x:Key="S.Help.Guide.Undo.B">1. Each run uses a three-phase transaction: backup → execute → commit/rollback. 2. Any failure automatically rolls back to the pre-execution state, never leaving half-finished changes. 3. Click "Undo Last" to roll back the most recent run, or open "History…" to view all batches and undo any specific one. 4. Undo and deletion of the generated report are atomic (both succeed or neither happens, preventing orphan reports). 5. Batch records are kept in Data\undo\ so multiple rollback points survive restarts.</sys:String>
+
+    <sys:String x:Key="S.Help.Guide.Duplicate.T">11 Duplicate detection</sys:String>
+    <sys:String x:Key="S.Help.Guide.Duplicate.B">1. Click "Find duplicates…" on the toolbar. 2. Two-stage detection: first group by file size (rough), then perform exact SHA-256 content comparison (100% reliable). 3. Tick the copies to remove and click "Delete checked (recycle bin)" — files go to the Recycle Bin, not permanently deleted. 4. Best used after classification to cut down wasted disk space significantly.</sys:String>
+
+    <sys:String x:Key="S.Help.Guide.Settings.T">12 Theme · Language · UI memory · Updates</sys:String>
+    <sys:String x:Key="S.Help.Guide.Settings.B">1. Use the Appearance menu to switch Light / Dark themes (DynamicResource, instant apply). 2. Use the Language menu to switch 中文 / English and all UI text changes immediately. 3. Group collapse states, window position / size / maximize and last-used folders are saved to settings.json and restored on next launch. 4. A background update check runs at startup; trigger it manually from Help → Check for Updates. 5. Updates use the manifest for incremental copy + cross-version leftover cleanup; failure auto-rolls back. User data in Data\ is always excluded and never touched.</sys:String>
+
+    <sys:String x:Key="S.Help.Guide.Keys.T">13 Shortcuts</sys:String>
     <sys:String x:Key="S.Help.Guide.Keys.B">F5 refresh preview · Ctrl+E execute · Ctrl+Z undo last · Ctrl+R rules · Ctrl+D duplicates · Ctrl+H history · F1 help</sys:String>
-    <sys:String x:Key="S.Help.Faq.Q1">Will the result differ from the preview?</sys:String>
-    <sys:String x:Key="S.Help.Faq.A1">The preview is based on the file system state at scan time. If files change afterwards, execution re-checks them and applies the overwrite policy; new conflicts appear as "target exists".</sys:String>
-    <sys:String x:Key="S.Help.Faq.Q2">What do Ask / Overwrite All / Skip All mean?</sys:String>
-    <sys:String x:Key="S.Help.Faq.A2">The policy for existing files at the target: Ask confirms each case; Overwrite All replaces them; Skip All keeps the originals and continues. Default is Ask.</sys:String>
-    <sys:String x:Key="S.Help.Faq.Q3">Can undo delete my files by mistake?</sys:String>
-    <sys:String x:Key="S.Help.Faq.A3">No. Undo only rolls back the last run: moved files are moved back, copies are removed, renamed files restore their original names; the generated report is removed atomically.</sys:String>
-    <sys:String x:Key="S.Help.Faq.Q4">Why were some files not processed?</sys:String>
-    <sys:String x:Key="S.Help.Faq.A4">Office temp files (~$*) are excluded by default. Customize with the include / exclude glob patterns, separated by semicolons.</sys:String>
-    <sys:String x:Key="S.Help.Faq.Q5">What if execution is interrupted by a crash or power loss?</sys:String>
-    <sys:String x:Key="S.Help.Faq.A5">Execution uses a three-phase transaction (backup → execute → commit/rollback). Any failure automatically rolls back to the pre-execution state, leaving no half-finished changes.</sys:String>
+
+    <!-- FAQ (12 items, latest v1.8.x) -->
+    <sys:String x:Key="S.Help.Faq.Q1">Can the actual result differ from the preview?</sys:String>
+    <sys:String x:Key="S.Help.Faq.A1">The preview reflects the file system at scan time. If other programs modify files afterwards, execution re-checks them and applies the overwrite policy; any newly introduced conflicts appear as "target exists".</sys:String>
+    <sys:String x:Key="S.Help.Faq.Q2">What do Ask / Overwrite All / Skip All mean? Which features use them?</sys:String>
+    <sys:String x:Key="S.Help.Faq.A2">They control how same-name files at the target are handled: Ask confirms per file, Overwrite All replaces directly, Skip All keeps the existing file and continues. The same policy applies uniformly to three operations: Organize execution, Scan &amp; Export Report (under Skip All, conflicting entries are omitted from the report), and Restore Files (overwrite / skip at the original location).</sys:String>
+    <sys:String x:Key="S.Help.Faq.Q3">Can Undo accidentally delete my files?</sys:String>
+    <sys:String x:Key="S.Help.Faq.A3">No. Undo only reverses that specific run: moved files go back, copied files are removed, renamed files revert to original names. It also guarantees atomic report deletion — either both succeed or neither does, so there is no orphan report and no wrong rollback.</sys:String>
+    <sys:String x:Key="S.Help.Faq.Q4">Why were some files skipped?</sys:String>
+    <sys:String x:Key="S.Help.Faq.A4">Office temp files (~$*) are excluded by default. Customize with the include / exclude glob patterns (e.g. *.pdf;*.docx, semicolon separated). Also, under the "Skip All" policy, files whose targets already exist are skipped by design.</sys:String>
+    <sys:String x:Key="S.Help.Faq.Q5">What if the app crashes or power fails during execution?</sys:String>
+    <sys:String x:Key="S.Help.Faq.A5">Execution uses a three-phase transaction (backup → execute → commit/rollback). Any failure at any phase auto-rolls back to the pre-run state with no half-finished changes. Backups live in Data\backup\; old backups of committed batches are cleaned automatically on the next launch.</sys:String>
     <sys:String x:Key="S.Help.Faq.Q6">Can the system default preset be deleted or modified?</sys:String>
-    <sys:String x:Key="S.Help.Faq.A6">No. The default preset is fully protected — both contents and name are locked, with an explicit notice on delete attempts. To adjust the default rules, use "Copy" to create an editable duplicate.</sys:String>
+    <sys:String x:Key="S.Help.Faq.A6">No. The default preset is fully protected (content and name both locked); a protection notice appears on delete attempts. To adapt its rules, use Duplicate to create an editable copy and edit that copy as a custom preset.</sys:String>
+    <sys:String x:Key="S.Help.Faq.Q7">Does "Restore Files" delete files from the classified folder? Can I lose data?</sys:String>
+    <sys:String x:Key="S.Help.Faq.A7">Restore itself only copies files back to the original location and never proactively deletes files from the classified side. The post-restore dialog offers two independent checkboxes — "Delete classified files" and "Delete the classification report" — both OFF by default. Deletion only happens when you explicitly tick them and click Clean Up, so data loss risk is fully controlled.</sys:String>
+    <sys:String x:Key="S.Help.Faq.Q8">Why are {ExifDate} / {ExifYear} empty in the rename template?</sys:String>
+    <sys:String x:Key="S.Help.Faq.A8">When a photo has no EXIF metadata the tool falls back to the file's last-modified time. If it still shows empty, verify: 1. "Read photo capture date (EXIF)" is ticked. 2. The file is not corrupted and the extension matches the actual image format (e.g. not just renamed).</sys:String>
+    <sys:String x:Key="S.Help.Faq.Q9">Settings / rules won't save after installing under Program Files?</sys:String>
+    <sys:String x:Key="S.Help.Faq.A9">The portable edition probes the exe directory for write access. If it gets access denied it falls back to %AppData%\FileManage\Portable automatically; all settings, rules and undo data are saved normally there and loaded again on the next launch.</sys:String>
+    <sys:String x:Key="S.Help.Faq.Q10">In-app update failed or showed "rollback succeeded" — what now?</sys:String>
+    <sys:String x:Key="S.Help.Faq.A10">Any step failure during update (download / copy / leftover cleanup) triggers an automatic restore from _update_backup. Common causes are FileManage.exe still being held by another process, or antivirus blocking writes. Close the holder and retry, or download FileManage.zip from the Release page and overwrite manually.</sys:String>
+    <sys:String x:Key="S.Help.Faq.Q11">How do I reload the preview after "Clear Preview"?</sys:String>
+    <sys:String x:Key="S.Help.Faq.A11">Right-click "Clear Preview" on the preview table only empties the current display. To reload press F5 or click "Refresh preview" on the toolbar; or simply change the source / target directory — a directory change auto-triggers a preview refresh.</sys:String>
+    <sys:String x:Key="S.Help.Faq.Q12">How do I carry rules / presets to another PC or share with teammates?</sys:String>
+    <sys:String x:Key="S.Help.Faq.A12">Open Manage Rules → Export… produces a JSON file (single preset); Import… on another PC creates a new custom preset from it. To migrate all presets + undo history + settings in one go, copy the entire Data\ folder (rules.json, settings.json, undo\, backup\) to the new machine.</sys:String>
 
     <sys:String x:Key="S.Col.Original">Original</sys:String>
     <sys:String x:Key="S.Col.New">New name</sys:String>

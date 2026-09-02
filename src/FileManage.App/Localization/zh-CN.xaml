@@ -89,32 +89,69 @@
     <sys:String x:Key="S.Help.Close">关闭</sys:String>
     <sys:String x:Key="S.Help.Homepage">项目主页</sys:String>
     <sys:String x:Key="S.Help.Issues">问题反馈</sys:String>
-    <sys:String x:Key="S.Help.Guide.Quick.T">快速上手</sys:String>
-    <sys:String x:Key="S.Help.Guide.Quick.B">选择源目录 →（可选）配置重命名与分类整理 → 点击"刷新预览"核对将发生的变更 → 点击"执行"。执行前会生成完整计划，实际改动与预览一致。</sys:String>
-    <sys:String x:Key="S.Help.Guide.Rename.T">重命名</sys:String>
-    <sys:String x:Key="S.Help.Guide.Rename.B">支持替换链（多步查找替换）与命名模板（原文件名 + 前缀 / 序号）；照片类文件可读取 EXIF 拍摄日期参与命名。</sys:String>
-    <sys:String x:Key="S.Help.Guide.Classify.T">分类整理</sys:String>
-    <sys:String x:Key="S.Help.Guide.Classify.B">按规则将文件移动或复制到目标目录的类型子文件夹（如 图片 / 文档 / 视频），可选生成 Excel 分类报表。</sys:String>
-    <sys:String x:Key="S.Help.Guide.Preset.T">规则预设</sys:String>
-    <sys:String x:Key="S.Help.Guide.Preset.B">"规则管理"顶部可切换预设：系统默认预设（由现有规则迁移而来）受只读保护，仅可查看/复制/导出；可新建、复制、重命名、删除自定义预设，切换即时生效。尝试删除默认预设时会弹出保护提示。</sys:String>
-    <sys:String x:Key="S.Help.Guide.Conflict.T">冲突与覆盖</sys:String>
-    <sys:String x:Key="S.Help.Guide.Conflict.B">预览中以颜色标出四类冲突：计划内重复、目标已存在、路径过长、非法字符。目标已存在时可选择"询问"、"全部覆盖"或"全部跳过"。</sys:String>
-    <sys:String x:Key="S.Help.Guide.Undo.T">撤销与历史</sys:String>
-    <sys:String x:Key="S.Help.Guide.Undo.B">每次执行自动备份、失败自动回滚；"撤销上次"与"历史"窗口可回滚变更，并同步删除本次生成的分类报表。</sys:String>
-    <sys:String x:Key="S.Help.Guide.Keys.T">快捷键</sys:String>
-    <sys:String x:Key="S.Help.Guide.Keys.B">F5 刷新预览 · Ctrl+E 执行 · Ctrl+Z 撤销上次 · Ctrl+R 规则管理 · Ctrl+D 重复检测 · Ctrl+H 历史 · F1 帮助</sys:String>
+
+    <!-- 用户指南：每项「图标图示 + 功能标题 + 编号步骤」 -->
+    <sys:String x:Key="S.Help.Guide.Quick.T">① 快速上手：整体流程</sys:String>
+    <sys:String x:Key="S.Help.Guide.Quick.B">1. 选择源目录（浏览或把文件夹直接拖到窗口）；2. 按需启用「重命名」或「分类整理」（未启用的分组会淡化显示，避免误操作）；3. 预览表格会自动刷新，逐行核对「原文件名 / 新文件名 / 分类 / 目标路径 / 冲突」；4. 在「执行选项」中选择冲突策略后点击「执行」；5. 完成后状态栏会提示成功 / 跳过数，需要时点击「撤销上次」即可回滚。</sys:String>
+
+    <sys:String x:Key="S.Help.Guide.Source.T">② 源目录 / 拖放文件夹</sys:String>
+    <sys:String x:Key="S.Help.Guide.Source.B">1. 点击「浏览…」选择源目录，或直接把文件夹拖到「源目录 / 分类整理」区域；2. 拖入时会看到彩色高亮边框和提示文案；3. 支持多文件夹（自动取第一个）与权限检测（无权限时明确提示，不会静默失败）；4. 勾选「包含子目录」会递归扫描；包含 / 排除框支持通配（如 *.pdf;*.docx，分号分隔）。</sys:String>
+
+    <sys:String x:Key="S.Help.Guide.Rename.T">③ 批量重命名</sys:String>
+    <sys:String x:Key="S.Help.Guide.Rename.B">1. 勾选「启用重命名」；2. 在「模板」下拉中选择命名结构（如「前缀 + 原文件名」「序号 + 原文件名」「EXIF 日期」等）；3. 在前缀框输入文本前缀；照片类文件勾选「读取照片拍摄时间（EXIF）」可使 {ExifDate} / {ExifYear} 占位符生效；4. 点击「替换规则…」打开多步替换链：字面替换 / 正则 / 大小写转换 / 去空格 / 去字符，按顺序执行；5. 预览表格会实时显示重命名结果，冲突行按类型高亮。</sys:String>
+
+    <sys:String x:Key="S.Help.Guide.Classify.T">④ 分类整理</sys:String>
+    <sys:String x:Key="S.Help.Guide.Classify.B">1. 勾选「启用分类」；2. 点击「浏览…」选择目标目录（或把目标目录拖到「分类整理」区）；3. 勾选「复制」保留源文件（更安全，默认启用），取消则为移动；4. 勾选「生成分类整理报表」可在执行后把汇总写入 Excel；5. 点击「规则管理…」增删规则并调整优先级（按首条命中原则）。</sys:String>
+
+    <sys:String x:Key="S.Help.Guide.RuleEditor.T">⑤ 规则管理</sys:String>
+    <sys:String x:Key="S.Help.Guide.RuleEditor.B">1. 顶部「＋新增」添加规则；2. 填写规则名 / 目标子目录模板（支持 {Category} / {ExifYear} / {Date:yyyy}）；3. 匹配条件支持扩展名列表（.jpg;.png）/ 文件名正则 / 大小区间 / 日期区间，多条件必须同时满足（AND）；4. 使用「上移 / 下移」调整优先级（列表越靠前越先命中）；5. 支持 JSON 导入 / 导出，便于跨设备或同事共享规则集。</sys:String>
+
+    <sys:String x:Key="S.Help.Guide.Preset.T">⑥ 规则预设</sys:String>
+    <sys:String x:Key="S.Help.Guide.Preset.B">1. 规则管理顶部下拉切换预设，切换即立刻用于主窗口预览；2. 「默认规则（系统）」完全锁定，内容与名称均不可编辑、重命名、删除（会弹出保护提示）；3. 自定义预设支持「新建 / 复制 / 重命名 / 删除」（基于默认规则调整时，建议「复制 → 编辑副本」）；4. 切换预设时若有未保存规则会先自动保存，防止丢失；5. 修改完规则点击「保存」才写盘（r ules.json v2：多预设 + 激活项）。</sys:String>
+
+    <sys:String x:Key="S.Help.Guide.ScanReport.T">⑦ 扫描导出报表</sys:String>
+    <sys:String x:Key="S.Help.Guide.ScanReport.B">1. 设置好源目录 / 分类整理目标目录与规则；2. 点击工具栏「扫描导出报表」按钮；3. 系统按当前规则生成完整预览（不执行任何文件操作），然后输出 xlsx 报表，命名格式为「{源文件夹}-扫描导出报表-{时间}{序号}.xlsx」，保存到分类整理的目标目录；4. 若执行选项选择「全部跳过」，目标目录已存在的条目会自动从报表中排除，与实际执行结果保持一致；5. 报表格式与「分类整理报表」完全一致，便于离线核对或交给下游同事。</sys:String>
+
+    <sys:String x:Key="S.Help.Guide.Restore.T">⑧ 文件回覆</sys:String>
+    <sys:String x:Key="S.Help.Guide.Restore.B">1. 点击工具栏「文件回覆…」；2. 选择之前由「分类整理报表」或「扫描导出报表」生成的 xlsx；3. 系统解析报表中的「原路径 → 新路径」映射，按执行选项处理：目标已存在会询问 / 全部覆盖 / 全部跳过；4. 回覆完成后弹窗提示，可选择性清理「删除已分类的文件」与「删除分类整理报表」（两项都可独立勾选，默认不勾）；5. 生成操作日志文件（RestoreLog+时间.txt），记录每个文件的成功 / 跳过 / 失败、操作时间、操作员（Windows 用户名）。</sys:String>
+
+    <sys:String x:Key="S.Help.Guide.Conflict.T">⑨ 冲突与覆盖策略</sys:String>
+    <sys:String x:Key="S.Help.Guide.Conflict.B">预览表格用颜色标出四类冲突：1. 蓝色：计划内重复文件（会自动编号避免冲突）；2. 黄色：目标目录已存在同名文件（按执行选项处理）；3. 红色：路径超长 / 文件名含非法字符（会阻断执行，必须先修正）；4. 所有冲突类型也会在「冲突」列给出文字说明，方便定位。</sys:String>
+
+    <sys:String x:Key="S.Help.Guide.Undo.T">⑩ 撤销 / 历史 / 事务执行</sys:String>
+    <sys:String x:Key="S.Help.Guide.Undo.B">1. 每次执行采用三阶段事务：备份 → 执行 → 提交/回滚；2. 任何一步失败都会自动回滚到执行前状态，不会留下半成品；3. 点击「撤销上次」一键回滚最近一次执行，或「历史…」查看所有批次、按任意批次撤销；4. 撤销操作与本次生成的分类报表删除是原子的（要么都成功，要么都不做，避免留下孤儿报表）；5. 所有批次记录保存在 Data\undo\，可离线保留多次回滚点。</sys:String>
+
+    <sys:String x:Key="S.Help.Guide.Duplicate.T">⑪ 重复检测</sys:String>
+    <sys:String x:Key="S.Help.Guide.Duplicate.B">1. 点击工具栏「重复检测…」；2. 系统分两阶段检测：先按文件大小粗分组，再做 SHA-256 内容精确比对（100% 可靠）；3. 勾选要删除的副本，点击「移入回收站」（不会彻底删除，可从回收站还原）；4. 建议在「分类整理」后使用，可显著减少重复占用的磁盘空间。</sys:String>
+
+    <sys:String x:Key="S.Help.Guide.Settings.T">⑫ 主题 / 语言 / 界面记忆 / 更新</sys:String>
+    <sys:String x:Key="S.Help.Guide.Settings.B">1. 菜单栏「外观」切换浅色 / 深色主题（DynamicResource，即时生效）；2. 菜单栏「语言」切换中文 / English（即时切换所有 UI 文本）；3. 分组折叠状态、窗口位置/尺寸/最大化、上次目录，会自动保存到 settings.json，下次启动原样恢复；4. 启动时会在后台检测新版本，或通过「帮助 → 检查更新…」手动触发；5. 更新按 manifest 清单做增量复制、跨版本残留清理，失败自动回滚；用户数据 Data\ 全程排除，永不丢失。</sys:String>
+
+    <!-- 常见问题（最新版：12 条） -->
     <sys:String x:Key="S.Help.Faq.Q1">预览和执行结果会不一致吗？</sys:String>
-    <sys:String x:Key="S.Help.Faq.A1">预览基于扫描时的文件系统状态。若此后有其他程序改动了文件，执行时会重新检测并按覆盖策略处理，新增冲突会以"目标已存在"标出。</sys:String>
-    <sys:String x:Key="S.Help.Faq.Q2">"询问 / 全部覆盖 / 全部跳过"是什么意思？</sys:String>
-    <sys:String x:Key="S.Help.Faq.A2">这是目标位置存在同名文件时的处理策略：询问逐一确认；全部覆盖直接替换；全部跳过保留原文件继续。默认"询问"。</sys:String>
+    <sys:String x:Key="S.Help.Faq.A1">预览基于扫描时的文件系统状态。若此后有其他程序改动了文件，执行时会重新检测并按覆盖策略处理，新增冲突会以「目标已存在」标出。</sys:String>
+    <sys:String x:Key="S.Help.Faq.Q2">"询问 / 全部覆盖 / 全部跳过"是什么意思？对哪些功能生效？</sys:String>
+    <sys:String x:Key="S.Help.Faq.A2">这是目标位置存在同名文件时的处理策略：询问逐一确认、全部覆盖直接替换、全部跳过保留原文件继续。策略对三项操作统一生效：执行分类整理、扫描导出报表（跳过策略下会从报表中剔除冲突条目）、文件回覆（按策略覆盖或跳过原始位置）。</sys:String>
     <sys:String x:Key="S.Help.Faq.Q3">撤销会误删我的文件吗？</sys:String>
-    <sys:String x:Key="S.Help.Faq.A3">不会。撤销仅回滚本次操作：移动的文件移回原位、复制的副本被删除、重命名恢复原名；同时原子删除本次生成的分类报表。</sys:String>
+    <sys:String x:Key="S.Help.Faq.A3">不会。撤销仅回滚本次操作：移动的文件移回原位、复制的副本被删除、重命名恢复原名；并与本次生成的分类报表删除做原子保证——要么全部成功，要么全部不做，避免留下孤儿报表或错误回滚。</sys:String>
     <sys:String x:Key="S.Help.Faq.Q4">为什么有些文件没有被处理？</sys:String>
-    <sys:String x:Key="S.Help.Faq.A4">默认排除 Office 临时文件（~$*）。可通过"包含 / 排除"框自定义 glob 模式，分号分隔。</sys:String>
+    <sys:String x:Key="S.Help.Faq.A4">默认排除 Office 临时文件（~$*）。可通过「包含 / 排除」框自定义 glob 模式（如 *.pdf;*.docx），分号分隔。此外启用「全部跳过」策略时，目标已存在的文件也会被跳过，这是预期行为。</sys:String>
     <sys:String x:Key="S.Help.Faq.Q5">执行中断电或崩溃怎么办？</sys:String>
-    <sys:String x:Key="S.Help.Faq.A5">执行采用三阶段事务（备份 → 执行 → 提交/回滚），任何一步失败都会自动回滚到执行前状态，不会留下半成品状态。</sys:String>
+    <sys:String x:Key="S.Help.Faq.A5">执行采用三阶段事务（备份 → 执行 → 提交/回滚），任何一步失败都会自动回滚到执行前状态，不会留下半成品。备份文件保存在 Data\backup\，下次启动会自动清理已提交批次的旧备份。</sys:String>
     <sys:String x:Key="S.Help.Faq.Q6">系统默认预设可以删除或修改吗？</sys:String>
-    <sys:String x:Key="S.Help.Faq.A6">不可以。默认预设受完全保护，内容与名称均锁定，删除时会明确提示。如需基于默认规则调整，请使用"复制"创建副本后编辑副本。</sys:String>
+    <sys:String x:Key="S.Help.Faq.A6">不可以。默认预设受完全保护，内容与名称均锁定，删除时会明确提示。需要基于默认规则调整时，请用「复制」创建副本，编辑副本并保存为自定义预设。</sys:String>
+    <sys:String x:Key="S.Help.Faq.Q7">"文件回覆"会把分类目录的文件删除吗？会不会丢文件？</sys:String>
+    <sys:String x:Key="S.Help.Faq.A7">回覆过程本身是「复制覆盖」原始位置，不会主动删除分类位置文件。回覆完成后的弹窗会提供两个独立复选框：「删除已分类的文件」与「删除分类整理报表」，默认均不勾选。只有在您明确勾选并点「清理」时才会执行删除，因此文件丢失风险完全可控。</sys:String>
+    <sys:String x:Key="S.Help.Faq.Q8">为什么重命名模板里 {ExifDate}/{ExifYear} 显示为空？</sys:String>
+    <sys:String x:Key="S.Help.Faq.A8">照片文件缺失 EXIF 元数据时会回退使用文件修改时间；如果仍然显示为空，请确认：1. 已勾选「读取照片拍摄时间（EXIF）」；2. 文件未被损坏或并非实际的图像格式（扩展名被篡改）。</sys:String>
+    <sys:String x:Key="S.Help.Faq.Q9">把程序放到 Program Files 后，设置 / 规则保存不了怎么办？</sys:String>
+    <sys:String x:Key="S.Help.Faq.A9">便携版会探测 exe 目录的写入权限，若遇到拒绝访问会自动回退到 %AppData%\FileManage\Portable 目录，所有设置 / 规则 / 撤销数据都会正常保存在这里，下次启动继续读取。</sys:String>
+    <sys:String x:Key="S.Help.Faq.Q10">应用内更新失败或提示"回滚成功"怎么办？</sys:String>
+    <sys:String x:Key="S.Help.Faq.A10">更新批处理中任一步（下载 / 复制 / 删除残留）失败，都会自动从 _update_backup 恢复旧文件。常见原因是 FileManage.exe 被其他程序占用，或杀毒软件拦截写入；可关闭占用后再次尝试，或从 Release 页面下载 FileManage.zip 手动覆盖。</sys:String>
+    <sys:String x:Key="S.Help.Faq.Q11">"清理预览信息"后如何重新加载预览？</sys:String>
+    <sys:String x:Key="S.Help.Faq.A11">右键预览表格中的「清理预览信息」只是清空本次表格显示。重新加载预览只需按 F5 或点击工具栏「刷新预览」；也可以直接修改源目录 / 目标目录路径（目录变更会自动触发预览刷新）。</sys:String>
+    <sys:String x:Key="S.Help.Faq.Q12">如何把规则 / 预设带给同事或另一台电脑？</sys:String>
+    <sys:String x:Key="S.Help.Faq.A12">打开「规则管理」→「导出…」会生成 JSON 文件（单预设），另一台电脑「导入…」即会创建新的自定义预设。想一次性迁移所有预设 + 撤销历史 + 设置，直接复制 Data\ 文件夹（rules.json、settings.json、undo\、backup\）到新机器即可。</sys:String>
 
     <sys:String x:Key="S.Col.Original">原文件名</sys:String>
     <sys:String x:Key="S.Col.New">新文件名</sys:String>
