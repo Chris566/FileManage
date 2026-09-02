@@ -70,9 +70,54 @@ public partial class MainWindow : Window
     /// <summary>拖放文件夹到窗口：自动设置源目录并触发预览。</summary>
     private void OnWindowDragOver(object sender, DragEventArgs e)
     {
+        e.Effects = e.Data.GetDataPresent(DataFormats.FileDrop)
+            ? DragDropEffects.Copy
+            : DragDropEffects.None;
+        e.Handled = true;
+    }
+
+    private void OnWindowDrop(object sender, DragEventArgs e)
+    {
+        if (e.Data.GetData(DataFormats.FileDrop) is string[] paths && paths.Length > 0)
+        {
+            HandleDroppedPaths(paths, setTarget: false);
+        }
+
+        e.Handled = true;
+    }
+
+    /// <summary>源目录热区拖放悬停：显示高亮反馈。</summary>
+    private void OnSourceZoneDragOver(object sender, DragEventArgs e)
+        => OnZoneDragOver(e, SourceDropOverlay);
+
+    /// <summary>源目录热区拖放离开：隐藏反馈。</summary>
+    private void OnSourceZoneDragLeave(object sender, DragEventArgs e)
+        => OnZoneDragLeave(e, SourceDropZone, SourceDropOverlay);
+
+    private void OnSourceZoneDrop(object sender, DragEventArgs e)
+        => OnZoneDrop(e, setTarget: false);
+
+    /// <summary>目标目录热区拖放悬停：显示高亮反馈。</summary>
+    private void OnTargetZoneDragOver(object sender, DragEventArgs e)
+        => OnZoneDragOver(e, TargetDropOverlay);
+
+    /// <summary>目标目录热区拖放离开：隐藏反馈。</summary>
+    private void OnTargetZoneDragLeave(object sender, DragEventArgs e)
+        => OnZoneDragLeave(e, TargetDropZone, TargetDropOverlay);
+
+    private void OnTargetZoneDrop(object sender, DragEventArgs e)
+        => OnZoneDrop(e, setTarget: true);
+
+    private void OnZoneDragOver(DragEventArgs e, System.Windows.Controls.Border overlay)
+    {
         if (e.Data.GetDataPresent(DataFormats.FileDrop))
         {
             e.Effects = DragDropEffects.Copy;
+
+            if (!overlay.Visibility.Equals(Visibility.Visible))
+            {
+                overlay.Visibility = Visibility.Visible;
+            }
         }
         else
         {
@@ -82,22 +127,109 @@ public partial class MainWindow : Window
         e.Handled = true;
     }
 
-    private void OnWindowDrop(object sender, DragEventArgs e)
+    /// <summary>热区拖放离开：隐藏反馈。子元素（TextBox/Button）间移动会触发父级 DragLeave，
+    /// 以指针是否真正离开热区边界为准，避免覆盖层闪烁。</summary>
+    private void OnZoneDragLeave(DragEventArgs e, System.Windows.FrameworkElement zone, System.Windows.Controls.Border overlay)
     {
-        if (e.Data.GetData(DataFormats.FileDrop) is not string[] paths || paths.Length == 0)
+        var pos = e.GetPosition(zone);
+
+        if (pos.X < 0 || pos.Y < 0
+            || pos.X > zone.ActualWidth || pos.Y > zone.ActualHeight)
+        {
+            overlay.Visibility = Visibility.Collapsed;
+        }
+    }
+
+    private void OnZoneDrop(DragEventArgs e, bool setTarget)
+    {
+        if (setTarget)
+        {
+            TargetDropOverlay.Visibility = Visibility.Collapsed;
+        }
+        else
+        {
+            SourceDropOverlay.Visibility = Visibility.Collapsed;
+        }
+
+        if (e.Data.GetData(DataFormats.FileDrop) is string[] paths && paths.Length > 0)
+        {
+            HandleDroppedPaths(paths, setTarget);
+        }
+
+        e.Handled = true;
+    }
+
+    /// <summary>
+    /// 统一处理拖入路径：仅接受文件夹（多个取第一个），拦截纯文件与不可访问目录，
+    /// 通过状态栏/弹窗给出明确提示；设置源/目标目录后由属性变更回调自动刷新预览。
+    /// </summary>
+    private void HandleDroppedPaths(string[] paths, bool setTarget)
+    {
+        if (DataContext is not MainViewModel vm)
         {
             return;
         }
 
-        var path = paths[0];
+        var folders = new List<string>();
+        var fileCount = 0;
 
-        // 仅接受目录
-        if (Directory.Exists(path) && DataContext is MainViewModel vm)
+        foreach (var p in paths)
         {
-            vm.SourceDirectory = path;
+            if (Directory.Exists(p))
+            {
+                folders.Add(p);
+            }
+            else
+            {
+                fileCount++;
+            }
         }
 
-        e.Handled = true;
+        // 拖入项中没有文件夹：明确提示
+        if (folders.Count == 0)
+        {
+            MessageBox.Show(
+                this,
+                Localize.F("S.DragDrop.NotFolder", paths[0]),
+                Localize.T("S.DragDrop.Title"),
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+            return;
+        }
+
+        var folder = folders[0];
+
+        // 权限/可用性探测：枚举第一项即可暴露 UnauthorizedAccessException/IOException
+        try
+        {
+            _ = Directory.EnumerateFileSystemEntries(folder).FirstOrDefault();
+        }
+        catch (Exception ex) when (ex is UnauthorizedAccessException or IOException
+                                   or System.Security.SecurityException)
+        {
+            MessageBox.Show(
+                this,
+                Localize.F("S.DragDrop.NoAccess", folder),
+                Localize.T("S.DragDrop.Title"),
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+            return;
+        }
+
+        // 多文件夹/混合拖入：使用第一个文件夹，其余项目忽略并提示
+        if (folders.Count > 1 || fileCount > 0)
+        {
+            vm.StatusText = Localize.F("S.DragDrop.PartialAccept", folder);
+        }
+
+        if (setTarget)
+        {
+            vm.TargetDirectory = folder;
+        }
+        else
+        {
+            vm.SourceDirectory = folder;
+        }
     }
 
     private void OnMainWindowClosed(object? sender, EventArgs e)

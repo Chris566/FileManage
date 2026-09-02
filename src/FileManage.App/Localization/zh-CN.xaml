@@ -269,6 +269,14 @@
     <!-- 便捷版：空状态提示 -->
     <sys:String x:Key="S.EmptyPreview">选择源目录或拖放文件夹到窗口以加载预览</sys:String>
 
+    <!-- 源目录拖放 -->
+    <sys:String x:Key="S.DragDrop.Title">拖放文件夹</sys:String>
+    <sys:String x:Key="S.DragDrop.Hint">释放以设置为源目录</sys:String>
+    <sys:String x:Key="S.DragDrop.HintTarget">释放以设置为目标目录</sys:String>
+    <sys:String x:Key="S.DragDrop.NotFolder">拖入的项目不是文件夹：{0}&#x0a;请拖放文件夹进行分类整理。</sys:String>
+    <sys:String x:Key="S.DragDrop.NoAccess">无法访问文件夹（权限不足或被占用）：{0}&#x0a;请检查文件夹权限后重试。</sys:String>
+    <sys:String x:Key="S.DragDrop.PartialAccept">已使用第一个文件夹，其余项目已忽略：{0}</sys:String>
+
     <!-- 远程更新 -->
     <sys:String x:Key="S.Menu.CheckUpdate">检查更新…</sys:String>
     <sys:String x:Key="S.Update.Title">软件更新</sys:String>

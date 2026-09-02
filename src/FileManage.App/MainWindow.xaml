@@ -227,22 +227,38 @@
                                 <TextBlock Text="{DynamicResource S.SourceDir}" VerticalAlignment="Center" Margin="6,0,0,0" />
                             </StackPanel>
                         </GroupBox.Header>
-                        <StackPanel>
-                            <DockPanel>
-                                <Button DockPanel.Dock="Right" Content="{DynamicResource S.Browse}"
-                                        Command="{Binding BrowseSourceCommand}"
-                                        Margin="4,0,0,0" Padding="8,4" />
-                                <TextBox Text="{Binding SourceDirectory, UpdateSourceTrigger=PropertyChanged}"
-                                         VerticalContentAlignment="Center" />
-                            </DockPanel>
-                            <CheckBox Content="{DynamicResource S.IncludeSub}"
-                                      IsChecked="{Binding IncludeSubdirectories}"
-                                      Margin="0,8,0,0" />
-                            <TextBlock Text="{DynamicResource S.IncludeGlobs}" Margin="0,8,0,2" />
-                            <TextBox Text="{Binding IncludeGlobs, UpdateSourceTrigger=PropertyChanged}" />
-                            <TextBlock Text="{DynamicResource S.ExcludeGlobs}" Margin="0,8,0,2" />
-                            <TextBox Text="{Binding ExcludeGlobs, UpdateSourceTrigger=PropertyChanged}" />
-                        </StackPanel>
+                        <Grid x:Name="SourceDropZone" AllowDrop="True"
+                              DragOver="OnSourceZoneDragOver" DragLeave="OnSourceZoneDragLeave" Drop="OnSourceZoneDrop">
+                            <StackPanel>
+                                <DockPanel>
+                                    <Button DockPanel.Dock="Right" Content="{DynamicResource S.Browse}"
+                                            Command="{Binding BrowseSourceCommand}"
+                                            Margin="4,0,0,0" Padding="8,4" />
+                                    <TextBox Text="{Binding SourceDirectory, UpdateSourceTrigger=PropertyChanged}"
+                                             VerticalContentAlignment="Center" />
+                                </DockPanel>
+                                <CheckBox Content="{DynamicResource S.IncludeSub}"
+                                          IsChecked="{Binding IncludeSubdirectories}"
+                                          Margin="0,8,0,0" />
+                                <TextBlock Text="{DynamicResource S.IncludeGlobs}" Margin="0,8,0,2" />
+                                <TextBox Text="{Binding IncludeGlobs, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBlock Text="{DynamicResource S.ExcludeGlobs}" Margin="0,8,0,2" />
+                                <TextBox Text="{Binding ExcludeGlobs, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+
+                            <!-- 拖放悬停反馈：高亮边框 + 提示 -->
+                            <Border x:Name="SourceDropOverlay" Visibility="Collapsed" IsHitTestVisible="False"
+                                    BorderBrush="{DynamicResource App.Accent}" BorderThickness="2"
+                                    CornerRadius="4" Background="#262B7CD3">
+                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Path Style="{StaticResource AppIcon32}" Data="{DynamicResource Icon.Source}"
+                                          Fill="{DynamicResource App.Accent}" HorizontalAlignment="Center" />
+                                    <TextBlock Text="{DynamicResource S.DragDrop.Hint}" FontSize="13" FontWeight="SemiBold"
+                                               Foreground="{DynamicResource App.Accent}" HorizontalAlignment="Center"
+                                               Margin="0,6,0,0" />
+                                </StackPanel>
+                            </Border>
+                        </Grid>
                     </GroupBox>
 
                     <GroupBox Grid.Row="1" Style="{StaticResource AppCollapsibleGroup}"
@@ -284,26 +300,42 @@
                                 <TextBlock Text="{DynamicResource S.Classify}" VerticalAlignment="Center" Margin="6,0,0,0" />
                             </StackPanel>
                         </GroupBox.Header>
-                        <StackPanel>
-                            <CheckBox Content="{DynamicResource S.ClassifyEnabled}"
-                                      IsChecked="{Binding ClassificationEnabled}" />
-                            <DockPanel Margin="0,8,0,0">
-                                <Button DockPanel.Dock="Right" Content="{DynamicResource S.Browse}"
-                                        Command="{Binding BrowseTargetCommand}"
-                                        Margin="4,0,0,0" Padding="8,4" />
-                                <TextBox Text="{Binding TargetDirectory, UpdateSourceTrigger=PropertyChanged}"
-                                         VerticalContentAlignment="Center" />
-                            </DockPanel>
-                            <CheckBox Content="{DynamicResource S.Copy}"
-                                      IsChecked="{Binding CopyInsteadOfMove}"
-                                      Margin="0,8,0,0" />
-                            <CheckBox Content="{DynamicResource S.GenerateReport}"
-                                      IsChecked="{Binding GenerateReport}"
-                                      Margin="0,8,0,0" />
-                            <Button Content="{DynamicResource S.RuleEditor}"
-                                    Command="{Binding OpenRuleEditorCommand}"
-                                    HorizontalAlignment="Left" Padding="8,4" Margin="0,8,0,0" />
-                        </StackPanel>
+                        <Grid x:Name="TargetDropZone" AllowDrop="True"
+                              DragOver="OnTargetZoneDragOver" DragLeave="OnTargetZoneDragLeave" Drop="OnTargetZoneDrop">
+                            <StackPanel>
+                                <CheckBox Content="{DynamicResource S.ClassifyEnabled}"
+                                          IsChecked="{Binding ClassificationEnabled}" />
+                                <DockPanel Margin="0,8,0,0">
+                                    <Button DockPanel.Dock="Right" Content="{DynamicResource S.Browse}"
+                                            Command="{Binding BrowseTargetCommand}"
+                                            Margin="4,0,0,0" Padding="8,4" />
+                                    <TextBox Text="{Binding TargetDirectory, UpdateSourceTrigger=PropertyChanged}"
+                                             VerticalContentAlignment="Center" />
+                                </DockPanel>
+                                <CheckBox Content="{DynamicResource S.Copy}"
+                                          IsChecked="{Binding CopyInsteadOfMove}"
+                                          Margin="0,8,0,0" />
+                                <CheckBox Content="{DynamicResource S.GenerateReport}"
+                                          IsChecked="{Binding GenerateReport}"
+                                          Margin="0,8,0,0" />
+                                <Button Content="{DynamicResource S.RuleEditor}"
+                                        Command="{Binding OpenRuleEditorCommand}"
+                                        HorizontalAlignment="Left" Padding="8,4" Margin="0,8,0,0" />
+                            </StackPanel>
+
+                            <!-- 拖放悬停反馈：高亮边框 + 提示 -->
+                            <Border x:Name="TargetDropOverlay" Visibility="Collapsed" IsHitTestVisible="False"
+                                    BorderBrush="{DynamicResource App.Accent}" BorderThickness="2"
+                                    CornerRadius="4" Background="#262B7CD3">
+                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Path Style="{StaticResource AppIcon32}" Data="{DynamicResource Icon.Classify}"
+                                          Fill="{DynamicResource App.Accent}" HorizontalAlignment="Center" />
+                                    <TextBlock Text="{DynamicResource S.DragDrop.HintTarget}" FontSize="13" FontWeight="SemiBold"
+                                               Foreground="{DynamicResource App.Accent}" HorizontalAlignment="Center"
+                                               Margin="0,6,0,0" />
+                                </StackPanel>
+                            </Border>
+                        </Grid>
                     </GroupBox>
 
                     <GroupBox Grid.Row="3" Style="{StaticResource AppCollapsibleGroup}"

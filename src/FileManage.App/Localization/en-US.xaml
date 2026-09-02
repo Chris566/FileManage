@@ -269,6 +269,14 @@
     <!-- Convenience: empty preview state -->
     <sys:String x:Key="S.EmptyPreview">Select a source folder or drag a folder onto the window to load preview</sys:String>
 
+    <!-- Source folder drag & drop -->
+    <sys:String x:Key="S.DragDrop.Title">Drag &amp; Drop Folder</sys:String>
+    <sys:String x:Key="S.DragDrop.Hint">Drop to set source folder</sys:String>
+    <sys:String x:Key="S.DragDrop.HintTarget">Drop to set target folder</sys:String>
+    <sys:String x:Key="S.DragDrop.NotFolder">The dropped item is not a folder: {0}&#x0a;Please drop a folder for classification.</sys:String>
+    <sys:String x:Key="S.DragDrop.NoAccess">Cannot access the folder (access denied or in use): {0}&#x0a;Please check folder permissions and try again.</sys:String>
+    <sys:String x:Key="S.DragDrop.PartialAccept">Used the first folder, other items were ignored: {0}</sys:String>
+
     <!-- Remote update -->
     <sys:String x:Key="S.Menu.CheckUpdate">Check for Updates…</sys:String>
     <sys:String x:Key="S.Update.Title">Software Update</sys:String>
