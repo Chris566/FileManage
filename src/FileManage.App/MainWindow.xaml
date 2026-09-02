@@ -269,28 +269,67 @@
                                 <TextBlock Text="{DynamicResource S.Rename}" VerticalAlignment="Center" Margin="6,0,0,0" />
                             </StackPanel>
                         </GroupBox.Header>
-                        <StackPanel>
-                            <CheckBox Content="{DynamicResource S.RenameEnabled}" IsChecked="{Binding NamingEnabled}" />
-                            <TextBlock Text="{DynamicResource S.Template}" Margin="0,8,0,2" />
-                            <ComboBox SelectedIndex="{Binding SelectedTemplateIndex}">
-                                <ComboBoxItem Content="{DynamicResource S.Template.PrefixOriginal}" />
-                                <ComboBoxItem Content="{DynamicResource S.Template.PrefixIndexOriginal}" />
-                                <ComboBoxItem Content="{DynamicResource S.Template.Original}" />
-                                <ComboBoxItem Content="{DynamicResource S.Template.IndexOriginal}" />
-                            </ComboBox>
-                            <TextBlock Text="{DynamicResource S.Prefix}" Margin="0,8,0,2" />
-                            <TextBox Text="{Binding Prefix, UpdateSourceTrigger=PropertyChanged}" />
-                            <CheckBox Content="{DynamicResource S.KeepExt}"
-                                      IsChecked="{Binding KeepOriginalExtension}"
-                                      Margin="0,8,0,0" />
-                            <CheckBox Content="{DynamicResource S.ReadExif}"
-                                      IsChecked="{Binding ReadExifDate}"
-                                      Margin="0,8,0,0" />
-                            <Button Content="{Binding ReplaceChainButtonText}"
-                                    Command="{Binding OpenReplaceChainCommand}"
-                                    HorizontalAlignment="Left" Padding="8,4" Margin="0,8,0,0" />
-                        </StackPanel>
-                    </GroupBox>
+                        <Grid>
+                            <StackPanel>
+                                <CheckBox Content="{DynamicResource S.RenameEnabled}" IsChecked="{Binding NamingEnabled}" />
+                                <TextBlock Text="{DynamicResource S.Template}" Margin="0,8,0,2" />
+                                <ComboBox SelectedIndex="{Binding SelectedTemplateIndex}">
+                                    <ComboBoxItem Content="{DynamicResource S.Template.PrefixOriginal}" />
+                                    <ComboBoxItem Content="{DynamicResource S.Template.PrefixIndexOriginal}" />
+                                    <ComboBoxItem Content="{DynamicResource S.Template.Original}" />
+                                    <ComboBoxItem Content="{DynamicResource S.Template.IndexOriginal}" />
+                                </ComboBox>
+                                <TextBlock Text="{DynamicResource S.Prefix}" Margin="0,8,0,2" />
+                                <TextBox Text="{Binding Prefix, UpdateSourceTrigger=PropertyChanged}" />
+                                <CheckBox Content="{DynamicResource S.KeepExt}"
+                                          IsChecked="{Binding KeepOriginalExtension}"
+                                          Margin="0,8,0,0" />
+                                <CheckBox Content="{DynamicResource S.ReadExif}"
+                                          IsChecked="{Binding ReadExifDate}"
+                                          Margin="0,8,0,0" />
+                                <Button Content="{Binding ReplaceChainButtonText}"
+                                        Command="{Binding OpenReplaceChainCommand}"
+                                        HorizontalAlignment="Left" Padding="8,4" Margin="0,8,0,0" />
+                            </StackPanel>
+
+                        <!-- 未开启态背景染色：开启时 0.25s 平滑淡出 -->
+                        <Border IsHitTestVisible="False" CornerRadius="2"
+                                Background="{DynamicResource App.Group.DisabledTint}">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Opacity" Value="1" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding NamingEnabled}" Value="True">
+                                            <Setter Property="Opacity" Value="0" />
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.25">
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <CubicEase EasingMode="EaseOut" />
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                            <DataTrigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.25">
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <CubicEase EasingMode="EaseOut" />
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.ExitActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                        </Border>
+                    </Grid>
+                </GroupBox>
 
                     <GroupBox Grid.Row="2" Style="{StaticResource AppCollapsibleGroup}"
                               Tag="{Binding ClassifyGroupExpanded, Mode=TwoWay}" Padding="8" Margin="0,8,0,0">
@@ -334,6 +373,43 @@
                                                Foreground="{DynamicResource App.Accent}" HorizontalAlignment="Center"
                                                Margin="0,6,0,0" />
                                 </StackPanel>
+                            </Border>
+
+                            <!-- 未开启态背景染色：开启时 0.25s 平滑淡出 -->
+                            <Border IsHitTestVisible="False" CornerRadius="2"
+                                    Background="{DynamicResource App.Group.DisabledTint}">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="Opacity" Value="1" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ClassificationEnabled}" Value="True">
+                                                <Setter Property="Opacity" Value="0" />
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.25">
+                                                                <DoubleAnimation.EasingFunction>
+                                                                    <CubicEase EasingMode="EaseOut" />
+                                                                </DoubleAnimation.EasingFunction>
+                                                            </DoubleAnimation>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.EnterActions>
+                                                <DataTrigger.ExitActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.25">
+                                                                <DoubleAnimation.EasingFunction>
+                                                                    <CubicEase EasingMode="EaseOut" />
+                                                                </DoubleAnimation.EasingFunction>
+                                                            </DoubleAnimation>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.ExitActions>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
                             </Border>
                         </Grid>
                     </GroupBox>

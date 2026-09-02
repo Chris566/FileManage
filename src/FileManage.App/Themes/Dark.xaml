@@ -25,4 +25,7 @@
     <SolidColorBrush x:Key="App.Conflict.PlanDuplicate" Color="#203A54" />
     <SolidColorBrush x:Key="App.Conflict.TargetExists" Color="#4A3A19" />
     <SolidColorBrush x:Key="App.Conflict.Blocked" Color="#5A2323" />
+
+    <!-- 功能组未开启态染色（覆盖层，开启时淡出）：深灰半透明，柔和区分禁用状态 -->
+    <SolidColorBrush x:Key="App.Group.DisabledTint" Color="#5E18181C" />
 </ResourceDictionary>
