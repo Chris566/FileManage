@@ -434,6 +434,13 @@
                           CanUserAddRows="False"
                           HeadersVisibility="Column"
                           SelectionMode="Single">
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="{DynamicResource S.Preview.Clear}"
+                                  Command="{Binding PlacementTarget.DataContext.ClearPreviewCommand,
+                                                    RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{DynamicResource S.Col.Original}" Binding="{Binding OriginalName}" Width="2*" />
                     <DataGridTextColumn Header="{DynamicResource S.Col.New}" Binding="{Binding NewName}" Width="2*" />

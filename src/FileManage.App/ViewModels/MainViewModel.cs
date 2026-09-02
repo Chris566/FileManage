@@ -283,6 +283,13 @@ public partial class MainViewModel : ObservableObject
     }
 
     [RelayCommand]
+    private void ClearPreview()
+    {
+        PreviewRows.Clear();
+        StatusText = Localize.T("S.Status.PreviewCleared");
+    }
+
+    [RelayCommand]
     private async Task RefreshPreviewAsync()
     {
         if (!Validate())

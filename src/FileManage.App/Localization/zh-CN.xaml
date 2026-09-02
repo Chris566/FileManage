@@ -229,6 +229,7 @@
     <!-- 状态栏动态消息 / 对话框标题 -->
     <sys:String x:Key="S.Status.PreviewLoaded">预览已加载：{0} 个文件，{1} 个操作</sys:String>
     <sys:String x:Key="S.Status.PreviewFailed">预览失败: {0}</sys:String>
+    <sys:String x:Key="S.Status.PreviewCleared">预览信息已清理</sys:String>
     <sys:String x:Key="S.Status.NoOperations">没有可执行的操作（无文件或全部被阻断）</sys:String>
     <sys:String x:Key="S.Status.Progress">({0}/{1}) {2}</sys:String>
     <sys:String x:Key="S.Status.ExecuteRolledBack">执行失败已回滚: {0}</sys:String>
@@ -279,6 +280,9 @@
 
     <!-- 便捷版：空状态提示 -->
     <sys:String x:Key="S.EmptyPreview">选择源目录或拖放文件夹到窗口以加载预览</sys:String>
+
+    <!-- 预览区右键菜单 -->
+    <sys:String x:Key="S.Preview.Clear">清理预览信息</sys:String>
 
     <!-- 源目录拖放 -->
     <sys:String x:Key="S.DragDrop.Title">拖放文件夹</sys:String>

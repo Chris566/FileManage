@@ -229,6 +229,7 @@
     <!-- Status bar messages / dialog titles -->
     <sys:String x:Key="S.Status.PreviewLoaded">Preview loaded: {0} file(s), {1} operation(s)</sys:String>
     <sys:String x:Key="S.Status.PreviewFailed">Preview failed: {0}</sys:String>
+    <sys:String x:Key="S.Status.PreviewCleared">Preview cleared</sys:String>
     <sys:String x:Key="S.Status.NoOperations">No operations to execute (no files or all blocked)</sys:String>
     <sys:String x:Key="S.Status.Progress">({0}/{1}) {2}</sys:String>
     <sys:String x:Key="S.Status.ExecuteRolledBack">Execute failed, rolled back: {0}</sys:String>
@@ -279,6 +280,9 @@
 
     <!-- Convenience: empty preview state -->
     <sys:String x:Key="S.EmptyPreview">Select a source folder or drag a folder onto the window to load preview</sys:String>
+
+    <!-- Preview context menu -->
+    <sys:String x:Key="S.Preview.Clear">Clear Preview</sys:String>
 
     <!-- Source folder drag & drop -->
     <sys:String x:Key="S.DragDrop.Title">Drag &amp; Drop Folder</sys:String>
