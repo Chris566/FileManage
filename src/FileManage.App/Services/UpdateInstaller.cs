@@ -2,13 +2,18 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Net.Http;
+using System.Text.Json;
 using System.Windows;
+using FileManage.Infrastructure.Storage;
 
 namespace FileManage.App.Services;
 
 /// <summary>
-/// 更新安装器（便携版）：下载新版本 zip → 解压 → 批处理脚本全文件夹替换并重启。
-/// 数据目录 Data\ 不在更新包内，替换时显式排除，用户数据原样保留。
+/// 更新安装器（便携版）：下载新版本 zip → 解压 → 清单对比（增量安装）→ 批处理替换并重启。
+/// 增量/跨版本支持：
+/// - robocopy 默认仅复制内容有变化的文件（天然增量安装）；
+/// - 通过 manifest.json 哈希清单计算"新版本已移除的文件"删除清单，跨版本升级后无旧版残留；
+/// - 数据目录 Data\ 在备份、覆盖、删除清单各环节均被排除，用户数据原样保留。
 /// 回滚机制：替换前将当前程序文件备份到 exe 目录 _update_backup，失败自动恢复；
 /// 更新成功后由新版本启动时清理（App.TryCleanupUpdateBackup）。
 /// </summary>
@@ -68,8 +73,11 @@ public static class UpdateInstaller
         var backupDir = Path.Combine(appRoot, "_update_backup");
         var extractDir = Path.Combine(Path.GetTempPath(), $"FileManage_Update_{Guid.NewGuid():N}");
 
-        // 解压新版本（zip 根即 FileManage.exe + 依赖）
+        // 解压新版本（zip 根即 FileManage.exe + 依赖 + manifest.json）
         ZipFile.ExtractToDirectory(downloadedZipPath, extractDir, overwriteFiles: true);
+
+        // 增量安装：按新版本清单计算"已移除文件"删除清单（跨版本残留清理）
+        var deleteLines = BuildDeleteList(extractDir, appRoot);
 
         var batPath = Path.Combine(Path.GetTempPath(), $"FileManage_Update_{Guid.NewGuid():N}.bat");
 
@@ -99,6 +107,8 @@ if errorlevel 8 (
     del "{batPath}" >nul 2>&1
     exit /b 1
 )
+:: 清理新版本已移除的旧文件（跨版本残留）
+{string.Join("\r\n", deleteLines)}
 :: 启动新版本（_update_backup 留给新进程启动时清理）
 start "" "{currentExePath}"
 rd /s /q "{extractDir}" >nul 2>&1
@@ -119,5 +129,45 @@ del "{downloadedZipPath}" >nul 2>&1
         });
 
         Application.Current?.Shutdown();
+    }
+
+    /// <summary>
+    /// 读取新版本解压目录中的 manifest.json，与本地安装目录对比，生成批处理删除行。
+    /// 清单缺失（旧版升级/损坏）时返回空清单，退化为全量覆盖安装（安全兜底）。
+    /// 路径来自本地文件系统枚举，天然无 ".." 逃逸风险。
+    /// </summary>
+    private static List<string> BuildDeleteList(string extractDir, string appRoot)
+    {
+        var manifestPath = Path.Combine(extractDir, UpdateManifestComparer.ManifestFileName);
+
+        if (!File.Exists(manifestPath))
+        {
+            return [];
+        }
+
+        try
+        {
+            var manifest = JsonSerializer.Deserialize<UpdateManifest>(
+                File.ReadAllText(manifestPath));
+
+            if (manifest is null)
+            {
+                return [];
+            }
+
+            return UpdateManifestComparer
+                .ComputeDeleteList(manifest, appRoot)
+                .Select(relative =>
+                {
+                    var local = Path.Combine(appRoot, relative.Replace('/', Path.DirectorySeparatorChar));
+                    return $"if exist \"{local}\" del /f /q \"{local}\"";
+                })
+                .ToList();
+        }
+        catch
+        {
+            // 清单解析失败不阻断更新，退化为全量覆盖
+            return [];
+        }
     }
 }

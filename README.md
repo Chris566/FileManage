@@ -29,14 +29,14 @@ dotnet test -c Release       # 全量测试（含黄金快照回归 432+12 用�
 
 ## 发布
 
-自包含单文件（目标机器无需安装 .NET 运行时）：
+self-contained 便携文件夹（目标机器无需安装 .NET 运行时）：
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/publish.ps1
-# 产出: publish/FileManage.exe
+# 产出: publish\（FileManage.exe + 依赖 + manifest.json）与 FileManage-portable.zip
 ```
 
-CI（`.github/workflows/ci.yml`）在推送 `v*` 标签或手动触发时自动构建并上传 `FileManage.exe` 工件。
+CI（`.github/workflows/ci.yml`）在推送 `v*` 标签或手动触发时自动构建，发布产物打包为 `FileManage-vX.Y.Z.zip` 并创建 GitHub Release（Release Notes 取自标签附注消息）。应用内置更新功能按 manifest 清单做增量安装与跨版本残留清理。
 
 ## 使用说明
 
@@ -49,25 +49,61 @@ CI（`.github/workflows/ci.yml`）在推送 `v*` 标签或手动触发时自动�
 
 ## 数据文件位置
 
+便携版数据全部存放在 **解压目录下的 `Data\` 子文件夹**（随文件夹走，可 U 盘携带）。若 exe 位于无写权限目录（如 Program Files），自动回退 `%AppData%\FileManage\Portable`。旧版（单文件版）`%AppData%\FileManage` 数据首次启动自动迁入，旧数据保留不删、可随时回退旧版本。
+
 | 文件 | 路径 | 说明 |
 |---|---|---|
-| rules.json | `%AppData%\FileManage\rules.json` | 分类规则预设（v2：多预设 + 激活项；旧版 v1 单规则集首次启动自动无损迁移，可导入导出） |
-| settings.json | `%AppData%\FileManage\settings.json` | 主题、语言、上次目录、分组折叠、窗口位置/尺寸 |
-| undo/*.json | `%AppData%\FileManage\undo\` | 撤销批次记录 |
-| backup/ | `%AppData%\FileManage\backup\` | 执行前备份（撤销依赖） |
+| rules.json | `Data\rules.json` | 分类规则预设（v2：多预设 + 激活项；旧版 v1 首次启动自动无损迁移，可导入导出） |
+| settings.json | `Data\settings.json` | 主题、语言、上次目录、分组折叠、窗口位置/尺寸 |
+| undo/*.json | `Data\undo\` | 撤销批次记录 |
+| backup/ | `Data\backup\` | 执行前备份（撤销依赖） |
 
 ## 项目结构
 
 ```
 src/
   FileManage.Core            纯逻辑：命名引擎、规则引擎、计划器、事务执行、撤销、去重
-  FileManage.Infrastructure  IO 实现：文件系统、EXIF、备份、撤销存储、规则/设置持久化
-  FileManage.App             WPF UI（MVVM，CommunityToolkit.Mvvm）
+  FileManage.Infrastructure  IO 实现：文件系统、EXIF、备份、撤销存储、规则/设置持久化、更新清单
+  FileManage.App             WPF UI（MVVM，CommunityToolkit.Mvvm）+ 路径布局/更新服务
 tests/FileManage.Core.Tests  xUnit 单元测试 + 旧版黄金快照回归
 docs/DESIGN.md               架构与里程碑设计文档
 tools/                       旧版 PS 工具黄金快照生成脚本
-scripts/publish.ps1          自包含单文件发布脚本
+scripts/publish.ps1          便携文件夹发布脚本（与 CI 一致）
 ```
+
+## 文件分类标准
+
+### 发布产物目录布局（zip 解压后）
+
+| 位置 | 内容 | 说明 |
+|---|---|---|
+| 根目录 | `FileManage.exe` | 应用入口。**必须与运行时依赖同级**（.NET 宿主机制：apphost 启动时在同级目录解析 hostfxr/coreclr/主 dll/runtimeconfig，无法移入子文件夹） |
+| 根目录 | `hostfxr.dll`、`coreclr.dll`、`clrjit.dll`、`PresentationFramework.dll` 等 | .NET 8 运行时与 WPF 框架库（self-contained 自带），由 `dotnet publish` 官方布局生成，**不要手工移动** |
+| 根目录 | `ClosedXML.dll` 等第三方依赖 dll | NuGet 包依赖，同级加载 |
+| 根目录 | `manifest.json` | 版本文件清单（相对路径 + SHA256），应用内更新用于增量安装与跨版本残留清理 |
+| `Data\` | `rules.json`、`settings.json`、`undo\`、`backup\` | **用户数据**（详见"数据文件位置"），更新时全程排除、永不覆盖 |
+| `_update_backup\` | 更新前的程序文件备份 | 更新失败自动回滚用；更新成功后下次启动自动清理；不出现于发布包 |
+
+发布时排除的文件：`*.pdb`（调试符号）、`createdump.exe`（运行时崩溃转储工具）——最终用户无需。
+
+### 新增文件归放规则
+
+| 文件类型 | 存放位置 |
+|---|---|
+| 纯业务逻辑（无 IO 依赖） | `src/FileManage.Core` 对应子目录（Naming/Rules/Planning/Execution/Reporting/Undo/Duplicate/Scanning） |
+| 文件系统/持久化实现 | `src/FileManage.Infrastructure` 对应子目录（FileSystem/Exif/Backup/Undo/Rules/Settings/Storage/Reporting） |
+| UI 层服务与路径定义 | `src/FileManage.App/Services`；窗口在 `Views`；视图模型在 `ViewModels` |
+| 测试 | `tests/FileManage.Core.Tests`（Core 与 Infrastructure 逻辑均可测） |
+| 发布/构建脚本 | `scripts/`；CI 工作流 `.github/workflows/` |
+| 设计与说明文档 | `docs/`；面向用户的功能说明写入 `README.md` |
+| 发布产物新增文件 | 必须同步更新 CI（`ci.yml`）与 `scripts/publish.ps1` 的 manifest 生成逻辑，保证增量更新可用 |
+
+### 更新机制（增量/跨版本）
+
+1. 应用内更新下载最新 Release 的 zip 并解压
+2. 读取新包内 `manifest.json`，与本地安装目录对比 → 生成"新版本已移除文件"的删除清单
+3. 批处理：等待进程退出 → 备份程序文件到 `_update_backup`（排除 `Data\`）→ robocopy 覆盖（仅复制有变化的文件，天然增量）→ 执行删除清单 → 重启
+4. 任意版本跨度（v1.8 → v1.10、跨多个小版本）均可直接升级；失败自动从备份回滚
 
 ## 与旧版的关系
 
