@@ -16,15 +16,11 @@ namespace FileManage.App.Services;
 
 /// <summary>
 /// 组合根：装配 Core/Infrastructure 服务与分类规则集。
-/// 数据目录：%AppData%/FileManage/{backup,undo,rules.json}。
+/// 数据目录：便携版 &lt;exe目录&gt;/Data/{backup,undo,rules.json}（详见 AppPaths）。
 /// </summary>
 public static class AppServices
 {
-    private static string AppDataRoot { get; } = Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-        "FileManage");
-
-    public static string RulesFilePath { get; } = Path.Combine(AppDataRoot, "rules.json");
+    public static string RulesFilePath { get; } = AppPaths.RulesPath;
 
     public static FileScanner Scanner { get; } = new(new FileSystemService(), new Infrastructure.Exif.ExifService());
 
@@ -34,12 +30,12 @@ public static class AppServices
 
     public static TransactionExecutor Executor { get; } = new(
         new FileSystemService(),
-        new FileBackupService(Path.Combine(AppDataRoot, "backup")),
-        new JsonUndoStore(Path.Combine(AppDataRoot, "undo")));
+        new FileBackupService(AppPaths.BackupDir),
+        new JsonUndoStore(AppPaths.UndoDir));
 
     public static UndoManager UndoManager { get; } = new(new FileSystemService());
 
-    public static IUndoStore UndoStore { get; } = new JsonUndoStore(Path.Combine(AppDataRoot, "undo"));
+    public static IUndoStore UndoStore { get; } = new JsonUndoStore(AppPaths.UndoDir);
 
     public static RuleConfigStore RuleStore { get; } = new();
 

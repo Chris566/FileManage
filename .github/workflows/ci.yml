@@ -41,20 +41,22 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
-      - name: Publish (self-contained single file)
+      - name: Publish (self-contained portable folder)
         shell: pwsh
         run: |
           $ver = $env:GITHUB_REF_NAME -replace '^v', ''
           dotnet publish src/FileManage.App/FileManage.App.csproj -c Release -r win-x64 --self-contained true `
-            /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true /p:EnableCompressionInSingleFile=true `
             /p:InformationalVersion=$ver -o publish
           "InformationalVersion=$ver" | Out-Host
+          # 便携版：zip 根目录即 FileManage.exe + 依赖，数据写入解压目录下 Data\
+          Compress-Archive -Path "publish/*" -DestinationPath "FileManage-$($env:GITHUB_REF_NAME).zip"
+          Get-Item "FileManage-$($env:GITHUB_REF_NAME).zip" | Out-Host
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: FileManage-${{ github.ref_name }}
-          path: publish/FileManage.exe
+          path: FileManage-${{ github.ref_name }}.zip
 
   release:
     if: startsWith(github.ref, 'refs/tags/v')
@@ -83,7 +85,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
-          gh release create "${GITHUB_REF_NAME}" "artifact/FileManage.exe" \
+          ZIP=$(ls artifact/FileManage-*.zip)
+          gh release create "${GITHUB_REF_NAME}" "$ZIP" \
             --title "FileManage ${GITHUB_REF_NAME}" \
             --notes-file release-notes.md --verify-tag \
-          || gh release upload "${GITHUB_REF_NAME}" "artifact/FileManage.exe" --clobber
+          || gh release upload "${GITHUB_REF_NAME}" "$ZIP" --clobber

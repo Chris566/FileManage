@@ -41,7 +41,7 @@ public partial class UpdateWindow : Window
         DownloadButton.IsEnabled = false;
         ProgressPanel.Visibility = Visibility.Visible;
 
-        var asset = _updateInfo.Assets.FirstOrDefault(a => a.Name.EndsWith(".exe"));
+        var asset = _updateInfo.Assets.FirstOrDefault(a => a.Name.EndsWith(".zip"));
 
         if (asset is null)
         {
