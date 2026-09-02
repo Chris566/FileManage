@@ -1,0 +1,23 @@
+<Window x:Class="FileManage.App.Views.RestoreCleanupDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="FileManage" Width="400" SizeToContent="Height"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        ShowInTaskbar="False" WindowStyle="ToolWindow">
+    <StackPanel Margin="16">
+        <TextBlock x:Name="MessageText" TextWrapping="Wrap"
+                   Foreground="{DynamicResource App.Text}" Margin="0,0,0,12" />
+
+        <CheckBox x:Name="DeleteFilesCheck" Margin="0,0,0,8"
+                  Content="{DynamicResource S.RestoreCleanup.DeleteFiles}" />
+        <CheckBox x:Name="DeleteReportCheck" Margin="0,0,0,16"
+                  Content="{DynamicResource S.RestoreCleanup.DeleteReport}" />
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="OkButton" Content="{DynamicResource S.RestoreCleanup.OK}"
+                    Padding="16,6" Margin="0,0,8,0" Click="OnOk" IsDefault="True" />
+            <Button Content="{DynamicResource S.RestoreCleanup.Skip}"
+                    Padding="16,6" Click="OnSkip" IsCancel="True" />
+        </StackPanel>
+    </StackPanel>
+</Window>

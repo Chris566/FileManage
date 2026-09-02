@@ -266,6 +266,17 @@
     <sys:String x:Key="S.Status.RestorePartial">Restore complete: {0} succeeded, {1} skipped, {2} failed. Log: {3}</sys:String>
     <sys:String x:Key="S.Status.RestoreFailed">Restore failed: {0}</sys:String>
 
+    <!-- Restore cleanup options -->
+    <sys:String x:Key="S.RestoreCleanup.Title">Restore Cleanup</sys:String>
+    <sys:String x:Key="S.RestoreCleanup.Message">Restore complete: {0} succeeded. Also clean up the following?</sys:String>
+    <sys:String x:Key="S.RestoreCleanup.DeleteFiles">Delete classified files ({0})</sys:String>
+    <sys:String x:Key="S.RestoreCleanup.DeleteReport">Delete the classification report</sys:String>
+    <sys:String x:Key="S.RestoreCleanup.OK">Clean Up</sys:String>
+    <sys:String x:Key="S.RestoreCleanup.Skip">Keep</sys:String>
+    <sys:String x:Key="S.Status.CleanupFiles">Deleted {0} classified files ({1} failed)</sys:String>
+    <sys:String x:Key="S.Status.CleanupReportDeleted">report deleted</sys:String>
+    <sys:String x:Key="S.Status.CleanupReportFailed">report deletion failed (may be in use)</sys:String>
+
     <!-- Convenience: empty preview state -->
     <sys:String x:Key="S.EmptyPreview">Select a source folder or drag a folder onto the window to load preview</sys:String>
 

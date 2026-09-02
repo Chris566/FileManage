@@ -358,7 +358,9 @@ public partial class MainViewModel : ObservableObject
                 }
             }
 
-            await RefreshPreviewCoreAsync();
+            // 保留此次执行的变更明细：不重新扫描（文件已移走会显示为空），
+            // 直接展示本次计划的 原文件名→新文件名 映射，直到下次"刷新预览"或再次"执行"
+            FillPreview(plan);
         }
         catch (Exception ex)
         {
@@ -677,6 +679,12 @@ public partial class MainViewModel : ObservableObject
             StatusText = result.Success
                 ? Localize.F("S.Status.RestoreSuccess", result.Restored, result.Skipped, logPath)
                 : Localize.F("S.Status.RestorePartial", result.Restored, result.Skipped, result.Errors.Count, logPath);
+
+            // 回覆完成后提供可选清理：删除已分类的文件 / 分类整理报表
+            if (result.Restored > 0)
+            {
+                await ShowRestoreCleanupAsync(result, reportPath);
+            }
         }
         catch (Exception ex)
         {
@@ -689,11 +697,107 @@ public partial class MainViewModel : ObservableObject
         }
     }
 
+    /// <summary>
+    /// 回覆完成后的可选清理对话框：删除已分类的文件（分类目标位置）与分类整理报表。
+    /// 两项均为可选；用户点击"不清理"或关闭对话框则不做任何删除。
+    /// </summary>
+    private async Task ShowRestoreCleanupAsync(RestoreResult result, string reportPath)
+    {
+        var dialog = new Views.RestoreCleanupDialog(result.Restored, Path.GetFileName(reportPath))
+        {
+            Owner = Application.Current.MainWindow
+        };
+
+        if (dialog.ShowDialog() != true)
+        {
+            return;
+        }
+
+        var deletedFiles = 0;
+        var failedFiles = 0;
+        var reportDeleted = false;
+        var cleanupRequested = dialog.DeleteClassifiedFiles || dialog.DeleteReport;
+
+        if (cleanupRequested)
+        {
+            IsBusy = true;
+
+            try
+            {
+                var deleteFiles = dialog.DeleteClassifiedFiles;
+                var deleteReport = dialog.DeleteReport;
+
+                (deletedFiles, failedFiles, reportDeleted) = await Task.Run(() =>
+                {
+                    var deleted = 0;
+                    var failed = 0;
+
+                    if (deleteFiles)
+                    {
+                        foreach (var entry in result.RestoredEntries)
+                        {
+                            try
+                            {
+                                File.Delete(entry.NewPath);
+                                deleted++;
+                            }
+                            catch
+                            {
+                                failed++;
+                            }
+                        }
+                    }
+
+                    var reportOk = false;
+
+                    if (deleteReport)
+                    {
+                        try
+                        {
+                            File.Delete(reportPath);
+                            reportOk = true;
+                        }
+                        catch
+                        {
+                            // 报表可能被占用，保留原文件
+                        }
+                    }
+
+                    return (deleted, failed, reportOk);
+                });
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        var parts = new List<string>();
+
+        if (dialog.DeleteClassifiedFiles)
+        {
+            parts.Add(Localize.F("S.Status.CleanupFiles", deletedFiles, failedFiles));
+        }
+
+        if (dialog.DeleteReport)
+        {
+            parts.Add(reportDeleted
+                ? Localize.T("S.Status.CleanupReportDeleted")
+                : Localize.T("S.Status.CleanupReportFailed"));
+        }
+
+        if (parts.Count > 0)
+        {
+            StatusText += " " + string.Join("；", parts);
+        }
+    }
+
     private RestoreResult ExecuteRestore(List<RestoreEntry> entries, string logPath)
     {
         var restored = 0;
         var skipped = 0;
         var errors = new List<string>();
+        var restoredEntries = new List<RestoreEntry>();
         var operatorName = Environment.UserName;
         var logLines = new List<string>
         {
@@ -721,6 +825,7 @@ public partial class MainViewModel : ObservableObject
 
                 File.Copy(entry.NewPath, entry.OriginalPath, overwrite: true);
                 restored++;
+                restoredEntries.Add(entry);
 
                 logLines.Add($"[{DateTime.Now:HH:mm:ss}] 覆盖成功 | {entry.NewName} → {entry.OriginalPath} | 规则: {entry.RuleName}");
             }
@@ -741,7 +846,8 @@ public partial class MainViewModel : ObservableObject
             Total = entries.Count,
             Restored = restored,
             Skipped = skipped,
-            Errors = errors
+            Errors = errors,
+            RestoredEntries = restoredEntries
         };
     }
 

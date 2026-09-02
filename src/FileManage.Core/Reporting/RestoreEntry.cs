@@ -35,5 +35,8 @@ public sealed record RestoreResult
     public required int Skipped { get; init; }
     public required IReadOnlyList<string> Errors { get; init; }
 
+    /// <summary>回覆成功的条目（用于可选的"删除已分类文件"清理）。</summary>
+    public IReadOnlyList<RestoreEntry> RestoredEntries { get; init; } = [];
+
     public bool Success => Errors.Count == 0;
 }

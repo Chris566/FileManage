@@ -266,6 +266,17 @@
     <sys:String x:Key="S.Status.RestorePartial">回覆完成：成功 {0} 个，跳过 {1} 个，失败 {2} 个。日志：{3}</sys:String>
     <sys:String x:Key="S.Status.RestoreFailed">回覆失败: {0}</sys:String>
 
+    <!-- 回覆清理选项 -->
+    <sys:String x:Key="S.RestoreCleanup.Title">回覆清理</sys:String>
+    <sys:String x:Key="S.RestoreCleanup.Message">回覆完成：成功 {0} 个。是否同时清理以下项目？</sys:String>
+    <sys:String x:Key="S.RestoreCleanup.DeleteFiles">删除已分类的文件（{0} 个）</sys:String>
+    <sys:String x:Key="S.RestoreCleanup.DeleteReport">删除分类整理报表</sys:String>
+    <sys:String x:Key="S.RestoreCleanup.OK">清理</sys:String>
+    <sys:String x:Key="S.RestoreCleanup.Skip">不清理</sys:String>
+    <sys:String x:Key="S.Status.CleanupFiles">已删除分类文件 {0} 个（失败 {1} 个）</sys:String>
+    <sys:String x:Key="S.Status.CleanupReportDeleted">报表已删除</sys:String>
+    <sys:String x:Key="S.Status.CleanupReportFailed">报表删除失败（可能被占用）</sys:String>
+
     <!-- 便捷版：空状态提示 -->
     <sys:String x:Key="S.EmptyPreview">选择源目录或拖放文件夹到窗口以加载预览</sys:String>
 

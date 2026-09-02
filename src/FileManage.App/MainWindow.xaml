@@ -261,8 +261,40 @@
                         </Grid>
                     </GroupBox>
 
-                    <GroupBox Grid.Row="1" Style="{StaticResource AppCollapsibleGroup}"
+                    <GroupBox Grid.Row="1"
                               Tag="{Binding RenameGroupExpanded, Mode=TwoWay}" Padding="8" Margin="0,8,0,0">
+                        <GroupBox.Style>
+                            <Style BasedOn="{StaticResource AppCollapsibleGroup}" TargetType="GroupBox">
+                                <Setter Property="Opacity" Value="0.55" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding NamingEnabled}" Value="True">
+                                        <Setter Property="Opacity" Value="1" />
+                                        <DataTrigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.25">
+                                                        <DoubleAnimation.EasingFunction>
+                                                            <CubicEase EasingMode="EaseOut" />
+                                                        </DoubleAnimation.EasingFunction>
+                                                    </DoubleAnimation>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </DataTrigger.EnterActions>
+                                        <DataTrigger.ExitActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0.55" Duration="0:0:0.25">
+                                                        <DoubleAnimation.EasingFunction>
+                                                            <CubicEase EasingMode="EaseOut" />
+                                                        </DoubleAnimation.EasingFunction>
+                                                    </DoubleAnimation>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </DataTrigger.ExitActions>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </GroupBox.Style>
                         <GroupBox.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.RenameGroup}" VerticalAlignment="Center" />
@@ -291,48 +323,43 @@
                                         Command="{Binding OpenReplaceChainCommand}"
                                         HorizontalAlignment="Left" Padding="8,4" Margin="0,8,0,0" />
                             </StackPanel>
+                        </Grid>
+                    </GroupBox>
 
-                        <!-- 未开启态背景染色：开启时 0.25s 平滑淡出 -->
-                        <Border IsHitTestVisible="False" CornerRadius="2"
-                                Background="{DynamicResource App.Group.DisabledTint}">
-                            <Border.Style>
-                                <Style TargetType="Border">
-                                    <Setter Property="Opacity" Value="1" />
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding NamingEnabled}" Value="True">
-                                            <Setter Property="Opacity" Value="0" />
-                                            <DataTrigger.EnterActions>
-                                                <BeginStoryboard>
-                                                    <Storyboard>
-                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.25">
-                                                            <DoubleAnimation.EasingFunction>
-                                                                <CubicEase EasingMode="EaseOut" />
-                                                            </DoubleAnimation.EasingFunction>
-                                                        </DoubleAnimation>
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </DataTrigger.EnterActions>
-                                            <DataTrigger.ExitActions>
-                                                <BeginStoryboard>
-                                                    <Storyboard>
-                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.25">
-                                                            <DoubleAnimation.EasingFunction>
-                                                                <CubicEase EasingMode="EaseOut" />
-                                                            </DoubleAnimation.EasingFunction>
-                                                        </DoubleAnimation>
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </DataTrigger.ExitActions>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Border.Style>
-                        </Border>
-                    </Grid>
-                </GroupBox>
-
-                    <GroupBox Grid.Row="2" Style="{StaticResource AppCollapsibleGroup}"
+                    <GroupBox Grid.Row="2"
                               Tag="{Binding ClassifyGroupExpanded, Mode=TwoWay}" Padding="8" Margin="0,8,0,0">
+                        <GroupBox.Style>
+                            <Style BasedOn="{StaticResource AppCollapsibleGroup}" TargetType="GroupBox">
+                                <Setter Property="Opacity" Value="0.55" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ClassificationEnabled}" Value="True">
+                                        <Setter Property="Opacity" Value="1" />
+                                        <DataTrigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.25">
+                                                        <DoubleAnimation.EasingFunction>
+                                                            <CubicEase EasingMode="EaseOut" />
+                                                        </DoubleAnimation.EasingFunction>
+                                                    </DoubleAnimation>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </DataTrigger.EnterActions>
+                                        <DataTrigger.ExitActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0.55" Duration="0:0:0.25">
+                                                        <DoubleAnimation.EasingFunction>
+                                                            <CubicEase EasingMode="EaseOut" />
+                                                        </DoubleAnimation.EasingFunction>
+                                                    </DoubleAnimation>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </DataTrigger.ExitActions>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </GroupBox.Style>
                         <GroupBox.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Path Style="{StaticResource AppIcon16}" Data="{DynamicResource Icon.Classify}" VerticalAlignment="Center" />
@@ -373,43 +400,6 @@
                                                Foreground="{DynamicResource App.Accent}" HorizontalAlignment="Center"
                                                Margin="0,6,0,0" />
                                 </StackPanel>
-                            </Border>
-
-                            <!-- 未开启态背景染色：开启时 0.25s 平滑淡出 -->
-                            <Border IsHitTestVisible="False" CornerRadius="2"
-                                    Background="{DynamicResource App.Group.DisabledTint}">
-                                <Border.Style>
-                                    <Style TargetType="Border">
-                                        <Setter Property="Opacity" Value="1" />
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding ClassificationEnabled}" Value="True">
-                                                <Setter Property="Opacity" Value="0" />
-                                                <DataTrigger.EnterActions>
-                                                    <BeginStoryboard>
-                                                        <Storyboard>
-                                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.25">
-                                                                <DoubleAnimation.EasingFunction>
-                                                                    <CubicEase EasingMode="EaseOut" />
-                                                                </DoubleAnimation.EasingFunction>
-                                                            </DoubleAnimation>
-                                                        </Storyboard>
-                                                    </BeginStoryboard>
-                                                </DataTrigger.EnterActions>
-                                                <DataTrigger.ExitActions>
-                                                    <BeginStoryboard>
-                                                        <Storyboard>
-                                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.25">
-                                                                <DoubleAnimation.EasingFunction>
-                                                                    <CubicEase EasingMode="EaseOut" />
-                                                                </DoubleAnimation.EasingFunction>
-                                                            </DoubleAnimation>
-                                                        </Storyboard>
-                                                    </BeginStoryboard>
-                                                </DataTrigger.ExitActions>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Border.Style>
                             </Border>
                         </Grid>
                     </GroupBox>
