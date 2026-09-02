@@ -63,11 +63,20 @@ jobs:
     permissions:
       contents: write
     steps:
+      - name: Checkout (full history to read tag message)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
           name: FileManage-${{ github.ref_name }}
           path: artifact
+
+      # 提取标签附注消息作为 Release Notes（打标签时的更新内容）
+      - name: Extract release notes from tag message
+        run: git tag -l --format='%(contents)' "${GITHUB_REF_NAME}" > release-notes.md
 
       - name: Create GitHub Release
         env:
@@ -76,5 +85,5 @@ jobs:
         run: |
           gh release create "${GITHUB_REF_NAME}" "artifact/FileManage.exe" \
             --title "FileManage ${GITHUB_REF_NAME}" \
-            --generate-notes --verify-tag \
+            --notes-file release-notes.md --verify-tag \
           || gh release upload "${GITHUB_REF_NAME}" "artifact/FileManage.exe" --clobber
