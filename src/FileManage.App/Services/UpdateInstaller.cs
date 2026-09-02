@@ -73,11 +73,12 @@ public static class UpdateInstaller
         var backupDir = Path.Combine(appRoot, "_update_backup");
         var extractDir = Path.Combine(Path.GetTempPath(), $"FileManage_Update_{Guid.NewGuid():N}");
 
-        // 解压新版本（zip 根即 FileManage.exe + 依赖 + manifest.json）
+        // 解压新版本（v1.8.3+ zip 内存在名为 FileManage 的包装子文件夹；旧包为扁平结构，兼容两者）
         ZipFile.ExtractToDirectory(downloadedZipPath, extractDir, overwriteFiles: true);
+        var pkgRoot = DetectPackageRoot(extractDir);
 
         // 增量安装：按新版本清单计算"已移除文件"删除清单（跨版本残留清理）
-        var deleteLines = BuildDeleteList(extractDir, appRoot);
+        var deleteLines = BuildDeleteList(pkgRoot, appRoot);
 
         var batPath = Path.Combine(Path.GetTempPath(), $"FileManage_Update_{Guid.NewGuid():N}.bat");
 
@@ -96,7 +97,7 @@ if not errorlevel 1 (
 rd /s /q "{backupDir}" >nul 2>&1
 robocopy "{appRoot}" "{backupDir}" /E /XD "{dataDir}" "{backupDir}" /NFL /NDL /NJH /NJS >nul
 :: 覆盖新版本文件（XD 兜底排除 Data，用户数据不受影响）
-robocopy "{extractDir}" "{appRoot}" /E /XD "{dataDir}" /NFL /NDL /NJH /NJS >nul
+robocopy "{pkgRoot}" "{appRoot}" /E /XD "{dataDir}" /NFL /NDL /NJH /NJS >nul
 if errorlevel 8 (
     :: 覆盖失败，从备份回滚并重启当前版本
     robocopy "{backupDir}" "{appRoot}" /E /NFL /NDL /NJH /NJS >nul
@@ -129,6 +130,30 @@ del "{downloadedZipPath}" >nul 2>&1
         });
 
         Application.Current?.Shutdown();
+    }
+
+    /// <summary>
+    /// 确定 zip 解压后的包根目录。v1.8.3+ 包内存在 FileManage\ 包装子文件夹；旧包为扁平结构。
+    /// 检测：若解压目录仅包含一个名为 FileManage 的子目录且无 manifest.json，即新包装，返回该子目录；否则返回原目录。
+    /// </summary>
+    private static string DetectPackageRoot(string extractDir)
+    {
+        if (File.Exists(Path.Combine(extractDir, UpdateManifestComparer.ManifestFileName)))
+        {
+            return extractDir; // 扁平结构（v1.8.2 及更早）
+        }
+
+        var entries = Directory.GetFileSystemEntries(extractDir);
+        if (entries.Length == 1 && Directory.Exists(entries[0]))
+        {
+            var wrapper = entries[0];
+            if (File.Exists(Path.Combine(wrapper, UpdateManifestComparer.ManifestFileName)))
+            {
+                return wrapper;
+            }
+        }
+
+        return extractDir;
     }
 
     /// <summary>

@@ -70,14 +70,17 @@ jobs:
             generatedAt = (Get-Date).ToUniversalTime().ToString("o")
             files = $files
           } | ConvertTo-Json -Depth 4 | Set-Content "publish/manifest.json" -Encoding UTF8
-          # 便携版：zip 根目录 = FileManage.exe + runtime\ + manifest.json，数据写入解压目录下 Data\
-          Compress-Archive -Path "publish/*" -DestinationPath "FileManage-$($env:GITHUB_REF_NAME).zip"
-          Get-Item "FileManage-$($env:GITHUB_REF_NAME).zip" | Out-Host
+          # 压缩包结构：FileManage.zip 内仅一个名为 FileManage 的文件夹（含 exe/runtime/manifest）
+          # 解压后得到 FileManage\…，名称永远固定、不含版本号
+          New-Item -ItemType Directory -Path zip-stage/FileManage -Force | Out-Null
+          Move-Item publish/* zip-stage/FileManage/
+          Compress-Archive -Path "zip-stage/*" -DestinationPath "FileManage.zip"
+          Get-Item "FileManage.zip" | Out-Host
 
       - name: Smoke test (launcher boots WPF app)
         shell: pwsh
         run: |
-          $p = Start-Process "publish/FileManage.exe" -PassThru
+          $p = Start-Process "zip-stage/FileManage/FileManage.exe" -PassThru
           Start-Sleep -Seconds 10
           if ($p.HasExited) { throw "启动器提前退出（退出码 $($p.ExitCode)），可能 runtime 布局或 hostfxr 初始化失败" }
           Stop-Process -Id $p.Id -Force
@@ -86,8 +89,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: FileManage-${{ github.ref_name }}
-          path: FileManage-${{ github.ref_name }}.zip
+          name: FileManage
+          path: FileManage.zip
 
   release:
     if: startsWith(github.ref, 'refs/tags/v')
@@ -104,7 +107,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: FileManage-${{ github.ref_name }}
+          name: FileManage
           path: artifact
 
       # 提取标签附注消息作为 Release Notes（打标签时的更新内容）
@@ -116,8 +119,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
-          ZIP=$(ls artifact/FileManage-*.zip)
-          gh release create "${GITHUB_REF_NAME}" "$ZIP" \
+          gh release create "${GITHUB_REF_NAME}" "artifact/FileManage.zip" \
             --title "FileManage ${GITHUB_REF_NAME}" \
             --notes-file release-notes.md --verify-tag \
-          || gh release upload "${GITHUB_REF_NAME}" "$ZIP" --clobber
+          || gh release upload "${GITHUB_REF_NAME}" "artifact/FileManage.zip" --clobber

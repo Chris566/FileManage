@@ -69,7 +69,12 @@ Write-Host "发布完成: $outDir\FileManage.exe（根目录仅启动器，运�
 
 if (-not $SkipZip)
 {
-    $zipPath = Join-Path $root "FileManage-portable.zip"
-    Compress-Archive -Path (Join-Path $outDir "*") -DestinationPath $zipPath -Force
-    Write-Host "打包完成: $zipPath" -ForegroundColor Green
+    # 压缩包结构：FileManage.zip 内仅一个名为 FileManage 的文件夹（解压后结构固定、无版本号）
+    $stage = Join-Path $root "zip-stage"
+    if (Test-Path $stage) { Remove-Item $stage -Recurse -Force }
+    New-Item -ItemType Directory -Path (Join-Path $stage "FileManage") | Out-Null
+    Move-Item (Join-Path $outDir "*") (Join-Path $stage "FileManage")
+    $zipPath = Join-Path $root "FileManage.zip"
+    Compress-Archive -Path (Join-Path $stage "*") -DestinationPath $zipPath -Force
+    Write-Host "打包完成: $zipPath（解压后得到 FileManage\）" -ForegroundColor Green
 }
